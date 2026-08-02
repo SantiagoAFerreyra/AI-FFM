@@ -1,0 +1,30 @@
+---
+title: "IA en Física Médica"
+---
+
+## Bienvenidos/as
+
+Este es el sitio del curso de posgrado **Inteligencia Artificial aplicada a la Física Médica**.
+
+Acá vas a encontrar las notas de clase y las presentaciones de cada unidad.
+Los **notebooks de trabajos prácticos y tareas** no se publican en este sitio: están
+disponibles directamente en el repositorio de GitHub, dentro de la carpeta
+`notebooks/` de cada unidad.
+
+👉 [Ver el repositorio completo](https://github.com/ignacio-scarinci/ia-fisica-medica)
+
+### Organización del curso
+
+| Unidad | Notas | Presentación | Notebooks |
+|---|---|---|---|
+| 1 — Introducción | [Ver](unidad1/notas.qmd) | [Ver](unidad1/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad1/notebooks) |
+| 2 — Modelos | [Ver](unidad2/notas.qmd) | [Ver](unidad2/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad2/notebooks) |
+
+### Cómo trabajar con los notebooks
+
+```bash
+git clone https://github.com/ignacio-scarinci/ia-fisica-medica.git
+cd ia-fisica-medica
+pip install -r requirements.txt
+jupyter lab
+```

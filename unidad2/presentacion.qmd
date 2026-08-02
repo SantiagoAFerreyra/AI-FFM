@@ -1,0 +1,16 @@
+---
+title: "Unidad 2 — Modelos"
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+---
+
+## Agenda
+
+- Tema 1
+- Tema 2
+
+## Slide de ejemplo
+
+Reemplazá este contenido con las slides reales.

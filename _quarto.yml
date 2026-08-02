@@ -1,0 +1,47 @@
+project:
+  type: website
+  # No definimos output-dir: Quarto renderiza en _site/ (que va en .gitignore).
+  # El sitio final se publica en la rama gh-pages, no en main.
+
+website:
+  title: "IA en Física Médica"
+  description: "Curso de posgrado — Inteligencia Artificial aplicada a la Física Médica"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Inicio
+      - href: unidad1/notas.qmd
+        text: Unidad 1
+      - href: unidad2/notas.qmd
+        text: Unidad 2
+    right:
+      - icon: github
+        href: https://github.com/ignacio-scarinci/ia-fisica-medica
+        text: Repositorio
+
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - section: "Unidad 1 — Introducción"
+        contents:
+          - unidad1/notas.qmd
+          - unidad1/presentacion.qmd
+      - section: "Unidad 2 — Modelos"
+        contents:
+          - unidad2/notas.qmd
+          - unidad2/presentacion.qmd
+
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    css: styles.css
+  revealjs:
+    theme: simple
+    slide-number: true
+    incremental: false
+
+execute:
+  freeze: auto  # evita re-ejecutar código si el .qmd no cambió

@@ -1,0 +1,30 @@
+---
+title: "Unidad 1 — Introducción a la IA en Física Médica"
+format:
+  html:
+    toc: true
+---
+
+## Objetivos de la unidad
+
+- Introducir los conceptos fundamentales de machine learning y deep learning.
+- Contextualizar sus aplicaciones en imágenes médicas, dosimetría y radioterapia.
+- Presentar el flujo de trabajo típico de un proyecto de IA en física médica.
+
+## 1. ¿Por qué IA en Física Médica?
+
+Contenido de la clase acá. Podés usar matemática con LaTeX de forma nativa:
+
+$$
+\hat{y} = f_\theta(x) = \sigma(Wx + b)
+$$
+
+## 2. Material complementario
+
+- 📊 Presentación de la clase: [ver slides](presentacion.qmd)
+- 💻 Notebook de práctica: [tarea1.ipynb](notebooks/tarea1.ipynb)
+
+## 3. Bibliografía
+
+- Referencia 1
+- Referencia 2
