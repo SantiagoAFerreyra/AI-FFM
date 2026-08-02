@@ -1,5 +1,9 @@
 project:
   type: website
+  render:
+    - "*.qmd"
+    - "unidad*/*.qmd"
+    - "!**/notebooks/"
   # No definimos output-dir: Quarto renderiza en _site/ (que va en .gitignore).
   # El sitio final se publica en la rama gh-pages, no en main.
 
@@ -38,10 +42,6 @@ format:
     toc: true
     number-sections: true
     css: styles.css
-  revealjs:
-    theme: simple
-    slide-number: true
-    incremental: false
 
 execute:
   freeze: auto  # evita re-ejecutar código si el .qmd no cambió
