@@ -3,7 +3,8 @@
 Repositorio del curso de posgrado **Inteligencia Artificial aplicada a la Física Médica**.
 
 🌐 **Sitio del curso (notas y presentaciones):**
-https://ignacio-scarinci.github.io/ia-fisica-medica/
+
+👉 **[Ver el sitio del curso](https://ignacio-scarinci.github.io/ia-fisica-medica/)**
 
 ## Estructura
 
