@@ -1,0 +1,59 @@
+---
+title: "Calendario"
+format:
+  html:
+    toc: true
+---
+
+
+| Fecha | Tema | Actividad |
+---|---|---|
+| 10/08 | Presentación de la materia |  |
+| | **Unidad 1: Fundamentos de IA** | | 
+| 13/08 | Introducción a la IA | Notebook 0 |
+| 17/08 | **Feriado** | - |
+| 24/08 | Entrenamiento de modelos | Notebook 1 |
+| 27/08 | Cont. | Notebook 1 |
+| 31/08 | Arquitecturas en DL | Notebook 1 |
+| 03/09 | Cont. | Notebook 1 |
+| 07/09 | Revisión de notebooks | Notebook 1 |
+| | **Unidad 2: Segmentación** | | 
+| 10/09 | Segmentación de imagenes medicas | Notebook 2 |
+| 14/09 | Métricas de segmentación | Notebook 2 |
+| 17/09 | Paradigmas de segmentación | Notebook 2 |
+| 21/09 | Variantes de segmentación | Notebook 2 |
+| 24/09 | Revisión de notebooks | Notebook 2 |
+| | **Unidad 3: Detección, clasificación y diagnóstico asistido** | | 
+| 28/09 | Modelos de detección | Notebook 3 |
+| 01/10 | Clasificación de hallazgos | Notebook 3 |
+| 05/10 | Explicabilidad de modelos | Notebook 3 |
+| 08/10 | Revisión de notebooks | Notebook 3 |
+| 12/10 | **Feriado** | - |
+| | **Unidad 4: Radioterapia asistida por inteligencia artificial** | | 
+| 15/10 | IA en Radioterapia | Revision proyectos |
+| 19/10 | Cont. | Revision proyectos |
+| | **Unidad 5: Síntesis, fusión y coregistro de imágenes médicas** | | 
+| 22/10 | Co-registro de imágenes | Notebook 4 |
+| 26/10 | Aplicaciones en imágenes médicas | Notebook 4 |
+| 29/10 | Revisión de notebooks | Notebook 4 |
+| | **Unidad 6: Agentes de inteligencia artificial en el ámbito clínico** | | 
+| 02/11 | LLMs y medicina | Revsion proyectos |
+| 05/11 | Agentes de IA | Revsion proyectos |
+| 09/11 | Cont. | Revsion proyectos |
+| 12/11 | Etica y seguridad en IA | Revsion proyectos |
+| | **Presentación de proyectos finales** | |
+| 16/11 | Presentación de proyectos | Presentaciones |
+| 19/11 | Presentación de proyectos | Presentaciones |
+: {.striped .hover}
+
+**Practicos**
+
+**13/08** Notebook 0: PyTorch y MONAI: [ver notebook](notebooks/tarea0.ipynb)
+
+**24/08 al 07/09** Notebook 1: Entrenamiento de modelos: [ver notebook](notebooks/tarea1.ipynb)
+
+**10/09 al 24/09** **Notebook 2: Segmentación de imágenes médicas: [ver notebook](notebooks/tarea2.ipynb)
+
+**28/09 al 08/10** **Notebook 3: Detección y clasificación de hallazgos: [ver notebook](notebooks/tarea3.ipynb)
+
+**22/10 al 29/10** **Notebook 4: Co-registro de imágenes médicas: [ver notebook](notebooks/tarea4.ipynb)

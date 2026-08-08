@@ -9,36 +9,42 @@ project:
 
 website:
   title: "IA en Física Médica"
-  description: "Curso de posgrado — Inteligencia Artificial aplicada a la Física Médica"
+  description: "Curso de posgrado — Inteligencia Artificial en Física Médica"
+  page-navigation: true
+  reader-mode: true
   navbar:
+    background: primary
     left:
       - href: index.qmd
         text: Inicio
+      - href: unidad0/notas.qmd
+        text: Unidad 0  
       - href: unidad1/notas.qmd
         text: Unidad 1
-      - href: unidad2/notas.qmd
-        text: Unidad 2
     right:
       - icon: github
         href: https://github.com/ignacio-scarinci/ia-fisica-medica
-        text: Repositorio
 
   sidebar:
     style: "docked"
     search: true
+    background: light
     contents:
-      - section: "Unidad 1 — Introducción"
+      - text: "---"
+      - section: "Unidad 0 \n Introducción"
+        contents:
+          - unidad0/notas.qmd
+          - unidad0/calendario.qmd
+          - unidad0/presentacion.qmd
+      - text: "---"
+      - section: "Unidad 1 — Fundamentos de IA"
         contents:
           - unidad1/notas.qmd
           - unidad1/presentacion.qmd
-      - section: "Unidad 2 — Modelos"
-        contents:
-          - unidad2/notas.qmd
-          - unidad2/presentacion.qmd
 
 format:
   html:
-    theme: cosmo
+    theme: cerulean
     toc: true
     number-sections: true
     css: styles.css

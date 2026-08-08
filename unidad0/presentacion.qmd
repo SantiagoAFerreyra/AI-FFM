@@ -1,0 +1,103 @@
+---
+title: "Presentación de la materia"
+format:
+  revealjs:
+    theme: moon
+    slide-number: true
+    footer: "IA en Física Médica"
+---
+
+## Agenda
+
+- Presentación de la materia
+- Aplicaciones en física médica
+- Flujo de trabajo de un proyecto
+
+## Unidad 1: Fundamentos de IA
+
+- Revisión de modelos clásicos
+- Introducción al Deep Learning,breve historia 
+- Redes Neuronales simples: El algoritmo de perceptron
+- El ciclo de entrenamiento:
+  - Funciones de perdida
+  - Optimizadores
+  - Lerning rate
+  - ...
+
+## Unidad 1: Fundamentos de IA (cont.)
+
+- Arquitecturas: CNN, U-Net, VIT
+- Funcionamiento de los LLMs
+- Transfer learning:
+  - Fine-Tuning
+  - Few-Shot
+- PyTorch, MONAI, SimpleITK
+- DICOM, NIFTI
+- Bases de datos públicas de imágenes médicas anotadas.
+    
+## Unidad 2: Segmetación
+
+- Segmentación semántica en imágenes médicas
+- Métricas: DICE, distacia Hausdorff, IoU, etc.
+- Relevancia clínica de la segmentación automática de órganos en riesgo (OARs).
+- Paradigmas de segmentación:
+  - modelos totalmente automáticos: nnU-Net
+  - modelos guiados por experto: Med-SAM
+- Arquitectura, variantes y entrenamiento.
+
+## Unidad 3: Detección, clasificación y diagnóstico asistido
+
+- Detección de regiones de interés en imágenes médicas
+- Clasificación de hallazgos
+- Explicabilidad de modelos en contexto clínico: Grad-CAM y mapas de saliencia.
+
+## Unidad 4: Radioterapia asistida por inteligencia artificial
+
+- Flujo clínico de radioterapia: simulación, planificación y verificación dosimétrica. 
+- Predicción de planes de dosis y estimación de distribuciones 3D con redes profundas. 
+- Knowledge-Based Planning (KBP) asistido por IA. 
+- Control de calidad específico del paciente (patient-specific QA) en IMRT, VMAT y SBRT
+- Detección de errores de posicionamiento a partir de imágenes CBCT. 
+- Radioterapia adaptativa guiada por IA (ART online).
+
+## Unidad 5: Síntesis, fusión y coregistro de imágenes médicas
+
+- Registro rígido y deformable: métricas de similitud y algoritmos de optimización. 
+- Registro basado en Deep Learning. 
+- Fusión multimodal de imágenes: PET-CT, PET-MRI y CT-MRI.
+- Aplicaciones del coregistro.
+- Generación de CT sintético (sCT) a partir de MRI para dosimetría y radioterapia.
+
+## Unidad 6: Agentes de inteligencia artificial en el ámbito clínico
+
+- Introducción a los grandes modelos de lenguaje (LLMs) y su potencial en medicina: capacidades, limitaciones y casos de uso. 
+- Concepto de agente de IA: qué es, cómo razona y cómo interactúa con herramientas externas. Aplicaciones emergentes en el ámbito clínico: consulta de literatura médica, soporte en la toma de decisiones y automatización de flujos de trabajo. 
+- Consideraciones éticas y de seguridad: sesgos, alucinaciones,
+responsabilidad y supervisión humana. 
+- Perspectivas futuras: modelos fundacionales médicos y la evolución hacia sistemas autónomos en entornos clínicos.
+
+## Material de clase
+
+Repositorio del curso: [https://github.com/ignacio-scarinci/ia-fisica-medica](https://github.com/ignacio-scarinci/ia-fisica-medica)
+
+Pagina web del curso: [https://ignacio-scarinci.github.io/ia-fisica-medica](https://ignacio-scarinci.github.io/ia-fisica-medica)
+
+Clonar repositorio y actualizar el contenido de la carpeta `notebooks/` de cada unidad para acceder a los notebooks de práctica y tareas:
+
+```bash
+git clone https://github.com/ignacio-scarinci/ia-fisica-medica.git
+cd ia-fisica-medica
+git pull
+```
+
+
+## Aprobación
+
+- Trabajos practicos
+- Proyecto final
+
+
+## Próxima clase
+
+Nos vemos con el notebook de práctica 🚀
+

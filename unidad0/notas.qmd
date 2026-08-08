@@ -1,0 +1,15 @@
+---
+title: "Presentación de la materia"
+format:
+  html:
+    toc: true
+---
+
+## Objetivos de la unidad
+
+Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso.
+
+## Material complementario
+
+- 📄 Programa del curso: [ver PDF](https://drive.google.com/file/d/1RXPOsP2VfH3lT_edhKEpFnqvNoP5yw3b/view?usp=drive_link)
+- 📊 Presentación de la clase: [ver slides](presentacion.qmd)
