@@ -1,21 +1,1019 @@
 ---
-title: "Unidad 1 — Fundamentos de IA"
+title: "Unidad 1: Fundamentos de IA aplicada a Física Médica"
+subtitle: "De los modelos clásicos al Perceptrón"
+author: "Notas de clase"
+date: today
 format:
   html:
     toc: true
+    toc-depth: 3
+    number-sections: true
+    code-fold: true
+    theme: cosmo
+    math: mathjax
+  pdf:
+    toc: true
+    number-sections: true
+execute:
+  echo: true
+  warning: false
+jupyter: python3
+---
+# Presentación de la unidad
+
+Esta primera unidad tiene como objetivo tender un puente entre los métodos estadísticos y computacionales "clásicos", ampliamente usados en Física Médica (dosimetría, radiodiagnóstico, radioterapia, medicina nuclear), y el paradigma del **Deep Learning**. La pregunta que guía la unidad es: *¿por qué y cuándo conviene reemplazar (o complementar) un modelo clásico por uno basado en redes neuronales?*
+
+**Objetivos de aprendizaje:**
+
+1. Repasar los modelos clásicos de aprendizaje automático (regresión, árboles, SVM, reducción de dimensionalidad) y sus supuestos.
+2. Comprender el contexto histórico y conceptual que dio origen al Deep Learning.
+3. Formalizar matemáticamente el **Perceptrón** como primera unidad neuronal, entender su algoritmo de aprendizaje y sus limitaciones.
+
 ---
 
-## Objetivos de la unidad
+# Revisión de modelos clásicos
 
-- Introducir los conceptos fundamentales de machine learning y deep learning.
-- Contextualizar sus aplicaciones en imágenes médicas, dosimetría y radioterapia.
-- Presentar el flujo de trabajo típico de un proyecto de IA en física médica.
+## ¿Por qué empezar por lo clásico?
 
-## 1. XXX
+Antes de introducir redes profundas, es indispensable entender los métodos que dominaron —y siguen dominando en muchos contextos clínicos— el análisis de datos médicos: interpretabilidad, pocos datos, variables tabulares y necesidad de trazabilidad regulatoria (FDA/ANMAT) hacen que modelos clásicos sigan siendo el *baseline* obligado.
 
-## 2. Material complementario
+> **Regla de oro:** todo pipeline de Deep Learning en Física Médica debe compararse contra un baseline clásico bien ajustado. Si el modelo profundo no supera claramente a la regresión logística o al *random forest*, probablemente no se justifica su complejidad adicional.
 
-## 3. Bibliografía
+## Formalización del problema de aprendizaje supervisado
 
-- Referencia 1
-- Referencia 2
+Dado un conjunto de datos $\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^{N}$, con $\mathbf{x}_i \in \mathbb{R}^d$ (features, p. ej. radiómicas, edad, dosis) e $y_i$ la variable objetivo (continua o categórica), el objetivo es encontrar una función $f_\theta: \mathbb{R}^d \to \mathcal{Y}$ que minimice una función de pérdida esperada:
+
+$$
+\theta^* = \arg\min_{\theta} \; \mathbb{E}_{(\mathbf{x},y)\sim \mathcal{D}} \left[ \mathcal{L}(f_\theta(\mathbf{x}), y) \right]
+$$
+
+En la práctica se minimiza el riesgo empírico:
+
+$$
+\hat{\theta} = \arg\min_{\theta} \; \frac{1}{N}\sum_{i=1}^{N} \mathcal{L}(f_\theta(\mathbf{x}_i), y_i) + \lambda \, \Omega(\theta)
+$$
+
+donde $\Omega(\theta)$ es un término de regularización y $\lambda$ controla el compromiso sesgo-varianza.
+
+## Regresión lineal y logística
+
+**Regresión lineal** (para variables continuas, p. ej. predicción de dosis absorbida a partir de parámetros del haz):
+
+$$
+\hat{y} = \mathbf{w}^\top \mathbf{x} + b, \qquad \mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_i (y_i - \hat{y}_i)^2
+$$
+
+**Regresión logística** (clasificación binaria, p. ej. benigno/maligno):
+
+$$
+\hat{p} = \sigma(\mathbf{w}^\top \mathbf{x} + b) = \frac{1}{1+e^{-(\mathbf{w}^\top \mathbf{x} + b)}}
+$$
+
+$$
+\mathcal{L}_{\text{BCE}} = -\frac{1}{N}\sum_i \left[ y_i \log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i) \right]
+$$
+
+::: {.callout-note title="Nexo con la Unidad"}
+La función sigmoide $\sigma(\cdot)$ de la regresión logística es, matemáticamente, idéntica a la función de activación que usaremos más adelante en las primeras redes neuronales. **La regresión logística es, de hecho, un perceptrón con activación sigmoide y una sola capa.**
+:::
+
+## Otros modelos clásicos relevantes en Física Médica
+
+| Modelo | Uso típico en Física Médica | Ventaja | Limitación |
+|---|---|---|---|
+| Árboles de decisión / Random Forest | Predicción de toxicidad, segmentación de features radiómicas | Interpretable, maneja no linealidad | Sobreajuste, fronteras "en escalera" |
+| SVM | Clasificación de tejidos, control de calidad | Robusto en alta dimensión con pocos datos | Escala mal, elección de kernel |
+| PCA / ICA | Reducción de dimensionalidad de imágenes, denoising | Rápido, interpretable | Solo captura relaciones lineales |
+| k-NN | Clasificación de espectros, dosimetría comparativa | Simple, no paramétrico | Costoso en inferencia, sensible a escala |
+| Métodos Monte Carlo (MCNP, GEANT4, EGSnrc) | *Gold standard* en transporte de radiación | Alta precisión física | Costo computacional altísimo |
+
+## Ejemplo práctico: comparación de fronteras de decisión
+
+```{python}
+#| label: fig-comparacion-clasica
+#| fig-cap: "Fronteras de decisión de modelos clásicos sobre un dataset sintético (ej. dos features radiómicas)"
+
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_moons
+from sklearn.linear_model import LogisticRegression
+from sklearn.svm import SVC
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.neighbors import KNeighborsClassifier
+
+np.random.seed(42)
+X, y = make_moons(n_samples=300, noise=0.25, random_state=42)
+
+modelos = {
+    "Regresión Logística": LogisticRegression(),
+    "SVM (kernel RBF)": SVC(kernel="rbf", gamma=2),
+    "Árbol de decisión": DecisionTreeClassifier(max_depth=4),
+    "k-NN (k=5)": KNeighborsClassifier(n_neighbors=5),
+}
+
+xx, yy = np.meshgrid(np.linspace(X[:,0].min()-0.5, X[:,0].max()+0.5, 300),
+                      np.linspace(X[:,1].min()-0.5, X[:,1].max()+0.5, 300))
+
+fig, axes = plt.subplots(1, 4, figsize=(18, 4.2))
+
+for ax, (nombre, modelo) in zip(axes, modelos.items()):
+    modelo.fit(X, y)
+    Z = modelo.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+    ax.contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
+    ax.scatter(X[:,0], X[:,1], c=y, cmap="coolwarm", edgecolor="k", s=20)
+    ax.set_title(nombre, fontsize=11)
+    ax.set_xticks([]); ax.set_yticks([])
+
+plt.tight_layout()
+plt.show()
+```
+
+Observen cómo cada modelo impone un **sesgo inductivo** distinto sobre la forma de la frontera de decisión: lineal (regresión logística), suave y global (SVM-RBF), o local y fragmentada (árbol, k-NN). El Deep Learning, como veremos, aprende esta forma directamente de los datos con muchas menos suposiciones explícitas.
+
+---
+
+# Introducción al Deep Learning: breve historia
+
+## ¿Qué es el Deep Learning?
+
+El **Deep Learning** (aprendizaje profundo) es una subfamilia del aprendizaje automático basada en **redes neuronales artificiales con múltiples capas**, capaces de aprender representaciones jerárquicas de los datos directamente desde datos crudos (píxeles, señales), sin necesidad de ingeniería manual de *features*.
+
+$$
+f_\theta(\mathbf{x}) = f^{(L)} \circ f^{(L-1)} \circ \cdots \circ f^{(1)}(\mathbf{x})
+$$
+
+donde cada $f^{(l)}$ es una transformación (capa) con parámetros propios $\theta^{(l)}$.
+
+## Línea de tiempo histórica
+
+```{mermaid}
+%%| label: fig-timeline
+%%| fig-cap: "Hitos históricos del Deep Learning"
+timeline
+    title Historia del Deep Learning
+    1943 : McCulloch & Pitts, neurona artificial
+    1958 : Rosenblatt, el Perceptrón
+    1969 : Minsky & Papert, "Perceptrons" (crítica al XOR)
+    1986 : Rumelhart, Hinton, Williams, Backpropagation
+    1989 : LeCun, LeNet (CNN para dígitos manuscritos)
+    1997 : Hochreiter & Schmidhuber, LSTM
+    2006 : Hinton, Deep Belief Networks, renace el interés
+    2012 : Krizhevsky, AlexNet gana ImageNet, boom del Deep Learning
+    2015 : He et al., ResNet, redes muy profundas
+    2017 : Vaswani et al., Transformers
+    2020s : Modelos fundacionales, IA generativa, adopción clínica
+```
+
+## Los "dos inviernos" de la IA neuronal
+
+1. **Primer invierno (post-1969):** Minsky y Papert demuestran que el perceptrón simple no puede resolver problemas no linealmente separables (el caso paradigmático: la función XOR). Esto reduce drásticamente el financiamiento a la investigación en redes neuronales durante casi dos décadas.
+2. **Segundo invierno (fines de los 90s-2000s):** a pesar del backpropagation (1986), la falta de datos masivos y poder de cómputo, sumado al auge de SVMs y métodos de *ensemble*, relega nuevamente a las redes neuronales.
+3. **El resurgimiento (2006-2012):** disponibilidad de GPUs, grandes bases de datos etiquetadas (ImageNet) y mejoras algorítmicas (ReLU, dropout, mejor inicialización) permiten entrenar redes verdaderamente profundas. **AlexNet (2012)** es el punto de inflexión que marca el inicio de la era moderna del Deep Learning.
+
+## ¿Por qué "profundo" y por qué ahora es relevante en Física Médica?
+
+- **Datos:** imágenes médicas (CT, RM, PET, mamografía) son datos de alta dimensionalidad donde el Deep Learning —en particular las CNNs— sobresale.
+- **Cómputo:** GPUs/TPUs permiten entrenar modelos con millones de parámetros en tiempos razonables.
+- **Representaciones jerárquicas:** en imágenes médicas, las capas iniciales aprenden bordes y texturas; capas intermedias, estructuras anatómicas; capas profundas, patrones patológicos complejos (analogía con la vía visual biológica).
+
+::: {.callout-tip title="Aplicaciones actuales en Física Médica"}
+- Segmentación automática de órganos en riesgo (radioterapia)
+- Reducción de dosis en CT mediante *denoising* con redes profundas
+- Reconstrucción de imágenes PET/RM aceleradas
+- Detección asistida de nódulos, lesiones y contornos tumorales
+- Control de calidad automatizado y predicción de *outcomes* clínicos
+:::
+
+---
+
+# Redes neuronales simples: el algoritmo del Perceptrón
+
+## La neurona biológica como inspiración
+
+McCulloch y Pitts (1943) propusieron un modelo matemático simplificado de la neurona: recibe señales de entrada, las pondera y produce una salida binaria si supera un umbral. Rosenblatt (1958) convirtió esta idea en un **algoritmo de aprendizaje**: el Perceptrón.
+
+## Definición formal
+
+Dado un vector de entrada $\mathbf{x} = (x_1, x_2, \dots, x_d) \in \mathbb{R}^d$, el perceptrón calcula:
+
+$$
+z = \sum_{j=1}^{d} w_j x_j + b = \mathbf{w}^\top \mathbf{x} + b
+$$
+
+$$
+\hat{y} = \phi(z) = 
+\begin{cases}
+1 & \text{si } z \geq 0 \\
+0 \text{ (o } -1) & \text{si } z < 0
+\end{cases}
+$$
+
+donde $\phi$ es la **función de activación escalón (Heaviside)**, $\mathbf{w}$ es el vector de pesos sinápticos y $b$ el sesgo (*bias*).
+
+Geométricamente, el perceptrón define un **hiperplano separador** en $\mathbb{R}^d$: $\mathbf{w}^\top \mathbf{x} + b = 0$.
+
+## El algoritmo de aprendizaje del Perceptrón
+
+Dado un conjunto de entrenamiento $\{(\mathbf{x}_i, y_i)\}_{i=1}^N$ con $y_i \in \{-1, +1\}$, el algoritmo actualiza los pesos **solo cuando comete un error**:
+
+**Algoritmo (Rosenblatt, 1958):**
+
+1. Inicializar $\mathbf{w} \leftarrow \mathbf{0}$, $b \leftarrow 0$
+2. Repetir hasta convergencia (o número máximo de épocas):
+   Para cada $(\mathbf{x}_i, y_i)$:
+   - Calcular $\hat{y}_i = \text{sign}(\mathbf{w}^\top \mathbf{x}_i + b)$
+   - Si $\hat{y}_i \neq y_i$:
+     $$
+     \mathbf{w} \leftarrow \mathbf{w} + \eta \, y_i \, \mathbf{x}_i
+     $$
+     $$
+     b \leftarrow b + \eta \, y_i
+     $$
+
+donde $\eta > 0$ es la tasa de aprendizaje (*learning rate*).
+
+::: {.callout-important title="Teorema de convergencia del Perceptrón"}
+Si los datos son **linealmente separables**, el algoritmo del perceptrón converge en un número finito de pasos a una solución que clasifica correctamente todo el conjunto de entrenamiento (Novikoff, 1962). Si los datos **no** son linealmente separables, el algoritmo **nunca converge** y oscila indefinidamente.
+:::
+
+## Implementación desde cero
+
+```{python}
+#| label: perceptron-impl
+
+import numpy as np
+
+class Perceptron:
+    def __init__(self, lr=0.1, n_epochs=50):
+        self.lr = lr
+        self.n_epochs = n_epochs
+
+    def fit(self, X, y):
+        n_samples, n_features = X.shape
+        self.w = np.zeros(n_features)
+        self.b = 0.0
+        self.errores_por_epoca = []
+
+        for epoca in range(self.n_epochs):
+            errores = 0
+            for xi, yi in zip(X, y):
+                y_pred = np.sign(np.dot(self.w, xi) + self.b)
+                y_pred = 1 if y_pred >= 0 else -1
+                if y_pred != yi:
+                    self.w += self.lr * yi * xi
+                    self.b += self.lr * yi
+                    errores += 1
+            self.errores_por_epoca.append(errores)
+            if errores == 0:
+                break
+        return self
+
+    def predict(self, X):
+        z = X @ self.w + self.b
+        return np.where(z >= 0, 1, -1)
+```
+
+## Ejemplo: separación de dos clases sintéticas (linealmente separables)
+
+```{python}
+#| label: fig-perceptron-separable
+#| fig-cap: "Convergencia del Perceptrón sobre datos linealmente separables"
+
+import matplotlib.pyplot as plt
+from sklearn.datasets import make_blobs
+
+X, y = make_blobs(n_samples=100, centers=2, cluster_std=1.0, random_state=7)
+y = np.where(y == 0, -1, 1)
+
+modelo = Perceptron(lr=0.1, n_epochs=30).fit(X, y)
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4.2))
+
+# Frontera de decisión
+xx, yy = np.meshgrid(np.linspace(X[:,0].min()-1, X[:,0].max()+1, 200),
+                      np.linspace(X[:,1].min()-1, X[:,1].max()+1, 200))
+Z = modelo.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)
+axes[0].contourf(xx, yy, Z, alpha=0.3, cmap="coolwarm")
+axes[0].scatter(X[:,0], X[:,1], c=y, cmap="coolwarm", edgecolor="k")
+axes[0].set_title("Frontera de decisión aprendida")
+
+# Curva de convergencia
+axes[1].plot(modelo.errores_por_epoca, marker="o", color="darkred")
+axes[1].set_xlabel("Época")
+axes[1].set_ylabel("N° de errores de clasificación")
+axes[1].set_title("Convergencia del algoritmo")
+axes[1].grid(alpha=0.3)
+
+plt.tight_layout()
+plt.show()
+```
+
+## El límite fundamental: el problema XOR
+
+```{python}
+#| label: fig-xor
+#| fig-cap: "El perceptrón simple no puede separar el problema XOR (no linealmente separable)"
+
+X_xor = np.array([[0,0],[0,1],[1,0],[1,1]])
+y_xor = np.array([-1, 1, 1, -1])  # XOR
+
+modelo_xor = Perceptron(lr=0.1, n_epochs=100).fit(X_xor, y_xor)
+
+plt.figure(figsize=(4.5,4.5))
+plt.scatter(X_xor[:,0], X_xor[:,1], c=y_xor, cmap="coolwarm", s=150, edgecolor="k")
+for i, (x1, x2) in enumerate(X_xor):
+    plt.annotate(f"({x1},{x2})", (x1, x2), textcoords="offset points", xytext=(10,10))
+plt.title(f"XOR — errores finales: {modelo_xor.errores_por_epoca[-1]} (no converge a 0)")
+plt.xlim(-0.5, 1.5); plt.ylim(-0.5, 1.5)
+plt.grid(alpha=0.3)
+plt.show()
+```
+
+Este resultado —señalado críticamente por Minsky y Papert en 1969— es precisamente lo que causó el primer "invierno de la IA": **ningún hiperplano puede separar las clases del XOR.** La solución, que veremos en la próxima unidad, requiere **apilar múltiples capas de perceptrones** (el Perceptrón Multicapa, MLP) con funciones de activación no lineales, entrenadas mediante *backpropagation*.
+
+## Perceptrón vs. Regresión Logística: el puente conceptual
+
+| Aspecto | Perceptrón | Regresión Logística |
+|---|---|---|
+| Activación | Escalón (Heaviside) | Sigmoide |
+| Salida | Binaria dura $\{-1,+1\}$ | Probabilidad continua $[0,1]$ |
+| Función de pérdida | Implícita (regla de error) | Entropía cruzada (log-loss) |
+| Optimización | Regla de actualización simple | Descenso por gradiente |
+| Frontera de decisión | Lineal | Lineal |
+| Interpretación probabilística | No | Sí |
+
+Este puente es clave: **reemplazar la función escalón por una sigmoide y usar descenso por gradiente en lugar de la regla del perceptrón nos lleva directamente a la neurona artificial moderna**, el bloque de construcción de todas las redes profundas que estudiaremos en las próximas unidades.
+
+---
+
+# El ciclo de entrenamiento
+
+## De la regla del Perceptrón al descenso por gradiente
+
+La regla de actualización de Rosenblatt ($\mathbf{w} \leftarrow \mathbf{w} + \eta \, y_i \, \mathbf{x}_i$) es en realidad un **caso particular** de un procedimiento mucho más general: el **descenso por gradiente** sobre una función de pérdida. Toda red neuronal moderna —desde un perceptrón hasta un Transformer con miles de millones de parámetros— se entrena siguiendo el mismo ciclo conceptual:
+
+```{mermaid}
+flowchart TD
+    A[1. Forward pass<br>calcular ŷ = f_θ x] --> B[2. Calcular la pérdida<br>L ŷ, y]
+    B --> C[3. Backward pass<br>calcular ∂L/∂θ]
+    C --> D[4. Actualizar parámetros<br>optimizador + learning rate]
+    D --> E{¿Convergió o<br>fin de épocas?}
+    E -->|No| A
+    E -->|Sí| F[Modelo entrenado]
+```
+
+Este ciclo —repetido miles o millones de veces— es lo que llamamos **entrenamiento**. A continuación formalizamos cada uno de sus componentes.
+
+## Funciones de pérdida (*Loss functions*)
+
+La función de pérdida $\mathcal{L}(\hat{y}, y)$ cuantifica **qué tan lejos** está la predicción del modelo del valor real. Es la "brújula" que guía el aprendizaje: sin una pérdida bien elegida, el gradiente no tiene información útil que transmitir.
+
+### Regresión (variables continuas)
+
+**Error cuadrático medio (MSE)** — sensible a outliers, penaliza fuerte errores grandes. Útil, por ejemplo, para predecir dosis absorbida o parámetros dosimétricos continuos:
+
+$$
+\mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_{i=1}^{N} (y_i - \hat{y}_i)^2
+$$
+
+**Error absoluto medio (MAE)** — más robusto a outliers:
+
+$$
+\mathcal{L}_{\text{MAE}} = \frac{1}{N}\sum_{i=1}^{N} |y_i - \hat{y}_i|
+$$
+
+**Huber Loss** — combina lo mejor de ambas (cuadrática cerca de cero, lineal lejos):
+
+$$
+\mathcal{L}_{\delta}(y, \hat{y}) =
+\begin{cases}
+\frac{1}{2}(y-\hat{y})^2 & \text{si } |y-\hat{y}| \leq \delta \\
+\delta \left(|y-\hat{y}| - \frac{1}{2}\delta\right) & \text{en otro caso}
+\end{cases}
+$$
+
+### Clasificación
+
+**Entropía cruzada binaria (BCE)** — para dos clases (p. ej. benigno/maligno):
+
+$$
+\mathcal{L}_{\text{BCE}} = -\frac{1}{N}\sum_{i=1}^{N} \left[ y_i \log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i) \right]
+$$
+
+**Entropía cruzada categórica** — para $K$ clases (p. ej. clasificación de tipos de tejido), usando la salida de una capa *softmax*:
+
+$$
+\mathcal{L}_{\text{CE}} = -\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k} \log \hat{p}_{i,k}, \qquad
+\hat{p}_{i,k} = \frac{e^{z_{i,k}}}{\sum_{j=1}^K e^{z_{i,j}}}
+$$
+
+**Dice Loss / IoU Loss** — muy usadas en **segmentación de imágenes médicas** (contorneo de órganos, tumores), donde interesa la superposición espacial más que el error píxel a píxel:
+
+$$
+\mathcal{L}_{\text{Dice}} = 1 - \frac{2\sum_i y_i \hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+$$
+
+::: {.callout-tip title="Criterio práctico de elección"}
+La elección de la función de pérdida **no es un detalle técnico menor**: codifica qué tipo de error le importa penalizar al clínico. En segmentación de órganos en riesgo, un Dice Loss es preferible a un MSE píxel a píxel porque refleja mejor el objetivo real (superposición de volúmenes).
+:::
+
+## Visualización de la superficie de pérdida y el gradiente
+
+```{python}
+#| label: fig-loss-surface
+#| fig-cap: "Superficie de pérdida (MSE) en función de dos pesos y trayectoria del descenso por gradiente"
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Superficie de pérdida sintética (paraboloide con curvatura distinta en cada eje -> ilustra mal condicionamiento)
+w1 = np.linspace(-6, 6, 200)
+w2 = np.linspace(-6, 6, 200)
+W1, W2 = np.meshgrid(w1, w2)
+L = 0.5*W1**2 + 4*W2**2   # curvatura distinta en cada dirección
+
+def gradiente(w):
+    return np.array([w[0], 8*w[1]])
+
+def descenso_gradiente(w0, lr, n_iter):
+    w = np.array(w0, dtype=float)
+    trayectoria = [w.copy()]
+    for _ in range(n_iter):
+        w = w - lr * gradiente(w)
+        trayectoria.append(w.copy())
+    return np.array(trayectoria)
+
+fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
+
+for ax, lr, titulo in zip(axes, [0.05, 0.24], ["Learning rate pequeño (η=0.05)", "Learning rate grande (η=0.24)"]):
+    ax.contour(W1, W2, L, levels=25, cmap="viridis", alpha=0.6)
+    traj = descenso_gradiente([5.5, 5.5], lr, 25)
+    ax.plot(traj[:,0], traj[:,1], "o-", color="crimson", markersize=3, linewidth=1)
+    ax.scatter([0],[0], color="black", marker="*", s=120, label="Mínimo")
+    ax.set_title(titulo, fontsize=10)
+    ax.set_xlabel("$w_1$"); ax.set_ylabel("$w_2$")
+    ax.legend()
+
+plt.tight_layout()
+plt.show()
+```
+
+Este ejemplo ilustra dos fenómenos centrales que retomaremos: (i) cuando la superficie de pérdida está **mal condicionada** (curvaturas muy distintas entre direcciones), el descenso por gradiente simple zigzaguea; (ii) un **learning rate** demasiado alto puede provocar oscilaciones o divergencia.
+
+## El gradiente y el algoritmo de descenso por gradiente
+
+Dado un conjunto de parámetros $\theta$ (pesos y sesgos de la red), el descenso por gradiente actualiza:
+
+$$
+\theta_{t+1} = \theta_t - \eta \, \nabla_\theta \mathcal{L}(\theta_t)
+$$
+
+donde $\nabla_\theta \mathcal{L}$ se calcula mediante **backpropagation** (regla de la cadena), tema que profundizaremos en la Unidad 2 cuando introduzcamos el Perceptrón Multicapa.
+
+### Variantes según la cantidad de datos usados por actualización
+
+| Variante | Datos por paso | Ventaja | Desventaja |
+|---|---|---|---|
+| **Batch Gradient Descent** | Todo el dataset | Gradiente exacto, convergencia estable | Muy costoso, no escala a datasets grandes (ej. miles de volúmenes CT) |
+| **Stochastic GD (SGD)** | 1 muestra | Rápido, permite escapar de mínimos locales | Ruidoso, oscila |
+| **Mini-batch GD** | Un subconjunto ($32, 64, 128, \dots$) | Compromiso ideal; aprovecha GPU | Requiere ajustar tamaño de batch |
+
+En la práctica, **prácticamente todo el entrenamiento moderno usa mini-batch GD**, por ser el mejor compromiso entre estabilidad estadística del gradiente y eficiencia computacional en GPU.
+
+## Optimizadores
+
+Los optimizadores modernos mejoran el descenso por gradiente básico incorporando información adicional (momento, escalado adaptativo) para acelerar y estabilizar la convergencia, especialmente en superficies de pérdida no convexas y mal condicionadas (típicas en redes profundas).
+
+### SGD con Momento
+
+Acumula una "inercia" de gradientes pasados para amortiguar el zigzagueo:
+
+$$
+v_{t} = \beta \, v_{t-1} + (1-\beta)\nabla_\theta \mathcal{L}(\theta_t)
+$$
+$$
+\theta_{t+1} = \theta_t - \eta \, v_t
+$$
+
+donde $\beta \in [0,1)$ (típicamente $0.9$) es el coeficiente de momento.
+
+### RMSProp
+
+Adapta la tasa de aprendizaje **por parámetro**, dividiendo por una media móvil de la magnitud de gradientes recientes:
+
+$$
+s_t = \beta s_{t-1} + (1-\beta)(\nabla_\theta \mathcal{L}(\theta_t))^2
+$$
+$$
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{s_t + \epsilon}}\nabla_\theta \mathcal{L}(\theta_t)
+$$
+
+### Adam (*Adaptive Moment Estimation*)
+
+Combina momento (primer momento) y escalado adaptativo (segundo momento). Es, hoy en día, el **optimizador por defecto** en la gran mayoría de los pipelines de Deep Learning aplicados a imágenes médicas:
+
+$$
+m_t = \beta_1 m_{t-1} + (1-\beta_1)\nabla_\theta \mathcal{L}(\theta_t), \qquad
+v_t = \beta_2 v_{t-1} + (1-\beta_2)(\nabla_\theta \mathcal{L}(\theta_t))^2
+$$
+$$
+\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \qquad \hat{v}_t = \frac{v_t}{1-\beta_2^t}
+$$
+$$
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\, \hat{m}_t
+$$
+
+con valores típicos $\beta_1=0.9$, $\beta_2=0.999$, $\epsilon=10^{-8}$.
+
+### Comparación visual de optimizadores
+
+```{python}
+#| label: fig-optimizadores
+#| fig-cap: "Trayectorias de distintos optimizadores sobre la misma superficie de pérdida mal condicionada"
+
+def sgd_momento(w0, lr, beta, n_iter):
+    w = np.array(w0, dtype=float)
+    v = np.zeros_like(w)
+    traj = [w.copy()]
+    for _ in range(n_iter):
+        g = gradiente(w)
+        v = beta*v + (1-beta)*g
+        w = w - lr*v
+        traj.append(w.copy())
+    return np.array(traj)
+
+def rmsprop(w0, lr, beta, n_iter, eps=1e-8):
+    w = np.array(w0, dtype=float)
+    s = np.zeros_like(w)
+    traj = [w.copy()]
+    for _ in range(n_iter):
+        g = gradiente(w)
+        s = beta*s + (1-beta)*g**2
+        w = w - lr*g/(np.sqrt(s)+eps)
+        traj.append(w.copy())
+    return np.array(traj)
+
+def adam(w0, lr, b1, b2, n_iter, eps=1e-8):
+    w = np.array(w0, dtype=float)
+    m = np.zeros_like(w); v = np.zeros_like(w)
+    traj = [w.copy()]
+    for t in range(1, n_iter+1):
+        g = gradiente(w)
+        m = b1*m + (1-b1)*g
+        v = b2*v + (1-b2)*g**2
+        m_hat = m/(1-b1**t); v_hat = v/(1-b2**t)
+        w = w - lr*m_hat/(np.sqrt(v_hat)+eps)
+        traj.append(w.copy())
+    return np.array(traj)
+
+w0 = [5.5, 5.5]
+traj_sgd    = descenso_gradiente(w0, 0.05, 30)
+traj_mom    = sgd_momento(w0, 0.05, 0.9, 30)
+traj_rms    = rmsprop(w0, 0.5, 0.9, 30)
+traj_adam   = adam(w0, 0.5, 0.9, 0.999, 30)
+
+plt.figure(figsize=(6,5.5))
+plt.contour(W1, W2, L, levels=25, cmap="Greys", alpha=0.5)
+for traj, color, nombre in zip(
+        [traj_sgd, traj_mom, traj_rms, traj_adam],
+        ["tab:blue","tab:orange","tab:green","tab:red"],
+        ["SGD", "SGD+Momento", "RMSProp", "Adam"]):
+    plt.plot(traj[:,0], traj[:,1], "o-", color=color, markersize=2.5, linewidth=1.2, label=nombre)
+plt.scatter([0],[0], color="black", marker="*", s=150, zorder=5, label="Mínimo")
+plt.xlabel("$w_1$"); plt.ylabel("$w_2$")
+plt.legend()
+plt.title("Comparación de trayectorias de optimizadores")
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-note}
+Noten cómo **SGD puro** avanza lento y con zigzagueo marcado en la dirección de mayor curvatura, mientras que **Adam** converge de forma mucho más directa gracias al escalado adaptativo por parámetro. Esta diferencia se vuelve crítica en redes con millones de parámetros y pérdidas altamente no convexas, como las usadas en segmentación de imágenes médicas 3D.
+:::
+
+## Learning Rate (tasa de aprendizaje)
+
+El **learning rate** $\eta$ es, posiblemente, el hiperparámetro más importante —y más delicado— de todo el entrenamiento.
+
+```{python}
+#| label: fig-lr-efectos
+#| fig-cap: "Efecto del learning rate sobre la convergencia: muy bajo, adecuado y muy alto (divergencia)"
+
+def gd_1d(w0, lr, n_iter, f_grad):
+    w = w0
+    traj = [w]
+    for _ in range(n_iter):
+        w = w - lr*f_grad(w)
+        traj.append(w)
+    return traj
+
+f_grad_1d = lambda w: 2*w  # gradiente de L(w) = w^2
+
+fig, ax = plt.subplots(figsize=(7,4.5))
+w_vals = np.linspace(-6, 6, 200)
+ax.plot(w_vals, w_vals**2, color="lightgray", linewidth=2, label="$\\mathcal{L}(w)=w^2$")
+
+configs = [(0.02, "η muy bajo (0.02): convergencia lenta", "tab:blue"),
+           (0.5,  "η adecuado (0.5): convergencia eficiente", "tab:green"),
+           (1.05, "η muy alto (1.05): diverge", "tab:red")]
+
+for lr, label, color in configs:
+    traj = gd_1d(5.5, lr, 12, f_grad_1d)
+    traj = np.clip(traj, -8, 8)
+    ax.plot(traj, [w**2 if abs(w)<8 else 60 for w in traj], "o-", color=color, label=label, markersize=4)
+
+ax.set_xlabel("$w$"); ax.set_ylabel("$\\mathcal{L}(w)$")
+ax.set_ylim(-2, 40)
+ax.legend(fontsize=8)
+ax.set_title("Efecto del learning rate en la convergencia (caso 1D)")
+plt.tight_layout()
+plt.show()
+```
+
+**Consecuencias de una mala elección:**
+
+- $\eta$ **demasiado pequeño** → convergencia extremadamente lenta; entrenamientos que en Física Médica pueden implicar horas/días de GPU se vuelven inviables.
+- $\eta$ **demasiado grande** → el modelo "salta" sobre el mínimo, oscila o **diverge** (la pérdida crece en vez de disminuir).
+- $\eta$ **adecuado** → convergencia eficiente hacia una buena solución.
+
+### Estrategias de *Learning Rate Scheduling*
+
+En la práctica no se usa un $\eta$ fijo durante todo el entrenamiento, sino que se lo adapta dinámicamente:
+
+| Estrategia | Descripción | Uso típico |
+|---|---|---|
+| **Step decay** | Reduce $\eta$ por un factor cada $k$ épocas | Entrenamientos largos y estables |
+| **Exponential decay** | $\eta_t = \eta_0 e^{-kt}$ | Decaimiento suave y continuo |
+| **Cosine annealing** | $\eta$ sigue una curva coseno hasta un mínimo | Muy usado en visión por computadora médica |
+| **Warm-up** | $\eta$ crece gradualmente al inicio antes de decaer | Estabiliza el inicio del entrenamiento en redes muy profundas |
+| **ReduceLROnPlateau** | Reduce $\eta$ cuando la métrica de validación deja de mejorar | Estrategia adaptativa muy usada en la práctica clínica |
+
+## Otros elementos del ciclo de entrenamiento
+
+Más allá de pérdida, optimizador y learning rate, todo ciclo de entrenamiento involucra:
+
+- **Épocas (epochs) y batches:** una época = una pasada completa por todo el dataset de entrenamiento, dividido en *mini-batches*.
+- **Conjuntos de entrenamiento / validación / test:** el conjunto de **validación** permite monitorear el sobreajuste durante el entrenamiento (no se usa para actualizar pesos); el de **test** se reserva para la evaluación final.
+- **Overfitting y regularización:** técnicas como *weight decay* ($L_2$), *dropout* o *early stopping* (detener el entrenamiento cuando la pérdida de validación deja de mejorar).
+- **Inicialización de pesos:** una mala inicialización (todos ceros, o valores muy grandes) puede impedir el aprendizaje o causar gradientes que explotan/desaparecen (*vanishing/exploding gradients*), problema que se agrava en redes profundas.
+- **Criterio de parada:** número fijo de épocas, *early stopping* sobre validación, o convergencia del gradiente por debajo de un umbral.
+
+```{python}
+#| label: fig-overfitting
+#| fig-cap: "Curvas típicas de entrenamiento: pérdida de entrenamiento vs. validación, ilustrando overfitting y el punto óptimo de early stopping"
+
+epocas = np.arange(1, 51)
+loss_train = 2.5*np.exp(-0.08*epocas) + 0.05*np.random.rand(50)
+loss_val = 2.5*np.exp(-0.07*epocas) + 0.002*(epocas-25)**2/50 + 0.05*np.random.rand(50)
+
+plt.figure(figsize=(7,4.5))
+plt.plot(epocas, loss_train, label="Pérdida de entrenamiento", color="tab:blue")
+plt.plot(epocas, loss_val, label="Pérdida de validación", color="tab:red")
+punto_optimo = np.argmin(loss_val)+1
+plt.axvline(punto_optimo, linestyle="--", color="gray", label=f"Early stopping (época {punto_optimo})")
+plt.xlabel("Época"); plt.ylabel("Pérdida")
+plt.legend()
+plt.title("Overfitting y criterio de early stopping")
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-warning title="Relevancia clínica"}
+En Física Médica, donde los datasets suelen ser **pequeños** en comparación con la visión por computadora general (pocos cientos o miles de pacientes por la dificultad de anotación experta), el control del overfitting mediante validación cruzada, regularización y *early stopping* es especialmente crítico para garantizar que el modelo generalice a nuevos pacientes y no memorice el conjunto de entrenamiento.
+:::
+
+---
+
+# Arquitecturas: CNN, U-Net, ViT
+
+## Del Perceptrón Multicapa a las arquitecturas especializadas
+
+El Perceptrón Multicapa (MLP) que resuelve el problema del XOR (ver Unidad 2) es, en principio, un **aproximador universal**: puede aproximar cualquier función continua con suficientes neuronas. Sin embargo, aplicado directamente a imágenes médicas de alta resolución (ej. una CT de $512\times512\times300$ vóxeles), un MLP totalmente conectado requeriría un número de parámetros inmanejable y no explotaría la estructura espacial de los datos. Esto motiva arquitecturas **especializadas**, con sesgos inductivos adaptados al tipo de dato.
+
+```{mermaid}
+flowchart LR
+    A[MLP<br>totalmente conectado] -->|explota estructura espacial local| B[CNN]
+    B -->|encoder-decoder + skip connections| C[U-Net]
+    A -->|explota relaciones globales<br>vía atención| D[Transformer]
+    D -->|aplicado a parches de imagen| E[Vision Transformer ViT]
+```
+
+## Redes Neuronales Convolucionales (CNN)
+
+### La operación de convolución
+
+En lugar de conectar cada neurona con **todos** los píxeles de entrada (como en un MLP), una capa convolucional aplica un **filtro (kernel)** pequeño y compartido que se desliza sobre la imagen:
+
+$$
+(I * K)(i,j) = \sum_{m}\sum_{n} I(i+m, j+n)\, K(m,n)
+$$
+
+Esto introduce dos sesgos inductivos clave, ambos muy adecuados para imágenes médicas:
+
+- **Localidad:** un píxel depende principalmente de su vecindario cercano (relevante en anatomía: un tumor se define por su entorno local).
+- **Invariancia a traslación:** el mismo filtro detecta un borde o una textura sin importar en qué parte de la imagen aparezca; los **pesos se comparten** en toda la imagen, reduciendo drásticamente el número de parámetros respecto de un MLP.
+
+### Bloques típicos de una CNN
+
+| Capa | Función |
+|---|---|
+| Convolución | Extrae *features* locales (bordes, texturas, luego estructuras complejas) |
+| Activación (ReLU) | Introduce no linealidad: $\text{ReLU}(z) = \max(0,z)$ |
+| Pooling (Max/Average) | Reduce resolución espacial, agrega invariancia local |
+| Normalización (BatchNorm) | Estabiliza y acelera el entrenamiento |
+| Capa totalmente conectada / Softmax | Combina *features* globales para la predicción final |
+
+```{python}
+#| label: fig-cnn-jerarquia
+#| fig-cap: "Representaciones jerárquicas aprendidas por una CNN: de bordes simples a estructuras anatómicas complejas"
+
+import matplotlib.pyplot as plt
+import numpy as np
+
+fig, axes = plt.subplots(1, 4, figsize=(14,3.2))
+etapas = ["Entrada\n(imagen CT)", "Capas iniciales\nbordes y texturas",
+          "Capas intermedias\ncontornos de órganos", "Capas profundas\npatrones patológicos"]
+np.random.seed(1)
+for ax, etapa in zip(axes, etapas):
+    ax.imshow(np.random.rand(20,20), cmap="gray")
+    ax.set_title(etapa, fontsize=9)
+    ax.axis("off")
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-tip title="Aplicaciones de CNN en Física Médica"}
+Clasificación de nódulos pulmonares (CT), detección de microcalcificaciones (mamografía), clasificación de retinopatía diabética (fondo de ojo), estimación de edad ósea (radiografía), y como *backbone* (columna vertebral) de arquitecturas de segmentación como la U-Net.
+:::
+
+## U-Net: arquitectura de referencia para segmentación médica
+
+Propuesta por Ronneberger, Fischer & Brox (2015) específicamente para segmentación biomédica, la **U-Net** es hoy el estándar de facto en segmentación de órganos, tumores y estructuras anatómicas en Física Médica (contorneo automático en radioterapia, segmentación de PET/CT, etc.).
+
+### Arquitectura: encoder-decoder con conexiones de salto
+
+```{mermaid}
+flowchart TB
+    subgraph Encoder [Encoder - contracción]
+    direction TB
+    E1[Conv+Conv 512x512] --> E2[Conv+Conv 256x256]
+    E2 --> E3[Conv+Conv 128x128]
+    E3 --> E4[Conv+Conv 64x64]
+    end
+    E4 --> BN[Bottleneck<br>32x32]
+    subgraph Decoder [Decoder - expansión]
+    direction TB
+    D1[Up-conv 64x64] --> D2[Up-conv 128x128]
+    D2 --> D3[Up-conv 256x256]
+    D3 --> D4[Up-conv 512x512<br>+ Softmax/Sigmoide]
+    end
+    BN --> D1
+    E4 -. skip connection .-> D1
+    E3 -. skip connection .-> D2
+    E2 -. skip connection .-> D3
+    E1 -. skip connection .-> D4
+    D4 --> OUT[Máscara de segmentación]
+```
+
+- **Camino de contracción (encoder):** convoluciones + pooling sucesivos que reducen la resolución espacial mientras aumentan la profundidad semántica (capturan *qué* hay en la imagen).
+- **Camino de expansión (decoder):** convoluciones transpuestas (*up-convolutions*) que recuperan la resolución espacial original (recuperan *dónde* está cada estructura).
+- **Conexiones de salto (skip connections):** concatenan mapas de *features* del encoder directamente con las capas correspondientes del decoder, preservando **detalle espacial fino** que de otro modo se perdería al comprimir la imagen — crítico para delinear bordes precisos de un órgano o tumor.
+
+La función de pérdida típica combina entropía cruzada con **Dice Loss** (introducida en la sección anterior), reflejando el objetivo real: maximizar la superposición volumétrica entre la predicción y el contorno de referencia (*ground truth* del oncólogo radioterapeuta).
+
+## Vision Transformer (ViT)
+
+### De la atención en NLP a las imágenes
+
+El **Transformer** (Vaswani et al., 2017) fue diseñado originalmente para procesamiento de lenguaje natural, basado en el mecanismo de **auto-atención** (*self-attention*), que permite a cada elemento de una secuencia "atender" directamente a cualquier otro elemento, sin importar la distancia entre ellos — a diferencia de la CNN, que solo ve un vecindario local por capa.
+
+Dosovitskiy et al. (2020) mostraron que esta misma idea puede aplicarse a imágenes:
+
+1. La imagen se divide en **parches** no superpuestos (ej. $16\times16$ píxeles).
+2. Cada parche se aplana y se proyecta linealmente a un vector (*embedding*), análogo a un *token* en una oración.
+3. Se agregan *embeddings* de posición (la atención por sí sola no distingue el orden espacial).
+4. La secuencia de *embeddings* de parches se procesa con capas estándar de Transformer (auto-atención + MLP).
+
+$$
+\text{Atención}(Q,K,V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+$$
+
+donde $Q$ (*queries*), $K$ (*keys*) y $V$ (*values*) son proyecciones lineales de los *embeddings* de entrada, y $d_k$ es la dimensión de las *keys* (factor de escala que estabiliza el gradiente).
+
+```{mermaid}
+flowchart LR
+    A[Imagen] --> B[División en parches<br>16x16]
+    B --> C[Embedding lineal<br>+ posición]
+    C --> D[Bloques Transformer<br>auto-atención + MLP]
+    D --> E[Token de clasificación<br>o mapa de features]
+```
+
+### CNN vs. ViT: sesgo inductivo y datos necesarios
+
+| Aspecto | CNN | ViT |
+|---|---|---|
+| Sesgo inductivo | Fuerte (localidad, invariancia a traslación) | Débil (aprende relaciones desde cero) |
+| Relaciones capturadas | Locales, jerárquicas | Globales desde la primera capa |
+| Datos necesarios | Funciona bien con datasets moderados | Requiere datasets grandes (o *pre-entrenamiento*) para igualar/superar a CNN |
+| Uso típico en Física Médica | Backbone estándar, datasets pequeños/medianos | Ganando terreno con *transfer learning* desde modelos pre-entrenados en grandes bases de imágenes |
+
+::: {.callout-important}
+El menor sesgo inductivo del ViT es un arma de doble filo: le da mayor capacidad expresiva (puede modelar relaciones globales, útil para correlacionar hallazgos distantes en una imagen), pero también lo hace **más dependiente de grandes volúmenes de datos** — una limitación importante en Física Médica, donde el tamaño de los datasets suele ser reducido. Esto conecta directamente con la necesidad de **transfer learning**, tema que abordamos a continuación.
+:::
+
+---
+
+# Funcionamiento de los LLMs
+
+## ¿Qué es un Large Language Model?
+
+Un **LLM** (*Large Language Model*) es un modelo de lenguaje —típicamente un Transformer *decoder-only* con miles de millones de parámetros— entrenado sobre enormes corpus de texto para predecir, de forma autorregresiva, la siguiente palabra (o *token*) de una secuencia:
+
+$$
+P(x_1, x_2, \dots, x_T) = \prod_{t=1}^{T} P(x_t \mid x_1, \dots, x_{t-1})
+$$
+
+El entrenamiento consiste en maximizar la verosimilitud de esta factorización sobre texto masivo (**pre-entrenamiento auto-supervisado**, sin necesidad de etiquetas manuales): la propia estructura del texto provee la señal de supervisión.
+
+## Componentes clave
+
+```{mermaid}
+flowchart TB
+    A[Texto crudo] --> B[Tokenización<br>subpalabras BPE]
+    B --> C[Embeddings + posición]
+    C --> D[Bloques Transformer<br>auto-atención causal]
+    D --> E[Capa de salida<br>softmax sobre vocabulario]
+    E --> F[Siguiente token predicho]
+```
+
+- **Tokenización:** el texto se descompone en subpalabras (ej. *Byte-Pair Encoding*), no palabras completas ni caracteres individuales — un compromiso entre tamaño de vocabulario y capacidad de representar cualquier texto.
+- **Auto-atención causal (*masked self-attention*):** a diferencia del encoder de un ViT, en un LLM cada token solo puede atender a los tokens **anteriores** en la secuencia (para respetar la naturaleza autorregresiva de la generación de texto).
+- **Escala:** la capacidad de un LLM está determinada por el número de parámetros, el volumen de datos de entrenamiento y el cómputo empleado — relación descripta empíricamente por las **leyes de escala** (*scaling laws*, Kaplan et al., 2020), que muestran que la pérdida decrece de forma predecible (aproximadamente como ley de potencia) al aumentar estos tres factores.
+- **Alineación posterior (RLHF / *instruction tuning*):** tras el pre-entrenamiento, los modelos se ajustan con datos de instrucciones y retroalimentación humana para que sus respuestas sean útiles, seguras y sigan instrucciones — este paso es el que transforma un modelo "que completa texto" en un asistente conversacional.
+
+::: {.callout-note title="¿Por qué importa esto en Física Médica?"}
+Aunque los LLMs no son el foco central de un curso de imágenes médicas, son cada vez más relevantes: generación automática de informes radiológicos a partir de hallazgos estructurados, extracción de información de historias clínicas no estructuradas, LLMs multimodales que combinan imagen + texto (ej. respuesta a preguntas sobre una radiografía), y como interfaz de lenguaje natural para herramientas de apoyo diagnóstico. Además, el mecanismo de auto-atención que sustenta a los LLMs es **el mismo** que vimos en el ViT — un hilo conductor arquitectónico entre visión y lenguaje.
+:::
+
+---
+
+# Transfer Learning
+
+## Motivación: el problema del dato escaso en Física Médica
+
+Entrenar una CNN, U-Net o ViT **desde cero** requiere, típicamente, cientos de miles a millones de imágenes etiquetadas — algo excepcional en el ámbito clínico, donde el etiquetado requiere expertise médica especializada (radiólogos, físicos médicos) y los datasets suelen tener, en el mejor de los casos, algunos miles de casos. El **transfer learning** (aprendizaje por transferencia) resuelve esta brecha: en lugar de aprender representaciones desde cero, se parte de un modelo **pre-entrenado** en un dataset masivo (ej. ImageNet, o un modelo fundacional de imágenes médicas) y se lo adapta a la tarea específica.
+
+$$
+\underbrace{\theta_{\text{pre-entrenado}}}_{\text{tarea fuente, datos masivos}} \; \longrightarrow \; \underbrace{\theta_{\text{adaptado}}}_{\text{tarea objetivo, pocos datos}}
+$$
+
+La intuición: las capas iniciales de una CNN entrenada en ImageNet ya aprendieron a detectar bordes, texturas y formas básicas — *features* de bajo nivel razonablemente universales, útiles también para imágenes médicas, aunque el dominio de origen (fotografías naturales) difiera del de destino (imágenes médicas).
+
+```{mermaid}
+flowchart LR
+    A[Modelo pre-entrenado<br>ej. en ImageNet<br>millones de imágenes] --> B{Estrategia de adaptación}
+    B --> C[Fine-Tuning<br>reentrenar con pocos datos propios]
+    B --> D[Few-Shot Learning<br>adaptar con muy pocos ejemplos]
+```
+
+## Fine-Tuning
+
+El **fine-tuning** consiste en tomar los pesos de un modelo pre-entrenado y continuar el entrenamiento (ajustarlos) sobre el dataset específico de la tarea objetivo, generalmente con un **learning rate mucho menor** al usado en el pre-entrenamiento (para no destruir las representaciones ya aprendidas).
+
+### Estrategias de fine-tuning
+
+| Estrategia | Descripción | Cuándo usarla |
+|---|---|---|
+| **Feature extraction (congelado)** | Se congelan todos los pesos del backbone pre-entrenado; solo se entrena una nueva capa final (*head*) | Dataset objetivo muy pequeño, similar al dominio de origen |
+| **Fine-tuning parcial** | Se descongelan las últimas capas del backbone y se entrenan junto con la nueva *head* | Dataset mediano, moderada diferencia de dominio |
+| **Fine-tuning completo** | Se descongela toda la red y se reentrena completa con LR bajo | Dataset suficientemente grande, o gran diferencia de dominio (ej. fotografías → imágenes médicas) |
+
+```{python}
+#| label: fig-finetuning
+#| fig-cap: "Estrategias de fine-tuning: qué capas se congelan (azul) y cuáles se reentrenan (rojo)"
+
+import matplotlib.pyplot as plt
+import matplotlib.patches as mpatches
+
+fig, axes = plt.subplots(1, 3, figsize=(12,3))
+capas = ["Conv 1", "Conv 2", "Conv 3", "Conv 4", "Head\n(nueva)"]
+estrategias = {
+    "Feature extraction": [0,0,0,0,1],
+    "Fine-tuning parcial": [0,0,1,1,1],
+    "Fine-tuning completo": [1,1,1,1,1],
+}
+
+for ax, (nombre, estado) in zip(axes, estrategias.items()):
+    colores = ["tab:red" if e else "tab:blue" for e in estado]
+    ax.barh(range(len(capas)), [1]*len(capas), color=colores, edgecolor="black")
+    ax.set_yticks(range(len(capas))); ax.set_yticklabels(capas)
+    ax.set_xticks([])
+    ax.set_title(nombre, fontsize=10)
+    ax.invert_yaxis()
+
+congelado = mpatches.Patch(color="tab:blue", label="Congelado")
+entrenable = mpatches.Patch(color="tab:red", label="Entrenable")
+fig.legend(handles=[congelado, entrenable], loc="lower center", ncol=2, bbox_to_anchor=(0.5, -0.05))
+plt.tight_layout()
+plt.show()
+```
+
+::: {.callout-tip title="Regla práctica"}
+Cuanto **menor** sea el dataset objetivo y **mayor** su similitud con el dominio de pre-entrenamiento, más conviene **congelar** capas (evita sobreajuste sobre pocos datos). Cuanto mayor el dataset y mayor la diferencia de dominio, más conviene **descongelar** y reentrenar con LR bajo.
+:::
+
+## Few-Shot Learning
+
+El **few-shot learning** aborda un escenario aún más extremo: adaptar un modelo a una nueva tarea o clase con **muy pocos ejemplos** (típicamente entre 1 y algunas decenas), sin actualización sustancial de pesos vía gradiente descendente tradicional. Es especialmente relevante en Física Médica ante patologías raras, donde puede haber solo un puñado de casos documentados.
+
+### Enfoques principales
+
+- **In-context learning (LLMs y modelos fundacionales):** se le muestran al modelo, dentro del propio *prompt*, unos pocos ejemplos de entrada-salida, sin modificar ningún peso. El modelo "infiere" el patrón a partir del contexto:
+  - *Zero-shot:* ningún ejemplo, solo la instrucción de la tarea.
+  - *One-shot:* un único ejemplo de referencia.
+  - *Few-shot:* un puñado de ejemplos (ej. 2 a 10).
+- **Metric/similarity learning (redes siamesas, *prototypical networks*):** se aprende un espacio de *embeddings* donde ejemplos de la misma clase quedan cerca entre sí; la clasificación de un nuevo caso se hace por similitud (ej. distancia) al prototipo de cada clase, construido a partir de los pocos ejemplos disponibles.
+- **Meta-learning ("aprender a aprender"):** el modelo se entrena explícitamente sobre muchas tareas distintas de pocos ejemplos, de modo que aprenda una estrategia de adaptación rápida y generalizable a tareas nuevas nunca vistas.
+
+```{mermaid}
+flowchart TB
+    subgraph FS [Few-Shot Learning]
+    direction LR
+    A[Pocos ejemplos<br>de la nueva clase/tarea] --> B{Enfoque}
+    B --> C[In-context learning<br>vía prompt, sin actualizar pesos]
+    B --> D[Metric learning<br>comparación por similitud de embeddings]
+    B --> E[Meta-learning<br>optimizado para adaptación rápida]
+    end
+```
+
+## Fine-Tuning vs. Few-Shot: comparación
+
+| Aspecto | Fine-Tuning | Few-Shot |
+|---|---|---|
+| Cantidad de datos objetivo | Decenas a miles de ejemplos | 1 a decenas de ejemplos |
+| Actualización de pesos | Sí (gradiente descendente) | Generalmente no (in-context) o mínima (metric learning) |
+| Costo computacional | Moderado-alto (reentrenamiento) | Bajo (inferencia) a moderado (meta-entrenamiento previo) |
+| Riesgo de overfitting | Presente si el dataset es muy chico | Mitigado por diseño (no memoriza pesos específicos) |
+| Ejemplo en Física Médica | Adaptar una U-Net pre-entrenada en ImageNet a segmentación de próstata en RM con 200 pacientes | Clasificar un tipo de lesión rara con 5 casos documentados usando un modelo fundacional de imágenes médicas |
+
+::: {.callout-important title="Síntesis conceptual"}
+Tanto el fine-tuning como el few-shot learning son respuestas al mismo problema estructural de la Física Médica: **los datos etiquetados por expertos son escasos y costosos de obtener.** La elección entre ambos —y entre sus variantes— depende fundamentalmente de cuántos datos objetivo se dispone y de qué tan distinto es el dominio de la tarea respecto del dataset de pre-entrenamiento.
+:::
+
+---
+
+# Síntesis de la unidad
+
+```{mermaid}
+flowchart LR
+    A[Modelos clásicos<br>Regresión, SVM, Árboles] --> B[Regresión Logística<br>activación sigmoide]
+    B --> C[Perceptrón<br>Rosenblatt 1958]
+    C -->|Limitación: XOR| D[Perceptrón Multicapa<br>+ Backpropagation]
+    C --> G[Ciclo de entrenamiento<br>pérdida + optimizador + LR]
+    G --> D
+    D --> E[Arquitecturas especializadas<br>CNN, U-Net, ViT]
+    E --> H[LLMs<br>Transformers autorregresivos]
+    E --> I[Transfer Learning<br>Fine-Tuning / Few-Shot]
+    H --> I
+    I --> F[Aplicaciones en<br>Física Médica]
+```
+
+**Puntos clave para retener:**
+
+1. Los modelos clásicos siguen siendo el baseline obligatorio; su elección depende del volumen de datos, interpretabilidad requerida y naturaleza del problema.
+2. El Deep Learning no es una tecnología repentina: es el resultado de más de 70 años de desarrollo teórico, con dos "inviernos" causados por limitaciones algorítmicas y computacionales.
+3. El Perceptrón es la unidad fundacional de toda red neuronal, pero su incapacidad de resolver problemas no linealmente separables (XOR) motiva directamente el desarrollo de arquitecturas multicapa, tema de la Unidad 2.
+4. Todo entrenamiento —simple o profundo— sigue el mismo ciclo: *forward pass → cálculo de pérdida → backward pass → actualización de parámetros*. La elección de la función de pérdida, el optimizador y el learning rate no son detalles secundarios: determinan si el modelo converge, cuánto tarda, y si generaliza bien a nuevos pacientes.
+5. Las arquitecturas especializadas (CNN, U-Net, ViT) codifican distintos sesgos inductivos sobre la estructura espacial de la imagen: localidad e invariancia a traslación (CNN), preservación de detalle fino vía skip connections (U-Net), y relaciones globales vía auto-atención (ViT).
+6. Los LLMs comparten con el ViT el mismo mecanismo arquitectónico central —la auto-atención— aplicado a secuencias de texto en lugar de parches de imagen, entrenados de forma autorregresiva y auto-supervisada sobre corpus masivos.
+7. El transfer learning (fine-tuning y few-shot) es la respuesta estructural al problema de datos escasos en Física Médica: permite aprovechar representaciones aprendidas en datasets masivos y adaptarlas con relativamente pocos casos clínicos.
+
+## Actividades sugeridas
+
+- **Práctica 1:** Implementar el perceptrón y evaluarlo sobre un dataset radiómico real (ej. Wisconsin Breast Cancer) comparando con regresión logística.
+- **Práctica 2:** Sobre el mismo dataset, reemplazar la regla del perceptrón por descenso por gradiente explícito con distintas funciones de pérdida (MSE vs. BCE) y comparar curvas de convergencia.
+- **Práctica 3:** Entrenar el mismo modelo simple con SGD, SGD+Momento y Adam, variando el learning rate, y graficar las curvas de pérdida de entrenamiento/validación para identificar overfitting y el punto de early stopping.
+- **Práctica 4:** Implementar una CNN simple (con Keras/PyTorch) para clasificación de imágenes médicas (ej. subset de MedMNIST) y comparar contra un MLP totalmente conectado sobre las mismas imágenes.
+- **Práctica 5:** Tomar un backbone pre-entrenado en ImageNet (ej. ResNet18), aplicar las tres estrategias de fine-tuning (feature extraction, parcial, completo) sobre un dataset médico pequeño, y comparar curvas de validación y tiempo de entrenamiento.
+- **Lectura obligatoria:** Rosenblatt, F. (1958). *The perceptron: a probabilistic model for information storage and organization in the brain.* Psychological Review.
+- **Lectura obligatoria:** Ronneberger, O., Fischer, P. & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation.*
+- **Lectura complementaria:** Minsky, M. & Papert, S. (1969). *Perceptrons.* MIT Press (capítulo sobre limitaciones lineales).
+- **Lectura complementaria:** Kingma, D. P. & Ba, J. (2015). *Adam: A Method for Stochastic Optimization.* ICLR.
+- **Lectura complementaria:** Dosovitskiy, A. et al. (2020). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.*
+- **Discusión en clase:** ¿En qué escenarios clínicos actuales seguiría siendo preferible un modelo clásico interpretable sobre una red profunda? ¿Cómo afecta el tamaño reducido de los datasets médicos a la elección entre CNN y ViT, y entre fine-tuning y few-shot?
+
+## Bibliografía de la unidad
+
+- Goodfellow, I., Bengio, Y., & Courville, A. (2016). *Deep Learning*. MIT Press. (Cap. 1, 4, 6, 8 y 9)
+- Bishop, C. M. (2006). *Pattern Recognition and Machine Learning*. Springer.
+- Rosenblatt, F. (1958). *The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain*. Psychological Review, 65(6), 386–408.
+- Minsky, M., & Papert, S. (1969). *Perceptrons: An Introduction to Computational Geometry*. MIT Press.
+- Kingma, D. P., & Ba, J. (2015). *Adam: A Method for Stochastic Optimization*. ICLR.
+- Ruder, S. (2016). *An overview of gradient descent optimization algorithms*. arXiv:1609.04747.
+- Ronneberger, O., Fischer, P., & Brox, T. (2015). *U-Net: Convolutional Networks for Biomedical Image Segmentation*. MICCAI.
+- Vaswani, A. et al. (2017). *Attention Is All You Need*. NeurIPS.
+- Dosovitskiy, A. et al. (2020). *An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale*. arXiv:2010.11929.
+- Kaplan, J. et al. (2020). *Scaling Laws for Neural Language Models*. arXiv:2001.08361.
+- Brown, T. et al. (2020). *Language Models are Few-Shot Learners* (GPT-3). NeurIPS.
+- Yang, Q., Zhang, Y., Dai, W., & Pan, S. J. (2020). *Transfer Learning*. Cambridge University Press.
+- El Naqa, I., Li, R., & Murphy, M. J. (Eds.). (2015). *Machine Learning in Radiation Oncology*. Springer.
