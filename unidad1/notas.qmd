@@ -11,9 +11,6 @@ format:
     code-fold: true
     theme: cosmo
     math: mathjax
-  pdf:
-    toc: true
-    number-sections: true
 execute:
   echo: true
   warning: false
@@ -85,7 +82,6 @@ La función sigmoide $\sigma(\cdot)$ de la regresión logística es, matemática
 | SVM | Clasificación de tejidos, control de calidad | Robusto en alta dimensión con pocos datos | Escala mal, elección de kernel |
 | PCA / ICA | Reducción de dimensionalidad de imágenes, denoising | Rápido, interpretable | Solo captura relaciones lineales |
 | k-NN | Clasificación de espectros, dosimetría comparativa | Simple, no paramétrico | Costoso en inferencia, sensible a escala |
-| Métodos Monte Carlo (MCNP, GEANT4, EGSnrc) | *Gold standard* en transporte de radiación | Alta precisión física | Costo computacional altísimo |
 
 ## Ejemplo práctico: comparación de fronteras de decisión
 
