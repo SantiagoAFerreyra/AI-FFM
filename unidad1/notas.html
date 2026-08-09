@@ -1,0 +1,2478 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="quarto-1.10.18" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+
+<meta name="author" content="Notas de clase" />
+<meta name="dcterms.date" content="2026-08-09" />
+
+<title>Unidad 1: Fundamentos de IA aplicada a Física Médica – IA en Física Médica</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+<!-- htmldependencies:E3FAD763 -->
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script  src="../site_libs/quarto-diagram/mermaid.min.js"></script>
+<script  src="../site_libs/quarto-diagram/mermaid-init.js"></script>
+<link  href="../site_libs/quarto-diagram/mermaid.css" rel="stylesheet" />
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="../styles.css" />
+</head>
+
+<body>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="/index.html">
+    <span class="navbar-title">IA en Física Médica</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+  aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation"
+  onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="/index.html"> 
+<span class="menu-text">Inicio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/unidad0/notas.html"> 
+<span class="menu-text">Unidad 0</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="/unidad1/notas.html"> 
+<span class="menu-text">Unidad 1</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/ignacio-scarinci/ia-fisica-medica"> <i 
+  class="bi bi-github" 
+  role="img" 
+>
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+  <a href="" class="quarto-reader-toggle quarto-navigation-tool px-1" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn"
+      data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" 
+      aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+      onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <h1 class="quarto-secondary-nav-title no-breadcrumbs"></h1>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" role="link"
+        aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation"
+        onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation docked overflow-auto">
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1"  role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 0 
+ Introducción</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/unidad0/notas.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación de la materia</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/unidad0/calendario.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Calendario</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/unidad0/presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Presentación de la materia</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2"  role="navigation" aria-expanded="true">
+ <span class="menu-text">Unidad 1 — Fundamentos de IA</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/unidad1/notas.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Unidad 1: Fundamentos de IA aplicada a Física Médica</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="/unidad1/presentacion.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Unidad 1 — Introducción a la IA en Física Médica</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" ></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <div id="quarto-toc-target"></div>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Unidad 1: Fundamentos de IA aplicada a Física Médica</h1>
+<p class="subtitle lead">De los modelos clásicos al Perceptrón</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Notas de clase </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">August 9, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+<nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#presentación-de-la-unidad" id="toc-presentación-de-la-unidad"><span class="header-section-number">1</span> Presentación de la unidad</a></li>
+  <li><a href="#revisión-de-modelos-clásicos" id="toc-revisión-de-modelos-clásicos"><span class="header-section-number">2</span> Revisión de modelos clásicos</a>
+  <ul>
+  <li><a href="#por-qué-empezar-por-lo-clásico" id="toc-por-qué-empezar-por-lo-clásico"><span class="header-section-number">2.1</span> ¿Por qué empezar por lo clásico?</a></li>
+  <li><a href="#formalización-del-problema-de-aprendizaje-supervisado" id="toc-formalización-del-problema-de-aprendizaje-supervisado"><span class="header-section-number">2.2</span> Formalización del problema de aprendizaje supervisado</a></li>
+  <li><a href="#regresión-lineal-y-logística" id="toc-regresión-lineal-y-logística"><span class="header-section-number">2.3</span> Regresión lineal y logística</a></li>
+  <li><a href="#otros-modelos-clásicos-relevantes-en-física-médica" id="toc-otros-modelos-clásicos-relevantes-en-física-médica"><span class="header-section-number">2.4</span> Otros modelos clásicos relevantes en Física Médica</a></li>
+  <li><a href="#ejemplo-práctico-comparación-de-fronteras-de-decisión" id="toc-ejemplo-práctico-comparación-de-fronteras-de-decisión"><span class="header-section-number">2.5</span> Ejemplo práctico: comparación de fronteras de decisión</a></li>
+  </ul></li>
+  <li><a href="#introducción-al-deep-learning-breve-historia" id="toc-introducción-al-deep-learning-breve-historia"><span class="header-section-number">3</span> Introducción al Deep Learning: breve historia</a>
+  <ul>
+  <li><a href="#qué-es-el-deep-learning" id="toc-qué-es-el-deep-learning"><span class="header-section-number">3.1</span> ¿Qué es el Deep Learning?</a></li>
+  <li><a href="#línea-de-tiempo-histórica" id="toc-línea-de-tiempo-histórica"><span class="header-section-number">3.2</span> Línea de tiempo histórica</a></li>
+  <li><a href="#los-dos-inviernos-de-la-ia-neuronal" id="toc-los-dos-inviernos-de-la-ia-neuronal"><span class="header-section-number">3.3</span> Los “dos inviernos” de la IA neuronal</a></li>
+  <li><a href="#por-qué-profundo-y-por-qué-ahora-es-relevante-en-física-médica" id="toc-por-qué-profundo-y-por-qué-ahora-es-relevante-en-física-médica"><span class="header-section-number">3.4</span> ¿Por qué “profundo” y por qué ahora es relevante en Física Médica?</a></li>
+  </ul></li>
+  <li><a href="#redes-neuronales-simples-el-algoritmo-del-perceptrón" id="toc-redes-neuronales-simples-el-algoritmo-del-perceptrón"><span class="header-section-number">4</span> Redes neuronales simples: el algoritmo del Perceptrón</a>
+  <ul>
+  <li><a href="#la-neurona-biológica-como-inspiración" id="toc-la-neurona-biológica-como-inspiración"><span class="header-section-number">4.1</span> La neurona biológica como inspiración</a></li>
+  <li><a href="#definición-formal" id="toc-definición-formal"><span class="header-section-number">4.2</span> Definición formal</a></li>
+  <li><a href="#el-algoritmo-de-aprendizaje-del-perceptrón" id="toc-el-algoritmo-de-aprendizaje-del-perceptrón"><span class="header-section-number">4.3</span> El algoritmo de aprendizaje del Perceptrón</a></li>
+  <li><a href="#implementación-desde-cero" id="toc-implementación-desde-cero"><span class="header-section-number">4.4</span> Implementación desde cero</a></li>
+  <li><a href="#ejemplo-separación-de-dos-clases-sintéticas-linealmente-separables" id="toc-ejemplo-separación-de-dos-clases-sintéticas-linealmente-separables"><span class="header-section-number">4.5</span> Ejemplo: separación de dos clases sintéticas (linealmente separables)</a></li>
+  <li><a href="#el-límite-fundamental-el-problema-xor" id="toc-el-límite-fundamental-el-problema-xor"><span class="header-section-number">4.6</span> El límite fundamental: el problema XOR</a></li>
+  <li><a href="#perceptrón-vs.-regresión-logística-el-puente-conceptual" id="toc-perceptrón-vs.-regresión-logística-el-puente-conceptual"><span class="header-section-number">4.7</span> Perceptrón vs. Regresión Logística: el puente conceptual</a></li>
+  </ul></li>
+  <li><a href="#el-ciclo-de-entrenamiento" id="toc-el-ciclo-de-entrenamiento"><span class="header-section-number">5</span> El ciclo de entrenamiento</a>
+  <ul>
+  <li><a href="#de-la-regla-del-perceptrón-al-descenso-por-gradiente" id="toc-de-la-regla-del-perceptrón-al-descenso-por-gradiente"><span class="header-section-number">5.1</span> De la regla del Perceptrón al descenso por gradiente</a></li>
+  <li><a href="#funciones-de-pérdida-loss-functions" id="toc-funciones-de-pérdida-loss-functions"><span class="header-section-number">5.2</span> Funciones de pérdida (<em>Loss functions</em>)</a>
+  <ul>
+  <li><a href="#regresión-variables-continuas" id="toc-regresión-variables-continuas"><span class="header-section-number">5.2.1</span> Regresión (variables continuas)</a></li>
+  <li><a href="#clasificación" id="toc-clasificación"><span class="header-section-number">5.2.2</span> Clasificación</a></li>
+  </ul></li>
+  <li><a href="#visualización-de-la-superficie-de-pérdida-y-el-gradiente" id="toc-visualización-de-la-superficie-de-pérdida-y-el-gradiente"><span class="header-section-number">5.3</span> Visualización de la superficie de pérdida y el gradiente</a></li>
+  <li><a href="#el-gradiente-y-el-algoritmo-de-descenso-por-gradiente" id="toc-el-gradiente-y-el-algoritmo-de-descenso-por-gradiente"><span class="header-section-number">5.4</span> El gradiente y el algoritmo de descenso por gradiente</a>
+  <ul>
+  <li><a href="#variantes-según-la-cantidad-de-datos-usados-por-actualización" id="toc-variantes-según-la-cantidad-de-datos-usados-por-actualización"><span class="header-section-number">5.4.1</span> Variantes según la cantidad de datos usados por actualización</a></li>
+  </ul></li>
+  <li><a href="#optimizadores" id="toc-optimizadores"><span class="header-section-number">5.5</span> Optimizadores</a>
+  <ul>
+  <li><a href="#sgd-con-momento" id="toc-sgd-con-momento"><span class="header-section-number">5.5.1</span> SGD con Momento</a></li>
+  <li><a href="#rmsprop" id="toc-rmsprop"><span class="header-section-number">5.5.2</span> RMSProp</a></li>
+  <li><a href="#adam-adaptive-moment-estimation" id="toc-adam-adaptive-moment-estimation"><span class="header-section-number">5.5.3</span> Adam (<em>Adaptive Moment Estimation</em>)</a></li>
+  <li><a href="#comparación-visual-de-optimizadores" id="toc-comparación-visual-de-optimizadores"><span class="header-section-number">5.5.4</span> Comparación visual de optimizadores</a></li>
+  </ul></li>
+  <li><a href="#learning-rate-tasa-de-aprendizaje" id="toc-learning-rate-tasa-de-aprendizaje"><span class="header-section-number">5.6</span> Learning Rate (tasa de aprendizaje)</a>
+  <ul>
+  <li><a href="#estrategias-de-learning-rate-scheduling" id="toc-estrategias-de-learning-rate-scheduling"><span class="header-section-number">5.6.1</span> Estrategias de <em>Learning Rate Scheduling</em></a></li>
+  </ul></li>
+  <li><a href="#otros-elementos-del-ciclo-de-entrenamiento" id="toc-otros-elementos-del-ciclo-de-entrenamiento"><span class="header-section-number">5.7</span> Otros elementos del ciclo de entrenamiento</a></li>
+  </ul></li>
+  <li><a href="#arquitecturas-cnn-u-net-vit" id="toc-arquitecturas-cnn-u-net-vit"><span class="header-section-number">6</span> Arquitecturas: CNN, U-Net, ViT</a>
+  <ul>
+  <li><a href="#del-perceptrón-multicapa-a-las-arquitecturas-especializadas" id="toc-del-perceptrón-multicapa-a-las-arquitecturas-especializadas"><span class="header-section-number">6.1</span> Del Perceptrón Multicapa a las arquitecturas especializadas</a></li>
+  <li><a href="#redes-neuronales-convolucionales-cnn" id="toc-redes-neuronales-convolucionales-cnn"><span class="header-section-number">6.2</span> Redes Neuronales Convolucionales (CNN)</a>
+  <ul>
+  <li><a href="#la-operación-de-convolución" id="toc-la-operación-de-convolución"><span class="header-section-number">6.2.1</span> La operación de convolución</a></li>
+  <li><a href="#bloques-típicos-de-una-cnn" id="toc-bloques-típicos-de-una-cnn"><span class="header-section-number">6.2.2</span> Bloques típicos de una CNN</a></li>
+  </ul></li>
+  <li><a href="#u-net-arquitectura-de-referencia-para-segmentación-médica" id="toc-u-net-arquitectura-de-referencia-para-segmentación-médica"><span class="header-section-number">6.3</span> U-Net: arquitectura de referencia para segmentación médica</a>
+  <ul>
+  <li><a href="#arquitectura-encoder-decoder-con-conexiones-de-salto" id="toc-arquitectura-encoder-decoder-con-conexiones-de-salto"><span class="header-section-number">6.3.1</span> Arquitectura: encoder-decoder con conexiones de salto</a></li>
+  </ul></li>
+  <li><a href="#vision-transformer-vit" id="toc-vision-transformer-vit"><span class="header-section-number">6.4</span> Vision Transformer (ViT)</a>
+  <ul>
+  <li><a href="#de-la-atención-en-nlp-a-las-imágenes" id="toc-de-la-atención-en-nlp-a-las-imágenes"><span class="header-section-number">6.4.1</span> De la atención en NLP a las imágenes</a></li>
+  <li><a href="#cnn-vs.-vit-sesgo-inductivo-y-datos-necesarios" id="toc-cnn-vs.-vit-sesgo-inductivo-y-datos-necesarios"><span class="header-section-number">6.4.2</span> CNN vs. ViT: sesgo inductivo y datos necesarios</a></li>
+  </ul></li>
+  </ul></li>
+  <li><a href="#funcionamiento-de-los-llms" id="toc-funcionamiento-de-los-llms"><span class="header-section-number">7</span> Funcionamiento de los LLMs</a>
+  <ul>
+  <li><a href="#qué-es-un-large-language-model" id="toc-qué-es-un-large-language-model"><span class="header-section-number">7.1</span> ¿Qué es un Large Language Model?</a></li>
+  <li><a href="#componentes-clave" id="toc-componentes-clave"><span class="header-section-number">7.2</span> Componentes clave</a></li>
+  </ul></li>
+  <li><a href="#transfer-learning" id="toc-transfer-learning"><span class="header-section-number">8</span> Transfer Learning</a>
+  <ul>
+  <li><a href="#motivación-el-problema-del-dato-escaso-en-física-médica" id="toc-motivación-el-problema-del-dato-escaso-en-física-médica"><span class="header-section-number">8.1</span> Motivación: el problema del dato escaso en Física Médica</a></li>
+  <li><a href="#fine-tuning" id="toc-fine-tuning"><span class="header-section-number">8.2</span> Fine-Tuning</a>
+  <ul>
+  <li><a href="#estrategias-de-fine-tuning" id="toc-estrategias-de-fine-tuning"><span class="header-section-number">8.2.1</span> Estrategias de fine-tuning</a></li>
+  </ul></li>
+  <li><a href="#few-shot-learning" id="toc-few-shot-learning"><span class="header-section-number">8.3</span> Few-Shot Learning</a>
+  <ul>
+  <li><a href="#enfoques-principales" id="toc-enfoques-principales"><span class="header-section-number">8.3.1</span> Enfoques principales</a></li>
+  </ul></li>
+  <li><a href="#fine-tuning-vs.-few-shot-comparación" id="toc-fine-tuning-vs.-few-shot-comparación"><span class="header-section-number">8.4</span> Fine-Tuning vs. Few-Shot: comparación</a></li>
+  </ul></li>
+  <li><a href="#síntesis-de-la-unidad" id="toc-síntesis-de-la-unidad"><span class="header-section-number">9</span> Síntesis de la unidad</a>
+  <ul>
+  <li><a href="#actividades-sugeridas" id="toc-actividades-sugeridas"><span class="header-section-number">9.1</span> Actividades sugeridas</a></li>
+  <li><a href="#bibliografía-de-la-unidad" id="toc-bibliografía-de-la-unidad"><span class="header-section-number">9.2</span> Bibliografía de la unidad</a></li>
+  </ul></li>
+  </ul>
+</nav>
+<section id="presentación-de-la-unidad" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Presentación de la unidad</h1>
+<p>Esta primera unidad tiene como objetivo tender un puente entre los métodos estadísticos y computacionales “clásicos”, ampliamente usados en Física Médica (dosimetría, radiodiagnóstico, radioterapia, medicina nuclear), y el paradigma del <strong>Deep Learning</strong>. La pregunta que guía la unidad es: <em>¿por qué y cuándo conviene reemplazar (o complementar) un modelo clásico por uno basado en redes neuronales?</em></p>
+<p><strong>Objetivos de aprendizaje:</strong></p>
+<ol type="1">
+<li>Repasar los modelos clásicos de aprendizaje automático (regresión, árboles, SVM, reducción de dimensionalidad) y sus supuestos.</li>
+<li>Comprender el contexto histórico y conceptual que dio origen al Deep Learning.</li>
+<li>Formalizar matemáticamente el <strong>Perceptrón</strong> como primera unidad neuronal, entender su algoritmo de aprendizaje y sus limitaciones.</li>
+</ol>
+<hr />
+</section>
+<section id="revisión-de-modelos-clásicos" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Revisión de modelos clásicos</h1>
+<section id="por-qué-empezar-por-lo-clásico" class="level2" data-number="2.1">
+<h2 data-number="2.1"><span class="header-section-number">2.1</span> ¿Por qué empezar por lo clásico?</h2>
+<p>Antes de introducir redes profundas, es indispensable entender los métodos que dominaron —y siguen dominando en muchos contextos clínicos— el análisis de datos médicos: interpretabilidad, pocos datos, variables tabulares y necesidad de trazabilidad regulatoria (FDA/ANMAT) hacen que modelos clásicos sigan siendo el <em>baseline</em> obligado.</p>
+<blockquote>
+<p><strong>Regla de oro:</strong> todo pipeline de Deep Learning en Física Médica debe compararse contra un baseline clásico bien ajustado. Si el modelo profundo no supera claramente a la regresión logística o al <em>random forest</em>, probablemente no se justifica su complejidad adicional.</p>
+</blockquote>
+</section>
+<section id="formalización-del-problema-de-aprendizaje-supervisado" class="level2" data-number="2.2">
+<h2 data-number="2.2"><span class="header-section-number">2.2</span> Formalización del problema de aprendizaje supervisado</h2>
+<p>Dado un conjunto de datos <span class="math inline">\(\mathcal{D} = \{(\mathbf{x}_i, y_i)\}_{i=1}^{N}\)</span>, con <span class="math inline">\(\mathbf{x}_i \in \mathbb{R}^d\)</span> (features, p. ej. radiómicas, edad, dosis) e <span class="math inline">\(y_i\)</span> la variable objetivo (continua o categórica), el objetivo es encontrar una función <span class="math inline">\(f_\theta: \mathbb{R}^d \to \mathcal{Y}\)</span> que minimice una función de pérdida esperada:</p>
+<p><span class="math display">\[
+\theta^* = \arg\min_{\theta} \; \mathbb{E}_{(\mathbf{x},y)\sim \mathcal{D}} \left[ \mathcal{L}(f_\theta(\mathbf{x}), y) \right]
+\]</span></p>
+<p>En la práctica se minimiza el riesgo empírico:</p>
+<p><span class="math display">\[
+\hat{\theta} = \arg\min_{\theta} \; \frac{1}{N}\sum_{i=1}^{N} \mathcal{L}(f_\theta(\mathbf{x}_i), y_i) + \lambda \, \Omega(\theta)
+\]</span></p>
+<p>donde <span class="math inline">\(\Omega(\theta)\)</span> es un término de regularización y <span class="math inline">\(\lambda\)</span> controla el compromiso sesgo-varianza.</p>
+</section>
+<section id="regresión-lineal-y-logística" class="level2" data-number="2.3">
+<h2 data-number="2.3"><span class="header-section-number">2.3</span> Regresión lineal y logística</h2>
+<p><strong>Regresión lineal</strong> (para variables continuas, p. ej. predicción de dosis absorbida a partir de parámetros del haz):</p>
+<p><span class="math display">\[
+\hat{y} = \mathbf{w}^\top \mathbf{x} + b, \qquad \mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_i (y_i - \hat{y}_i)^2
+\]</span></p>
+<p><strong>Regresión logística</strong> (clasificación binaria, p. ej. benigno/maligno):</p>
+<p><span class="math display">\[
+\hat{p} = \sigma(\mathbf{w}^\top \mathbf{x} + b) = \frac{1}{1+e^{-(\mathbf{w}^\top \mathbf{x} + b)}}
+\]</span></p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{BCE}} = -\frac{1}{N}\sum_i \left[ y_i \log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i) \right]
+\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled" title="Nexo con la Unidad">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Nexo con la Unidad
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La función sigmoide <span class="math inline">\(\sigma(\cdot)\)</span> de la regresión logística es, matemáticamente, idéntica a la función de activación que usaremos más adelante en las primeras redes neuronales. <strong>La regresión logística es, de hecho, un perceptrón con activación sigmoide y una sola capa.</strong></p>
+</div>
+</div>
+</section>
+<section id="otros-modelos-clásicos-relevantes-en-física-médica" class="level2" data-number="2.4">
+<h2 data-number="2.4"><span class="header-section-number">2.4</span> Otros modelos clásicos relevantes en Física Médica</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Modelo</th>
+<th>Uso típico en Física Médica</th>
+<th>Ventaja</th>
+<th>Limitación</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Árboles de decisión / Random Forest</td>
+<td>Predicción de toxicidad, segmentación de features radiómicas</td>
+<td>Interpretable, maneja no linealidad</td>
+<td>Sobreajuste, fronteras “en escalera”</td>
+</tr>
+<tr class="even">
+<td>SVM</td>
+<td>Clasificación de tejidos, control de calidad</td>
+<td>Robusto en alta dimensión con pocos datos</td>
+<td>Escala mal, elección de kernel</td>
+</tr>
+<tr class="odd">
+<td>PCA / ICA</td>
+<td>Reducción de dimensionalidad de imágenes, denoising</td>
+<td>Rápido, interpretable</td>
+<td>Solo captura relaciones lineales</td>
+</tr>
+<tr class="even">
+<td>k-NN</td>
+<td>Clasificación de espectros, dosimetría comparativa</td>
+<td>Simple, no paramétrico</td>
+<td>Costoso en inferencia, sensible a escala</td>
+</tr>
+<tr class="odd">
+<td>Métodos Monte Carlo (MCNP, GEANT4, EGSnrc)</td>
+<td><em>Gold standard</em> en transporte de radiación</td>
+<td>Alta precisión física</td>
+<td>Costo computacional altísimo</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="ejemplo-práctico-comparación-de-fronteras-de-decisión" class="level2" data-number="2.5">
+<h2 data-number="2.5"><span class="header-section-number">2.5</span> Ejemplo práctico: comparación de fronteras de decisión</h2>
+<div id="cell-fig-comparacion-clasica" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_moons</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LogisticRegression</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.svm <span class="im">import</span> SVC</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.tree <span class="im">import</span> DecisionTreeClassifier</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.neighbors <span class="im">import</span> KNeighborsClassifier</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_moons(n_samples<span class="op">=</span><span class="dv">300</span>, noise<span class="op">=</span><span class="fl">0.25</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>modelos <span class="op">=</span> {</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Regresión Logística&quot;</span>: LogisticRegression(),</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;SVM (kernel RBF)&quot;</span>: SVC(kernel<span class="op">=</span><span class="st">&quot;rbf&quot;</span>, gamma<span class="op">=</span><span class="dv">2</span>),</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Árbol de decisión&quot;</span>: DecisionTreeClassifier(max_depth<span class="op">=</span><span class="dv">4</span>),</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;k-NN (k=5)&quot;</span>: KNeighborsClassifier(n_neighbors<span class="op">=</span><span class="dv">5</span>),</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(X[:,<span class="dv">0</span>].<span class="bu">min</span>()<span class="op">-</span><span class="fl">0.5</span>, X[:,<span class="dv">0</span>].<span class="bu">max</span>()<span class="op">+</span><span class="fl">0.5</span>, <span class="dv">300</span>),</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>                      np.linspace(X[:,<span class="dv">1</span>].<span class="bu">min</span>()<span class="op">-</span><span class="fl">0.5</span>, X[:,<span class="dv">1</span>].<span class="bu">max</span>()<span class="op">+</span><span class="fl">0.5</span>, <span class="dv">300</span>))</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">18</span>, <span class="fl">4.2</span>))</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (nombre, modelo) <span class="kw">in</span> <span class="bu">zip</span>(axes, modelos.items()):</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>    modelo.fit(X, y)</span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>    Z <span class="op">=</span> modelo.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>    ax.contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.3</span>, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>    ax.scatter(X[:,<span class="dv">0</span>], X[:,<span class="dv">1</span>], c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>, edgecolor<span class="op">=</span><span class="st">&quot;k&quot;</span>, s<span class="op">=</span><span class="dv">20</span>)</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>    ax.set_title(nombre, fontsize<span class="op">=</span><span class="dv">11</span>)</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])<span class="op">;</span> ax.set_yticks([])</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-comparacion-clasica" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-comparacion-clasica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-comparacion-clasica-output-1.png" width="1718" height="393" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-comparacion-clasica-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 1: Fronteras de decisión de modelos clásicos sobre un dataset sintético (ej. dos features radiómicas)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Observen cómo cada modelo impone un <strong>sesgo inductivo</strong> distinto sobre la forma de la frontera de decisión: lineal (regresión logística), suave y global (SVM-RBF), o local y fragmentada (árbol, k-NN). El Deep Learning, como veremos, aprende esta forma directamente de los datos con muchas menos suposiciones explícitas.</p>
+<hr />
+</section>
+</section>
+<section id="introducción-al-deep-learning-breve-historia" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Introducción al Deep Learning: breve historia</h1>
+<section id="qué-es-el-deep-learning" class="level2" data-number="3.1">
+<h2 data-number="3.1"><span class="header-section-number">3.1</span> ¿Qué es el Deep Learning?</h2>
+<p>El <strong>Deep Learning</strong> (aprendizaje profundo) es una subfamilia del aprendizaje automático basada en <strong>redes neuronales artificiales con múltiples capas</strong>, capaces de aprender representaciones jerárquicas de los datos directamente desde datos crudos (píxeles, señales), sin necesidad de ingeniería manual de <em>features</em>.</p>
+<p><span class="math display">\[
+f_\theta(\mathbf{x}) = f^{(L)} \circ f^{(L-1)} \circ \cdots \circ f^{(1)}(\mathbf{x})
+\]</span></p>
+<p>donde cada <span class="math inline">\(f^{(l)}\)</span> es una transformación (capa) con parámetros propios <span class="math inline">\(\theta^{(l)}\)</span>.</p>
+</section>
+<section id="línea-de-tiempo-histórica" class="level2" data-number="3.2">
+<h2 data-number="3.2"><span class="header-section-number">3.2</span> Línea de tiempo histórica</h2>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb2"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>timeline</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    title Historia del Deep Learning</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    1943 : McCulloch &amp; Pitts, neurona artificial</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    1958 : Rosenblatt, el Perceptrón</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    1969 : Minsky &amp; Papert, &quot;Perceptrons&quot; (crítica al XOR)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    1986 : Rumelhart, Hinton, Williams, Backpropagation</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    1989 : LeCun, LeNet (CNN para dígitos manuscritos)</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    1997 : Hochreiter &amp; Schmidhuber, LSTM</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    2006 : Hinton, Deep Belief Networks, renace el interés</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    2012 : Krizhevsky, AlexNet gana ImageNet, boom del Deep Learning</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    2015 : He et al., ResNet, redes muy profundas</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    2017 : Vaswani et al., Transformers</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    2020s : Modelos fundacionales, IA generativa, adopción clínica</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-timeline" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-timeline">timeline
+    title Historia del Deep Learning
+    1943 : McCulloch &amp; Pitts, neurona artificial
+    1958 : Rosenblatt, el Perceptrón
+    1969 : Minsky &amp; Papert, &quot;Perceptrons&quot; (crítica al XOR)
+    1986 : Rumelhart, Hinton, Williams, Backpropagation
+    1989 : LeCun, LeNet (CNN para dígitos manuscritos)
+    1997 : Hochreiter &amp; Schmidhuber, LSTM
+    2006 : Hinton, Deep Belief Networks, renace el interés
+    2012 : Krizhevsky, AlexNet gana ImageNet, boom del Deep Learning
+    2015 : He et al., ResNet, redes muy profundas
+    2017 : Vaswani et al., Transformers
+    2020s : Modelos fundacionales, IA generativa, adopción clínica
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-timeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 2: Hitos históricos del Deep Learning
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="los-dos-inviernos-de-la-ia-neuronal" class="level2" data-number="3.3">
+<h2 data-number="3.3"><span class="header-section-number">3.3</span> Los “dos inviernos” de la IA neuronal</h2>
+<ol type="1">
+<li><strong>Primer invierno (post-1969):</strong> Minsky y Papert demuestran que el perceptrón simple no puede resolver problemas no linealmente separables (el caso paradigmático: la función XOR). Esto reduce drásticamente el financiamiento a la investigación en redes neuronales durante casi dos décadas.</li>
+<li><strong>Segundo invierno (fines de los 90s-2000s):</strong> a pesar del backpropagation (1986), la falta de datos masivos y poder de cómputo, sumado al auge de SVMs y métodos de <em>ensemble</em>, relega nuevamente a las redes neuronales.</li>
+<li><strong>El resurgimiento (2006-2012):</strong> disponibilidad de GPUs, grandes bases de datos etiquetadas (ImageNet) y mejoras algorítmicas (ReLU, dropout, mejor inicialización) permiten entrenar redes verdaderamente profundas. <strong>AlexNet (2012)</strong> es el punto de inflexión que marca el inicio de la era moderna del Deep Learning.</li>
+</ol>
+</section>
+<section id="por-qué-profundo-y-por-qué-ahora-es-relevante-en-física-médica" class="level2" data-number="3.4">
+<h2 data-number="3.4"><span class="header-section-number">3.4</span> ¿Por qué “profundo” y por qué ahora es relevante en Física Médica?</h2>
+<ul>
+<li><strong>Datos:</strong> imágenes médicas (CT, RM, PET, mamografía) son datos de alta dimensionalidad donde el Deep Learning —en particular las CNNs— sobresale.</li>
+<li><strong>Cómputo:</strong> GPUs/TPUs permiten entrenar modelos con millones de parámetros en tiempos razonables.</li>
+<li><strong>Representaciones jerárquicas:</strong> en imágenes médicas, las capas iniciales aprenden bordes y texturas; capas intermedias, estructuras anatómicas; capas profundas, patrones patológicos complejos (analogía con la vía visual biológica).</li>
+</ul>
+<div class="callout callout-style-default callout-tip callout-titled" title="Aplicaciones actuales en Física Médica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Aplicaciones actuales en Física Médica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<ul>
+<li>Segmentación automática de órganos en riesgo (radioterapia)</li>
+<li>Reducción de dosis en CT mediante <em>denoising</em> con redes profundas</li>
+<li>Reconstrucción de imágenes PET/RM aceleradas</li>
+<li>Detección asistida de nódulos, lesiones y contornos tumorales</li>
+<li>Control de calidad automatizado y predicción de <em>outcomes</em> clínicos</li>
+</ul>
+</div>
+</div>
+<hr />
+</section>
+</section>
+<section id="redes-neuronales-simples-el-algoritmo-del-perceptrón" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Redes neuronales simples: el algoritmo del Perceptrón</h1>
+<section id="la-neurona-biológica-como-inspiración" class="level2" data-number="4.1">
+<h2 data-number="4.1"><span class="header-section-number">4.1</span> La neurona biológica como inspiración</h2>
+<p>McCulloch y Pitts (1943) propusieron un modelo matemático simplificado de la neurona: recibe señales de entrada, las pondera y produce una salida binaria si supera un umbral. Rosenblatt (1958) convirtió esta idea en un <strong>algoritmo de aprendizaje</strong>: el Perceptrón.</p>
+</section>
+<section id="definición-formal" class="level2" data-number="4.2">
+<h2 data-number="4.2"><span class="header-section-number">4.2</span> Definición formal</h2>
+<p>Dado un vector de entrada <span class="math inline">\(\mathbf{x} = (x_1, x_2, \dots, x_d) \in \mathbb{R}^d\)</span>, el perceptrón calcula:</p>
+<p><span class="math display">\[
+z = \sum_{j=1}^{d} w_j x_j + b = \mathbf{w}^\top \mathbf{x} + b
+\]</span></p>
+<p><span class="math display">\[
+\hat{y} = \phi(z) =
+\begin{cases}
+1 &amp; \text{si } z \geq 0 \\
+0 \text{ (o } -1) &amp; \text{si } z &lt; 0
+\end{cases}
+\]</span></p>
+<p>donde <span class="math inline">\(\phi\)</span> es la <strong>función de activación escalón (Heaviside)</strong>, <span class="math inline">\(\mathbf{w}\)</span> es el vector de pesos sinápticos y <span class="math inline">\(b\)</span> el sesgo (<em>bias</em>).</p>
+<p>Geométricamente, el perceptrón define un <strong>hiperplano separador</strong> en <span class="math inline">\(\mathbb{R}^d\)</span>: <span class="math inline">\(\mathbf{w}^\top \mathbf{x} + b = 0\)</span>.</p>
+</section>
+<section id="el-algoritmo-de-aprendizaje-del-perceptrón" class="level2" data-number="4.3">
+<h2 data-number="4.3"><span class="header-section-number">4.3</span> El algoritmo de aprendizaje del Perceptrón</h2>
+<p>Dado un conjunto de entrenamiento <span class="math inline">\(\{(\mathbf{x}_i, y_i)\}_{i=1}^N\)</span> con <span class="math inline">\(y_i \in \{-1, +1\}\)</span>, el algoritmo actualiza los pesos <strong>solo cuando comete un error</strong>:</p>
+<p><strong>Algoritmo (Rosenblatt, 1958):</strong></p>
+<ol type="1">
+<li>Inicializar <span class="math inline">\(\mathbf{w} \leftarrow \mathbf{0}\)</span>, <span class="math inline">\(b \leftarrow 0\)</span></li>
+<li>Repetir hasta convergencia (o número máximo de épocas): Para cada <span class="math inline">\((\mathbf{x}_i, y_i)\)</span>:
+<ul>
+<li>Calcular <span class="math inline">\(\hat{y}_i = \text{sign}(\mathbf{w}^\top \mathbf{x}_i + b)\)</span></li>
+<li>Si <span class="math inline">\(\hat{y}_i \neq y_i\)</span>: <span class="math display">\[
+\mathbf{w} \leftarrow \mathbf{w} + \eta \, y_i \, \mathbf{x}_i
+\]</span> <span class="math display">\[
+b \leftarrow b + \eta \, y_i
+\]</span></li>
+</ul></li>
+</ol>
+<p>donde <span class="math inline">\(\eta &gt; 0\)</span> es la tasa de aprendizaje (<em>learning rate</em>).</p>
+<div class="callout callout-style-default callout-important callout-titled" title="Teorema de convergencia del Perceptrón">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Teorema de convergencia del Perceptrón
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Si los datos son <strong>linealmente separables</strong>, el algoritmo del perceptrón converge en un número finito de pasos a una solución que clasifica correctamente todo el conjunto de entrenamiento (Novikoff, 1962). Si los datos <strong>no</strong> son linealmente separables, el algoritmo <strong>nunca converge</strong> y oscila indefinidamente.</p>
+</div>
+</div>
+</section>
+<section id="implementación-desde-cero" class="level2" data-number="4.4">
+<h2 data-number="4.4"><span class="header-section-number">4.4</span> Implementación desde cero</h2>
+<div id="perceptron-impl" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb3"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Perceptron:</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, lr<span class="op">=</span><span class="fl">0.1</span>, n_epochs<span class="op">=</span><span class="dv">50</span>):</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.lr <span class="op">=</span> lr</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.n_epochs <span class="op">=</span> n_epochs</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> fit(<span class="va">self</span>, X, y):</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        n_samples, n_features <span class="op">=</span> X.shape</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.w <span class="op">=</span> np.zeros(n_features)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.b <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.errores_por_epoca <span class="op">=</span> []</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> epoca <span class="kw">in</span> <span class="bu">range</span>(<span class="va">self</span>.n_epochs):</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>            errores <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> xi, yi <span class="kw">in</span> <span class="bu">zip</span>(X, y):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>                y_pred <span class="op">=</span> np.sign(np.dot(<span class="va">self</span>.w, xi) <span class="op">+</span> <span class="va">self</span>.b)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>                y_pred <span class="op">=</span> <span class="dv">1</span> <span class="cf">if</span> y_pred <span class="op">&gt;=</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> y_pred <span class="op">!=</span> yi:</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>                    <span class="va">self</span>.w <span class="op">+=</span> <span class="va">self</span>.lr <span class="op">*</span> yi <span class="op">*</span> xi</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>                    <span class="va">self</span>.b <span class="op">+=</span> <span class="va">self</span>.lr <span class="op">*</span> yi</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>                    errores <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.errores_por_epoca.append(errores)</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> errores <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> predict(<span class="va">self</span>, X):</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>        z <span class="op">=</span> X <span class="op">@</span> <span class="va">self</span>.w <span class="op">+</span> <span class="va">self</span>.b</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> np.where(z <span class="op">&gt;=</span> <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>)</span></code></pre></div>
+</details>
+</div>
+</section>
+<section id="ejemplo-separación-de-dos-clases-sintéticas-linealmente-separables" class="level2" data-number="4.5">
+<h2 data-number="4.5"><span class="header-section-number">4.5</span> Ejemplo: separación de dos clases sintéticas (linealmente separables)</h2>
+<div id="cell-fig-perceptron-separable" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> make_blobs</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>X, y <span class="op">=</span> make_blobs(n_samples<span class="op">=</span><span class="dv">100</span>, centers<span class="op">=</span><span class="dv">2</span>, cluster_std<span class="op">=</span><span class="fl">1.0</span>, random_state<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.where(y <span class="op">==</span> <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>modelo <span class="op">=</span> Perceptron(lr<span class="op">=</span><span class="fl">0.1</span>, n_epochs<span class="op">=</span><span class="dv">30</span>).fit(X, y)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.2</span>))</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Frontera de decisión</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>xx, yy <span class="op">=</span> np.meshgrid(np.linspace(X[:,<span class="dv">0</span>].<span class="bu">min</span>()<span class="op">-</span><span class="dv">1</span>, X[:,<span class="dv">0</span>].<span class="bu">max</span>()<span class="op">+</span><span class="dv">1</span>, <span class="dv">200</span>),</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>                      np.linspace(X[:,<span class="dv">1</span>].<span class="bu">min</span>()<span class="op">-</span><span class="dv">1</span>, X[:,<span class="dv">1</span>].<span class="bu">max</span>()<span class="op">+</span><span class="dv">1</span>, <span class="dv">200</span>))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> modelo.predict(np.c_[xx.ravel(), yy.ravel()]).reshape(xx.shape)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].contourf(xx, yy, Z, alpha<span class="op">=</span><span class="fl">0.3</span>, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>)</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].scatter(X[:,<span class="dv">0</span>], X[:,<span class="dv">1</span>], c<span class="op">=</span>y, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>, edgecolor<span class="op">=</span><span class="st">&quot;k&quot;</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">0</span>].set_title(<span class="st">&quot;Frontera de decisión aprendida&quot;</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Curva de convergencia</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].plot(modelo.errores_por_epoca, marker<span class="op">=</span><span class="st">&quot;o&quot;</span>, color<span class="op">=</span><span class="st">&quot;darkred&quot;</span>)</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">&quot;Época&quot;</span>)</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">&quot;N° de errores de clasificación&quot;</span>)</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].set_title(<span class="st">&quot;Convergencia del algoritmo&quot;</span>)</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>axes[<span class="dv">1</span>].grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-perceptron-separable" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-perceptron-separable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-perceptron-separable-output-1.png" width="1047" height="394" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceptron-separable-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 3: Convergencia del Perceptrón sobre datos linealmente separables
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="el-límite-fundamental-el-problema-xor" class="level2" data-number="4.6">
+<h2 data-number="4.6"><span class="header-section-number">4.6</span> El límite fundamental: el problema XOR</h2>
+<div id="cell-fig-xor" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb5"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>X_xor <span class="op">=</span> np.array([[<span class="dv">0</span>,<span class="dv">0</span>],[<span class="dv">0</span>,<span class="dv">1</span>],[<span class="dv">1</span>,<span class="dv">0</span>],[<span class="dv">1</span>,<span class="dv">1</span>]])</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>y_xor <span class="op">=</span> np.array([<span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>])  <span class="co"># XOR</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>modelo_xor <span class="op">=</span> Perceptron(lr<span class="op">=</span><span class="fl">0.1</span>, n_epochs<span class="op">=</span><span class="dv">100</span>).fit(X_xor, y_xor)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="fl">4.5</span>,<span class="fl">4.5</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>plt.scatter(X_xor[:,<span class="dv">0</span>], X_xor[:,<span class="dv">1</span>], c<span class="op">=</span>y_xor, cmap<span class="op">=</span><span class="st">&quot;coolwarm&quot;</span>, s<span class="op">=</span><span class="dv">150</span>, edgecolor<span class="op">=</span><span class="st">&quot;k&quot;</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i, (x1, x2) <span class="kw">in</span> <span class="bu">enumerate</span>(X_xor):</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    plt.annotate(<span class="ss">f&quot;(</span><span class="sc">{</span>x1<span class="sc">}</span><span class="ss">,</span><span class="sc">{</span>x2<span class="sc">}</span><span class="ss">)&quot;</span>, (x1, x2), textcoords<span class="op">=</span><span class="st">&quot;offset points&quot;</span>, xytext<span class="op">=</span>(<span class="dv">10</span>,<span class="dv">10</span>))</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="ss">f&quot;XOR — errores finales: </span><span class="sc">{</span>modelo_xor<span class="sc">.</span>errores_por_epoca[<span class="op">-</span><span class="dv">1</span>]<span class="sc">}</span><span class="ss"> (no converge a 0)&quot;</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>plt.xlim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>)<span class="op">;</span> plt.ylim(<span class="op">-</span><span class="fl">0.5</span>, <span class="fl">1.5</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-xor" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-xor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-xor-output-1.png" width="420" height="395" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-xor-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 4: El perceptrón simple no puede separar el problema XOR (no linealmente separable)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Este resultado —señalado críticamente por Minsky y Papert en 1969— es precisamente lo que causó el primer “invierno de la IA”: <strong>ningún hiperplano puede separar las clases del XOR.</strong> La solución, que veremos en la próxima unidad, requiere <strong>apilar múltiples capas de perceptrones</strong> (el Perceptrón Multicapa, MLP) con funciones de activación no lineales, entrenadas mediante <em>backpropagation</em>.</p>
+</section>
+<section id="perceptrón-vs.-regresión-logística-el-puente-conceptual" class="level2" data-number="4.7">
+<h2 data-number="4.7"><span class="header-section-number">4.7</span> Perceptrón vs. Regresión Logística: el puente conceptual</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Perceptrón</th>
+<th>Regresión Logística</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Activación</td>
+<td>Escalón (Heaviside)</td>
+<td>Sigmoide</td>
+</tr>
+<tr class="even">
+<td>Salida</td>
+<td>Binaria dura <span class="math inline">\(\{-1,+1\}\)</span></td>
+<td>Probabilidad continua <span class="math inline">\([0,1]\)</span></td>
+</tr>
+<tr class="odd">
+<td>Función de pérdida</td>
+<td>Implícita (regla de error)</td>
+<td>Entropía cruzada (log-loss)</td>
+</tr>
+<tr class="even">
+<td>Optimización</td>
+<td>Regla de actualización simple</td>
+<td>Descenso por gradiente</td>
+</tr>
+<tr class="odd">
+<td>Frontera de decisión</td>
+<td>Lineal</td>
+<td>Lineal</td>
+</tr>
+<tr class="even">
+<td>Interpretación probabilística</td>
+<td>No</td>
+<td>Sí</td>
+</tr>
+</tbody>
+</table>
+<p>Este puente es clave: <strong>reemplazar la función escalón por una sigmoide y usar descenso por gradiente en lugar de la regla del perceptrón nos lleva directamente a la neurona artificial moderna</strong>, el bloque de construcción de todas las redes profundas que estudiaremos en las próximas unidades.</p>
+<hr />
+</section>
+</section>
+<section id="el-ciclo-de-entrenamiento" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> El ciclo de entrenamiento</h1>
+<section id="de-la-regla-del-perceptrón-al-descenso-por-gradiente" class="level2" data-number="5.1">
+<h2 data-number="5.1"><span class="header-section-number">5.1</span> De la regla del Perceptrón al descenso por gradiente</h2>
+<p>La regla de actualización de Rosenblatt (<span class="math inline">\(\mathbf{w} \leftarrow \mathbf{w} + \eta \, y_i \, \mathbf{x}_i\)</span>) es en realidad un <strong>caso particular</strong> de un procedimiento mucho más general: el <strong>descenso por gradiente</strong> sobre una función de pérdida. Toda red neuronal moderna —desde un perceptrón hasta un Transformer con miles de millones de parámetros— se entrena siguiendo el mismo ciclo conceptual:</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb6"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>flowchart TD</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    A[1. Forward pass&lt;br&gt;calcular ŷ = f_θ x] --&gt; B[2. Calcular la pérdida&lt;br&gt;L ŷ, y]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[3. Backward pass&lt;br&gt;calcular ∂L/∂θ]</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[4. Actualizar parámetros&lt;br&gt;optimizador + learning rate]</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    D --&gt; E{¿Convergió o&lt;br&gt;fin de épocas?}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    E --&gt;|No| A</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    E --&gt;|Sí| F[Modelo entrenado]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TD
+    A[1. Forward pass&lt;br&gt;calcular ŷ = f_θ x] --&gt; B[2. Calcular la pérdida&lt;br&gt;L ŷ, y]
+    B --&gt; C[3. Backward pass&lt;br&gt;calcular ∂L/∂θ]
+    C --&gt; D[4. Actualizar parámetros&lt;br&gt;optimizador + learning rate]
+    D --&gt; E{¿Convergió o&lt;br&gt;fin de épocas?}
+    E --&gt;|No| A
+    E --&gt;|Sí| F[Modelo entrenado]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+<p>Este ciclo —repetido miles o millones de veces— es lo que llamamos <strong>entrenamiento</strong>. A continuación formalizamos cada uno de sus componentes.</p>
+</section>
+<section id="funciones-de-pérdida-loss-functions" class="level2" data-number="5.2">
+<h2 data-number="5.2"><span class="header-section-number">5.2</span> Funciones de pérdida (<em>Loss functions</em>)</h2>
+<p>La función de pérdida <span class="math inline">\(\mathcal{L}(\hat{y}, y)\)</span> cuantifica <strong>qué tan lejos</strong> está la predicción del modelo del valor real. Es la “brújula” que guía el aprendizaje: sin una pérdida bien elegida, el gradiente no tiene información útil que transmitir.</p>
+<section id="regresión-variables-continuas" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1"><span class="header-section-number">5.2.1</span> Regresión (variables continuas)</h3>
+<p><strong>Error cuadrático medio (MSE)</strong> — sensible a outliers, penaliza fuerte errores grandes. Útil, por ejemplo, para predecir dosis absorbida o parámetros dosimétricos continuos:</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{MSE}} = \frac{1}{N}\sum_{i=1}^{N} (y_i - \hat{y}_i)^2
+\]</span></p>
+<p><strong>Error absoluto medio (MAE)</strong> — más robusto a outliers:</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{MAE}} = \frac{1}{N}\sum_{i=1}^{N} |y_i - \hat{y}_i|
+\]</span></p>
+<p><strong>Huber Loss</strong> — combina lo mejor de ambas (cuadrática cerca de cero, lineal lejos):</p>
+<p><span class="math display">\[
+\mathcal{L}_{\delta}(y, \hat{y}) =
+\begin{cases}
+\frac{1}{2}(y-\hat{y})^2 &amp; \text{si } |y-\hat{y}| \leq \delta \\
+\delta \left(|y-\hat{y}| - \frac{1}{2}\delta\right) &amp; \text{en otro caso}
+\end{cases}
+\]</span></p>
+</section>
+<section id="clasificación" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2"><span class="header-section-number">5.2.2</span> Clasificación</h3>
+<p><strong>Entropía cruzada binaria (BCE)</strong> — para dos clases (p. ej. benigno/maligno):</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{BCE}} = -\frac{1}{N}\sum_{i=1}^{N} \left[ y_i \log \hat{p}_i + (1-y_i)\log(1-\hat{p}_i) \right]
+\]</span></p>
+<p><strong>Entropía cruzada categórica</strong> — para <span class="math inline">\(K\)</span> clases (p. ej. clasificación de tipos de tejido), usando la salida de una capa <em>softmax</em>:</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{CE}} = -\frac{1}{N}\sum_{i=1}^{N}\sum_{k=1}^{K} y_{i,k} \log \hat{p}_{i,k}, \qquad
+\hat{p}_{i,k} = \frac{e^{z_{i,k}}}{\sum_{j=1}^K e^{z_{i,j}}}
+\]</span></p>
+<p><strong>Dice Loss / IoU Loss</strong> — muy usadas en <strong>segmentación de imágenes médicas</strong> (contorneo de órganos, tumores), donde interesa la superposición espacial más que el error píxel a píxel:</p>
+<p><span class="math display">\[
+\mathcal{L}_{\text{Dice}} = 1 - \frac{2\sum_i y_i \hat{y}_i}{\sum_i y_i + \sum_i \hat{y}_i}
+\]</span></p>
+<div class="callout callout-style-default callout-tip callout-titled" title="Criterio práctico de elección">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Criterio práctico de elección
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>La elección de la función de pérdida <strong>no es un detalle técnico menor</strong>: codifica qué tipo de error le importa penalizar al clínico. En segmentación de órganos en riesgo, un Dice Loss es preferible a un MSE píxel a píxel porque refleja mejor el objetivo real (superposición de volúmenes).</p>
+</div>
+</div>
+</section>
+</section>
+<section id="visualización-de-la-superficie-de-pérdida-y-el-gradiente" class="level2" data-number="5.3">
+<h2 data-number="5.3"><span class="header-section-number">5.3</span> Visualización de la superficie de pérdida y el gradiente</h2>
+<div id="cell-fig-loss-surface" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Superficie de pérdida sintética (paraboloide con curvatura distinta en cada eje -&gt; ilustra mal condicionamiento)</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>w1 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">200</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>w2 <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">200</span>)</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>W1, W2 <span class="op">=</span> np.meshgrid(w1, w2)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>L <span class="op">=</span> <span class="fl">0.5</span><span class="op">*</span>W1<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> <span class="dv">4</span><span class="op">*</span>W2<span class="op">**</span><span class="dv">2</span>   <span class="co"># curvatura distinta en cada dirección</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradiente(w):</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array([w[<span class="dv">0</span>], <span class="dv">8</span><span class="op">*</span>w[<span class="dv">1</span>]])</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> descenso_gradiente(w0, lr, n_iter):</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> np.array(w0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    trayectoria <span class="op">=</span> [w.copy()]</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> w <span class="op">-</span> lr <span class="op">*</span> gradiente(w)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        trayectoria.append(w.copy())</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(trayectoria)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">11</span>, <span class="fl">4.5</span>))</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, lr, titulo <span class="kw">in</span> <span class="bu">zip</span>(axes, [<span class="fl">0.05</span>, <span class="fl">0.24</span>], [<span class="st">&quot;Learning rate pequeño (η=0.05)&quot;</span>, <span class="st">&quot;Learning rate grande (η=0.24)&quot;</span>]):</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>    ax.contour(W1, W2, L, levels<span class="op">=</span><span class="dv">25</span>, cmap<span class="op">=</span><span class="st">&quot;viridis&quot;</span>, alpha<span class="op">=</span><span class="fl">0.6</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> descenso_gradiente([<span class="fl">5.5</span>, <span class="fl">5.5</span>], lr, <span class="dv">25</span>)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>    ax.plot(traj[:,<span class="dv">0</span>], traj[:,<span class="dv">1</span>], <span class="st">&quot;o-&quot;</span>, color<span class="op">=</span><span class="st">&quot;crimson&quot;</span>, markersize<span class="op">=</span><span class="dv">3</span>, linewidth<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>    ax.scatter([<span class="dv">0</span>],[<span class="dv">0</span>], color<span class="op">=</span><span class="st">&quot;black&quot;</span>, marker<span class="op">=</span><span class="st">&quot;*&quot;</span>, s<span class="op">=</span><span class="dv">120</span>, label<span class="op">=</span><span class="st">&quot;Mínimo&quot;</span>)</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    ax.set_title(titulo, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    ax.set_xlabel(<span class="st">&quot;$w_1$&quot;</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">&quot;$w_2$&quot;</span>)</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    ax.legend()</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-loss-surface" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-loss-surface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-loss-surface-output-1.png" width="1048" height="422" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-loss-surface-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 5: Superficie de pérdida (MSE) en función de dos pesos y trayectoria del descenso por gradiente
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Este ejemplo ilustra dos fenómenos centrales que retomaremos: (i) cuando la superficie de pérdida está <strong>mal condicionada</strong> (curvaturas muy distintas entre direcciones), el descenso por gradiente simple zigzaguea; (ii) un <strong>learning rate</strong> demasiado alto puede provocar oscilaciones o divergencia.</p>
+</section>
+<section id="el-gradiente-y-el-algoritmo-de-descenso-por-gradiente" class="level2" data-number="5.4">
+<h2 data-number="5.4"><span class="header-section-number">5.4</span> El gradiente y el algoritmo de descenso por gradiente</h2>
+<p>Dado un conjunto de parámetros <span class="math inline">\(\theta\)</span> (pesos y sesgos de la red), el descenso por gradiente actualiza:</p>
+<p><span class="math display">\[
+\theta_{t+1} = \theta_t - \eta \, \nabla_\theta \mathcal{L}(\theta_t)
+\]</span></p>
+<p>donde <span class="math inline">\(\nabla_\theta \mathcal{L}\)</span> se calcula mediante <strong>backpropagation</strong> (regla de la cadena), tema que profundizaremos en la Unidad 2 cuando introduzcamos el Perceptrón Multicapa.</p>
+<section id="variantes-según-la-cantidad-de-datos-usados-por-actualización" class="level3" data-number="5.4.1">
+<h3 data-number="5.4.1"><span class="header-section-number">5.4.1</span> Variantes según la cantidad de datos usados por actualización</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+<col style="width: 25%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variante</th>
+<th>Datos por paso</th>
+<th>Ventaja</th>
+<th>Desventaja</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Batch Gradient Descent</strong></td>
+<td>Todo el dataset</td>
+<td>Gradiente exacto, convergencia estable</td>
+<td>Muy costoso, no escala a datasets grandes (ej. miles de volúmenes CT)</td>
+</tr>
+<tr class="even">
+<td><strong>Stochastic GD (SGD)</strong></td>
+<td>1 muestra</td>
+<td>Rápido, permite escapar de mínimos locales</td>
+<td>Ruidoso, oscila</td>
+</tr>
+<tr class="odd">
+<td><strong>Mini-batch GD</strong></td>
+<td>Un subconjunto (<span class="math inline">\(32, 64, 128, \dots\)</span>)</td>
+<td>Compromiso ideal; aprovecha GPU</td>
+<td>Requiere ajustar tamaño de batch</td>
+</tr>
+</tbody>
+</table>
+<p>En la práctica, <strong>prácticamente todo el entrenamiento moderno usa mini-batch GD</strong>, por ser el mejor compromiso entre estabilidad estadística del gradiente y eficiencia computacional en GPU.</p>
+</section>
+</section>
+<section id="optimizadores" class="level2" data-number="5.5">
+<h2 data-number="5.5"><span class="header-section-number">5.5</span> Optimizadores</h2>
+<p>Los optimizadores modernos mejoran el descenso por gradiente básico incorporando información adicional (momento, escalado adaptativo) para acelerar y estabilizar la convergencia, especialmente en superficies de pérdida no convexas y mal condicionadas (típicas en redes profundas).</p>
+<section id="sgd-con-momento" class="level3" data-number="5.5.1">
+<h3 data-number="5.5.1"><span class="header-section-number">5.5.1</span> SGD con Momento</h3>
+<p>Acumula una “inercia” de gradientes pasados para amortiguar el zigzagueo:</p>
+<p><span class="math display">\[
+v_{t} = \beta \, v_{t-1} + (1-\beta)\nabla_\theta \mathcal{L}(\theta_t)
+\]</span> <span class="math display">\[
+\theta_{t+1} = \theta_t - \eta \, v_t
+\]</span></p>
+<p>donde <span class="math inline">\(\beta \in [0,1)\)</span> (típicamente <span class="math inline">\(0.9\)</span>) es el coeficiente de momento.</p>
+</section>
+<section id="rmsprop" class="level3" data-number="5.5.2">
+<h3 data-number="5.5.2"><span class="header-section-number">5.5.2</span> RMSProp</h3>
+<p>Adapta la tasa de aprendizaje <strong>por parámetro</strong>, dividiendo por una media móvil de la magnitud de gradientes recientes:</p>
+<p><span class="math display">\[
+s_t = \beta s_{t-1} + (1-\beta)(\nabla_\theta \mathcal{L}(\theta_t))^2
+\]</span> <span class="math display">\[
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{s_t + \epsilon}}\nabla_\theta \mathcal{L}(\theta_t)
+\]</span></p>
+</section>
+<section id="adam-adaptive-moment-estimation" class="level3" data-number="5.5.3">
+<h3 data-number="5.5.3"><span class="header-section-number">5.5.3</span> Adam (<em>Adaptive Moment Estimation</em>)</h3>
+<p>Combina momento (primer momento) y escalado adaptativo (segundo momento). Es, hoy en día, el <strong>optimizador por defecto</strong> en la gran mayoría de los pipelines de Deep Learning aplicados a imágenes médicas:</p>
+<p><span class="math display">\[
+m_t = \beta_1 m_{t-1} + (1-\beta_1)\nabla_\theta \mathcal{L}(\theta_t), \qquad
+v_t = \beta_2 v_{t-1} + (1-\beta_2)(\nabla_\theta \mathcal{L}(\theta_t))^2
+\]</span> <span class="math display">\[
+\hat{m}_t = \frac{m_t}{1-\beta_1^t}, \qquad \hat{v}_t = \frac{v_t}{1-\beta_2^t}
+\]</span> <span class="math display">\[
+\theta_{t+1} = \theta_t - \frac{\eta}{\sqrt{\hat{v}_t}+\epsilon}\, \hat{m}_t
+\]</span></p>
+<p>con valores típicos <span class="math inline">\(\beta_1=0.9\)</span>, <span class="math inline">\(\beta_2=0.999\)</span>, <span class="math inline">\(\epsilon=10^{-8}\)</span>.</p>
+</section>
+<section id="comparación-visual-de-optimizadores" class="level3" data-number="5.5.4">
+<h3 data-number="5.5.4"><span class="header-section-number">5.5.4</span> Comparación visual de optimizadores</h3>
+<div id="cell-fig-optimizadores" class="cell" data-execution_count="6">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> sgd_momento(w0, lr, beta, n_iter):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> np.array(w0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>    v <span class="op">=</span> np.zeros_like(w)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> [w.copy()]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter):</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> gradiente(w)</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> beta<span class="op">*</span>v <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>beta)<span class="op">*</span>g</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> w <span class="op">-</span> lr<span class="op">*</span>v</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        traj.append(w.copy())</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(traj)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rmsprop(w0, lr, beta, n_iter, eps<span class="op">=</span><span class="fl">1e-8</span>):</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> np.array(w0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    s <span class="op">=</span> np.zeros_like(w)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> [w.copy()]</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter):</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> gradiente(w)</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        s <span class="op">=</span> beta<span class="op">*</span>s <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>beta)<span class="op">*</span>g<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> w <span class="op">-</span> lr<span class="op">*</span>g<span class="op">/</span>(np.sqrt(s)<span class="op">+</span>eps)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        traj.append(w.copy())</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(traj)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adam(w0, lr, b1, b2, n_iter, eps<span class="op">=</span><span class="fl">1e-8</span>):</span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> np.array(w0, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    m <span class="op">=</span> np.zeros_like(w)<span class="op">;</span> v <span class="op">=</span> np.zeros_like(w)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> [w.copy()]</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n_iter<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>        g <span class="op">=</span> gradiente(w)</span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>        m <span class="op">=</span> b1<span class="op">*</span>m <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>b1)<span class="op">*</span>g</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>        v <span class="op">=</span> b2<span class="op">*</span>v <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>b2)<span class="op">*</span>g<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>        m_hat <span class="op">=</span> m<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>b1<span class="op">**</span>t)<span class="op">;</span> v_hat <span class="op">=</span> v<span class="op">/</span>(<span class="dv">1</span><span class="op">-</span>b2<span class="op">**</span>t)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> w <span class="op">-</span> lr<span class="op">*</span>m_hat<span class="op">/</span>(np.sqrt(v_hat)<span class="op">+</span>eps)</span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>        traj.append(w.copy())</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(traj)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>w0 <span class="op">=</span> [<span class="fl">5.5</span>, <span class="fl">5.5</span>]</span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>traj_sgd    <span class="op">=</span> descenso_gradiente(w0, <span class="fl">0.05</span>, <span class="dv">30</span>)</span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>traj_mom    <span class="op">=</span> sgd_momento(w0, <span class="fl">0.05</span>, <span class="fl">0.9</span>, <span class="dv">30</span>)</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>traj_rms    <span class="op">=</span> rmsprop(w0, <span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="dv">30</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>traj_adam   <span class="op">=</span> adam(w0, <span class="fl">0.5</span>, <span class="fl">0.9</span>, <span class="fl">0.999</span>, <span class="dv">30</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">6</span>,<span class="fl">5.5</span>))</span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>plt.contour(W1, W2, L, levels<span class="op">=</span><span class="dv">25</span>, cmap<span class="op">=</span><span class="st">&quot;Greys&quot;</span>, alpha<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> traj, color, nombre <span class="kw">in</span> <span class="bu">zip</span>(</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>        [traj_sgd, traj_mom, traj_rms, traj_adam],</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>        [<span class="st">&quot;tab:blue&quot;</span>,<span class="st">&quot;tab:orange&quot;</span>,<span class="st">&quot;tab:green&quot;</span>,<span class="st">&quot;tab:red&quot;</span>],</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>        [<span class="st">&quot;SGD&quot;</span>, <span class="st">&quot;SGD+Momento&quot;</span>, <span class="st">&quot;RMSProp&quot;</span>, <span class="st">&quot;Adam&quot;</span>]):</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>    plt.plot(traj[:,<span class="dv">0</span>], traj[:,<span class="dv">1</span>], <span class="st">&quot;o-&quot;</span>, color<span class="op">=</span>color, markersize<span class="op">=</span><span class="fl">2.5</span>, linewidth<span class="op">=</span><span class="fl">1.2</span>, label<span class="op">=</span>nombre)</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>plt.scatter([<span class="dv">0</span>],[<span class="dv">0</span>], color<span class="op">=</span><span class="st">&quot;black&quot;</span>, marker<span class="op">=</span><span class="st">&quot;*&quot;</span>, s<span class="op">=</span><span class="dv">150</span>, zorder<span class="op">=</span><span class="dv">5</span>, label<span class="op">=</span><span class="st">&quot;Mínimo&quot;</span>)</span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;$w_1$&quot;</span>)<span class="op">;</span> plt.ylabel(<span class="st">&quot;$w_2$&quot;</span>)</span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&quot;Comparación de trayectorias de optimizadores&quot;</span>)</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-optimizadores" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-optimizadores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-optimizadores-output-1.png" width="568" height="518" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-optimizadores-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 6: Trayectorias de distintos optimizadores sobre la misma superficie de pérdida mal condicionada
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Noten cómo <strong>SGD puro</strong> avanza lento y con zigzagueo marcado en la dirección de mayor curvatura, mientras que <strong>Adam</strong> converge de forma mucho más directa gracias al escalado adaptativo por parámetro. Esta diferencia se vuelve crítica en redes con millones de parámetros y pérdidas altamente no convexas, como las usadas en segmentación de imágenes médicas 3D.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="learning-rate-tasa-de-aprendizaje" class="level2" data-number="5.6">
+<h2 data-number="5.6"><span class="header-section-number">5.6</span> Learning Rate (tasa de aprendizaje)</h2>
+<p>El <strong>learning rate</strong> <span class="math inline">\(\eta\)</span> es, posiblemente, el hiperparámetro más importante —y más delicado— de todo el entrenamiento.</p>
+<div id="cell-fig-lr-efectos" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gd_1d(w0, lr, n_iter, f_grad):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    w <span class="op">=</span> w0</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> [w]</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n_iter):</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        w <span class="op">=</span> w <span class="op">-</span> lr<span class="op">*</span>f_grad(w)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        traj.append(w)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> traj</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>f_grad_1d <span class="op">=</span> <span class="kw">lambda</span> w: <span class="dv">2</span><span class="op">*</span>w  <span class="co"># gradiente de L(w) = w^2</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="fl">4.5</span>))</span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>w_vals <span class="op">=</span> np.linspace(<span class="op">-</span><span class="dv">6</span>, <span class="dv">6</span>, <span class="dv">200</span>)</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>ax.plot(w_vals, w_vals<span class="op">**</span><span class="dv">2</span>, color<span class="op">=</span><span class="st">&quot;lightgray&quot;</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mathcal</span><span class="sc">{L}</span><span class="st">(w)=w^2$&quot;</span>)</span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>configs <span class="op">=</span> [(<span class="fl">0.02</span>, <span class="st">&quot;η muy bajo (0.02): convergencia lenta&quot;</span>, <span class="st">&quot;tab:blue&quot;</span>),</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>           (<span class="fl">0.5</span>,  <span class="st">&quot;η adecuado (0.5): convergencia eficiente&quot;</span>, <span class="st">&quot;tab:green&quot;</span>),</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>           (<span class="fl">1.05</span>, <span class="st">&quot;η muy alto (1.05): diverge&quot;</span>, <span class="st">&quot;tab:red&quot;</span>)]</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> lr, label, color <span class="kw">in</span> configs:</span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> gd_1d(<span class="fl">5.5</span>, lr, <span class="dv">12</span>, f_grad_1d)</span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>    traj <span class="op">=</span> np.clip(traj, <span class="op">-</span><span class="dv">8</span>, <span class="dv">8</span>)</span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>    ax.plot(traj, [w<span class="op">**</span><span class="dv">2</span> <span class="cf">if</span> <span class="bu">abs</span>(w)<span class="op">&lt;</span><span class="dv">8</span> <span class="cf">else</span> <span class="dv">60</span> <span class="cf">for</span> w <span class="kw">in</span> traj], <span class="st">&quot;o-&quot;</span>, color<span class="op">=</span>color, label<span class="op">=</span>label, markersize<span class="op">=</span><span class="dv">4</span>)</span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>ax.set_xlabel(<span class="st">&quot;$w$&quot;</span>)<span class="op">;</span> ax.set_ylabel(<span class="st">&quot;$</span><span class="ch">\\</span><span class="st">mathcal</span><span class="sc">{L}</span><span class="st">(w)$&quot;</span>)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>ax.set_ylim(<span class="op">-</span><span class="dv">2</span>, <span class="dv">40</span>)</span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>ax.legend(fontsize<span class="op">=</span><span class="dv">8</span>)</span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>ax.set_title(<span class="st">&quot;Efecto del learning rate en la convergencia (caso 1D)&quot;</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-lr-efectos" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-lr-efectos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-lr-efectos-output-1.png" width="663" height="422" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-lr-efectos-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 7: Efecto del learning rate sobre la convergencia: muy bajo, adecuado y muy alto (divergencia)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p><strong>Consecuencias de una mala elección:</strong></p>
+<ul>
+<li><span class="math inline">\(\eta\)</span> <strong>demasiado pequeño</strong> → convergencia extremadamente lenta; entrenamientos que en Física Médica pueden implicar horas/días de GPU se vuelven inviables.</li>
+<li><span class="math inline">\(\eta\)</span> <strong>demasiado grande</strong> → el modelo “salta” sobre el mínimo, oscila o <strong>diverge</strong> (la pérdida crece en vez de disminuir).</li>
+<li><span class="math inline">\(\eta\)</span> <strong>adecuado</strong> → convergencia eficiente hacia una buena solución.</li>
+</ul>
+<section id="estrategias-de-learning-rate-scheduling" class="level3" data-number="5.6.1">
+<h3 data-number="5.6.1"><span class="header-section-number">5.6.1</span> Estrategias de <em>Learning Rate Scheduling</em></h3>
+<p>En la práctica no se usa un <span class="math inline">\(\eta\)</span> fijo durante todo el entrenamiento, sino que se lo adapta dinámicamente:</p>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estrategia</th>
+<th>Descripción</th>
+<th>Uso típico</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Step decay</strong></td>
+<td>Reduce <span class="math inline">\(\eta\)</span> por un factor cada <span class="math inline">\(k\)</span> épocas</td>
+<td>Entrenamientos largos y estables</td>
+</tr>
+<tr class="even">
+<td><strong>Exponential decay</strong></td>
+<td><span class="math inline">\(\eta_t = \eta_0 e^{-kt}\)</span></td>
+<td>Decaimiento suave y continuo</td>
+</tr>
+<tr class="odd">
+<td><strong>Cosine annealing</strong></td>
+<td><span class="math inline">\(\eta\)</span> sigue una curva coseno hasta un mínimo</td>
+<td>Muy usado en visión por computadora médica</td>
+</tr>
+<tr class="even">
+<td><strong>Warm-up</strong></td>
+<td><span class="math inline">\(\eta\)</span> crece gradualmente al inicio antes de decaer</td>
+<td>Estabiliza el inicio del entrenamiento en redes muy profundas</td>
+</tr>
+<tr class="odd">
+<td><strong>ReduceLROnPlateau</strong></td>
+<td>Reduce <span class="math inline">\(\eta\)</span> cuando la métrica de validación deja de mejorar</td>
+<td>Estrategia adaptativa muy usada en la práctica clínica</td>
+</tr>
+</tbody>
+</table>
+</section>
+</section>
+<section id="otros-elementos-del-ciclo-de-entrenamiento" class="level2" data-number="5.7">
+<h2 data-number="5.7"><span class="header-section-number">5.7</span> Otros elementos del ciclo de entrenamiento</h2>
+<p>Más allá de pérdida, optimizador y learning rate, todo ciclo de entrenamiento involucra:</p>
+<ul>
+<li><strong>Épocas (epochs) y batches:</strong> una época = una pasada completa por todo el dataset de entrenamiento, dividido en <em>mini-batches</em>.</li>
+<li><strong>Conjuntos de entrenamiento / validación / test:</strong> el conjunto de <strong>validación</strong> permite monitorear el sobreajuste durante el entrenamiento (no se usa para actualizar pesos); el de <strong>test</strong> se reserva para la evaluación final.</li>
+<li><strong>Overfitting y regularización:</strong> técnicas como <em>weight decay</em> (<span class="math inline">\(L_2\)</span>), <em>dropout</em> o <em>early stopping</em> (detener el entrenamiento cuando la pérdida de validación deja de mejorar).</li>
+<li><strong>Inicialización de pesos:</strong> una mala inicialización (todos ceros, o valores muy grandes) puede impedir el aprendizaje o causar gradientes que explotan/desaparecen (<em>vanishing/exploding gradients</em>), problema que se agrava en redes profundas.</li>
+<li><strong>Criterio de parada:</strong> número fijo de épocas, <em>early stopping</em> sobre validación, o convergencia del gradiente por debajo de un umbral.</li>
+</ul>
+<div id="cell-fig-overfitting" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb10"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>epocas <span class="op">=</span> np.arange(<span class="dv">1</span>, <span class="dv">51</span>)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>loss_train <span class="op">=</span> <span class="fl">2.5</span><span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.08</span><span class="op">*</span>epocas) <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span>np.random.rand(<span class="dv">50</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>loss_val <span class="op">=</span> <span class="fl">2.5</span><span class="op">*</span>np.exp(<span class="op">-</span><span class="fl">0.07</span><span class="op">*</span>epocas) <span class="op">+</span> <span class="fl">0.002</span><span class="op">*</span>(epocas<span class="op">-</span><span class="dv">25</span>)<span class="op">**</span><span class="dv">2</span><span class="op">/</span><span class="dv">50</span> <span class="op">+</span> <span class="fl">0.05</span><span class="op">*</span>np.random.rand(<span class="dv">50</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">7</span>,<span class="fl">4.5</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>plt.plot(epocas, loss_train, label<span class="op">=</span><span class="st">&quot;Pérdida de entrenamiento&quot;</span>, color<span class="op">=</span><span class="st">&quot;tab:blue&quot;</span>)</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>plt.plot(epocas, loss_val, label<span class="op">=</span><span class="st">&quot;Pérdida de validación&quot;</span>, color<span class="op">=</span><span class="st">&quot;tab:red&quot;</span>)</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>punto_optimo <span class="op">=</span> np.argmin(loss_val)<span class="op">+</span><span class="dv">1</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>plt.axvline(punto_optimo, linestyle<span class="op">=</span><span class="st">&quot;--&quot;</span>, color<span class="op">=</span><span class="st">&quot;gray&quot;</span>, label<span class="op">=</span><span class="ss">f&quot;Early stopping (época </span><span class="sc">{</span>punto_optimo<span class="sc">}</span><span class="ss">)&quot;</span>)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">&quot;Época&quot;</span>)<span class="op">;</span> plt.ylabel(<span class="st">&quot;Pérdida&quot;</span>)</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">&quot;Overfitting y criterio de early stopping&quot;</span>)</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-overfitting" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-overfitting-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-overfitting-output-1.png" width="664" height="423" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-overfitting-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 8: Curvas típicas de entrenamiento: pérdida de entrenamiento vs. validación, ilustrando overfitting y el punto óptimo de early stopping
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-warning callout-titled" title="Relevancia clínica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Warning</span>Relevancia clínica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>En Física Médica, donde los datasets suelen ser <strong>pequeños</strong> en comparación con la visión por computadora general (pocos cientos o miles de pacientes por la dificultad de anotación experta), el control del overfitting mediante validación cruzada, regularización y <em>early stopping</em> es especialmente crítico para garantizar que el modelo generalice a nuevos pacientes y no memorice el conjunto de entrenamiento.</p>
+</div>
+</div>
+<hr />
+</section>
+</section>
+<section id="arquitecturas-cnn-u-net-vit" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Arquitecturas: CNN, U-Net, ViT</h1>
+<section id="del-perceptrón-multicapa-a-las-arquitecturas-especializadas" class="level2" data-number="6.1">
+<h2 data-number="6.1"><span class="header-section-number">6.1</span> Del Perceptrón Multicapa a las arquitecturas especializadas</h2>
+<p>El Perceptrón Multicapa (MLP) que resuelve el problema del XOR (ver Unidad 2) es, en principio, un <strong>aproximador universal</strong>: puede aproximar cualquier función continua con suficientes neuronas. Sin embargo, aplicado directamente a imágenes médicas de alta resolución (ej. una CT de <span class="math inline">\(512\times512\times300\)</span> vóxeles), un MLP totalmente conectado requeriría un número de parámetros inmanejable y no explotaría la estructura espacial de los datos. Esto motiva arquitecturas <strong>especializadas</strong>, con sesgos inductivos adaptados al tipo de dato.</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb11"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    A[MLP&lt;br&gt;totalmente conectado] --&gt;|explota estructura espacial local| B[CNN]</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    B --&gt;|encoder-decoder + skip connections| C[U-Net]</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>    A --&gt;|explota relaciones globales&lt;br&gt;vía atención| D[Transformer]</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    D --&gt;|aplicado a parches de imagen| E[Vision Transformer ViT]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[MLP&lt;br&gt;totalmente conectado] --&gt;|explota estructura espacial local| B[CNN]
+    B --&gt;|encoder-decoder + skip connections| C[U-Net]
+    A --&gt;|explota relaciones globales&lt;br&gt;vía atención| D[Transformer]
+    D --&gt;|aplicado a parches de imagen| E[Vision Transformer ViT]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+</section>
+<section id="redes-neuronales-convolucionales-cnn" class="level2" data-number="6.2">
+<h2 data-number="6.2"><span class="header-section-number">6.2</span> Redes Neuronales Convolucionales (CNN)</h2>
+<section id="la-operación-de-convolución" class="level3" data-number="6.2.1">
+<h3 data-number="6.2.1"><span class="header-section-number">6.2.1</span> La operación de convolución</h3>
+<p>En lugar de conectar cada neurona con <strong>todos</strong> los píxeles de entrada (como en un MLP), una capa convolucional aplica un <strong>filtro (kernel)</strong> pequeño y compartido que se desliza sobre la imagen:</p>
+<p><span class="math display">\[
+(I * K)(i,j) = \sum_{m}\sum_{n} I(i+m, j+n)\, K(m,n)
+\]</span></p>
+<p>Esto introduce dos sesgos inductivos clave, ambos muy adecuados para imágenes médicas:</p>
+<ul>
+<li><strong>Localidad:</strong> un píxel depende principalmente de su vecindario cercano (relevante en anatomía: un tumor se define por su entorno local).</li>
+<li><strong>Invariancia a traslación:</strong> el mismo filtro detecta un borde o una textura sin importar en qué parte de la imagen aparezca; los <strong>pesos se comparten</strong> en toda la imagen, reduciendo drásticamente el número de parámetros respecto de un MLP.</li>
+</ul>
+</section>
+<section id="bloques-típicos-de-una-cnn" class="level3" data-number="6.2.2">
+<h3 data-number="6.2.2"><span class="header-section-number">6.2.2</span> Bloques típicos de una CNN</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 50%" />
+<col style="width: 50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Capa</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Convolución</td>
+<td>Extrae <em>features</em> locales (bordes, texturas, luego estructuras complejas)</td>
+</tr>
+<tr class="even">
+<td>Activación (ReLU)</td>
+<td>Introduce no linealidad: <span class="math inline">\(\text{ReLU}(z) = \max(0,z)\)</span></td>
+</tr>
+<tr class="odd">
+<td>Pooling (Max/Average)</td>
+<td>Reduce resolución espacial, agrega invariancia local</td>
+</tr>
+<tr class="even">
+<td>Normalización (BatchNorm)</td>
+<td>Estabiliza y acelera el entrenamiento</td>
+</tr>
+<tr class="odd">
+<td>Capa totalmente conectada / Softmax</td>
+<td>Combina <em>features</em> globales para la predicción final</td>
+</tr>
+</tbody>
+</table>
+<div id="cell-fig-cnn-jerarquia" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb12"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">4</span>, figsize<span class="op">=</span>(<span class="dv">14</span>,<span class="fl">3.2</span>))</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>etapas <span class="op">=</span> [<span class="st">&quot;Entrada</span><span class="ch">\n</span><span class="st">(imagen CT)&quot;</span>, <span class="st">&quot;Capas iniciales</span><span class="ch">\n</span><span class="st">bordes y texturas&quot;</span>,</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>          <span class="st">&quot;Capas intermedias</span><span class="ch">\n</span><span class="st">contornos de órganos&quot;</span>, <span class="st">&quot;Capas profundas</span><span class="ch">\n</span><span class="st">patrones patológicos&quot;</span>]</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">1</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, etapa <span class="kw">in</span> <span class="bu">zip</span>(axes, etapas):</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>    ax.imshow(np.random.rand(<span class="dv">20</span>,<span class="dv">20</span>), cmap<span class="op">=</span><span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>    ax.set_title(etapa, fontsize<span class="op">=</span><span class="dv">9</span>)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    ax.axis(<span class="st">&quot;off&quot;</span>)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-cnn-jerarquia" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-cnn-jerarquia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-cnn-jerarquia-output-1.png" width="1265" height="301" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-cnn-jerarquia-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 9: Representaciones jerárquicas aprendidas por una CNN: de bordes simples a estructuras anatómicas complejas
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Aplicaciones de CNN en Física Médica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Aplicaciones de CNN en Física Médica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Clasificación de nódulos pulmonares (CT), detección de microcalcificaciones (mamografía), clasificación de retinopatía diabética (fondo de ojo), estimación de edad ósea (radiografía), y como <em>backbone</em> (columna vertebral) de arquitecturas de segmentación como la U-Net.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="u-net-arquitectura-de-referencia-para-segmentación-médica" class="level2" data-number="6.3">
+<h2 data-number="6.3"><span class="header-section-number">6.3</span> U-Net: arquitectura de referencia para segmentación médica</h2>
+<p>Propuesta por Ronneberger, Fischer &amp; Brox (2015) específicamente para segmentación biomédica, la <strong>U-Net</strong> es hoy el estándar de facto en segmentación de órganos, tumores y estructuras anatómicas en Física Médica (contorneo automático en radioterapia, segmentación de PET/CT, etc.).</p>
+<section id="arquitectura-encoder-decoder-con-conexiones-de-salto" class="level3" data-number="6.3.1">
+<h3 data-number="6.3.1"><span class="header-section-number">6.3.1</span> Arquitectura: encoder-decoder con conexiones de salto</h3>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb13"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    subgraph Encoder [Encoder - contracción]</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    direction TB</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>    E1[Conv+Conv 512x512] --&gt; E2[Conv+Conv 256x256]</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    E2 --&gt; E3[Conv+Conv 128x128]</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>    E3 --&gt; E4[Conv+Conv 64x64]</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>    E4 --&gt; BN[Bottleneck&lt;br&gt;32x32]</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>    subgraph Decoder [Decoder - expansión]</span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    direction TB</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    D1[Up-conv 64x64] --&gt; D2[Up-conv 128x128]</span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    D2 --&gt; D3[Up-conv 256x256]</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    D3 --&gt; D4[Up-conv 512x512&lt;br&gt;+ Softmax/Sigmoide]</span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    end</span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>    BN --&gt; D1</span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>    E4 -. skip connection .-&gt; D1</span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>    E3 -. skip connection .-&gt; D2</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    E2 -. skip connection .-&gt; D3</span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>    E1 -. skip connection .-&gt; D4</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>    D4 --&gt; OUT[Máscara de segmentación]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    subgraph Encoder [Encoder - contracción]
+    direction TB
+    E1[Conv+Conv 512x512] --&gt; E2[Conv+Conv 256x256]
+    E2 --&gt; E3[Conv+Conv 128x128]
+    E3 --&gt; E4[Conv+Conv 64x64]
+    end
+    E4 --&gt; BN[Bottleneck&lt;br&gt;32x32]
+    subgraph Decoder [Decoder - expansión]
+    direction TB
+    D1[Up-conv 64x64] --&gt; D2[Up-conv 128x128]
+    D2 --&gt; D3[Up-conv 256x256]
+    D3 --&gt; D4[Up-conv 512x512&lt;br&gt;+ Softmax/Sigmoide]
+    end
+    BN --&gt; D1
+    E4 -. skip connection .-&gt; D1
+    E3 -. skip connection .-&gt; D2
+    E2 -. skip connection .-&gt; D3
+    E1 -. skip connection .-&gt; D4
+    D4 --&gt; OUT[Máscara de segmentación]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Camino de contracción (encoder):</strong> convoluciones + pooling sucesivos que reducen la resolución espacial mientras aumentan la profundidad semántica (capturan <em>qué</em> hay en la imagen).</li>
+<li><strong>Camino de expansión (decoder):</strong> convoluciones transpuestas (<em>up-convolutions</em>) que recuperan la resolución espacial original (recuperan <em>dónde</em> está cada estructura).</li>
+<li><strong>Conexiones de salto (skip connections):</strong> concatenan mapas de <em>features</em> del encoder directamente con las capas correspondientes del decoder, preservando <strong>detalle espacial fino</strong> que de otro modo se perdería al comprimir la imagen — crítico para delinear bordes precisos de un órgano o tumor.</li>
+</ul>
+<p>La función de pérdida típica combina entropía cruzada con <strong>Dice Loss</strong> (introducida en la sección anterior), reflejando el objetivo real: maximizar la superposición volumétrica entre la predicción y el contorno de referencia (<em>ground truth</em> del oncólogo radioterapeuta).</p>
+</section>
+</section>
+<section id="vision-transformer-vit" class="level2" data-number="6.4">
+<h2 data-number="6.4"><span class="header-section-number">6.4</span> Vision Transformer (ViT)</h2>
+<section id="de-la-atención-en-nlp-a-las-imágenes" class="level3" data-number="6.4.1">
+<h3 data-number="6.4.1"><span class="header-section-number">6.4.1</span> De la atención en NLP a las imágenes</h3>
+<p>El <strong>Transformer</strong> (Vaswani et al., 2017) fue diseñado originalmente para procesamiento de lenguaje natural, basado en el mecanismo de <strong>auto-atención</strong> (<em>self-attention</em>), que permite a cada elemento de una secuencia “atender” directamente a cualquier otro elemento, sin importar la distancia entre ellos — a diferencia de la CNN, que solo ve un vecindario local por capa.</p>
+<p>Dosovitskiy et al. (2020) mostraron que esta misma idea puede aplicarse a imágenes:</p>
+<ol type="1">
+<li>La imagen se divide en <strong>parches</strong> no superpuestos (ej. <span class="math inline">\(16\times16\)</span> píxeles).</li>
+<li>Cada parche se aplana y se proyecta linealmente a un vector (<em>embedding</em>), análogo a un <em>token</em> en una oración.</li>
+<li>Se agregan <em>embeddings</em> de posición (la atención por sí sola no distingue el orden espacial).</li>
+<li>La secuencia de <em>embeddings</em> de parches se procesa con capas estándar de Transformer (auto-atención + MLP).</li>
+</ol>
+<p><span class="math display">\[
+\text{Atención}(Q,K,V) = \text{softmax}\left(\frac{QK^\top}{\sqrt{d_k}}\right)V
+\]</span></p>
+<p>donde <span class="math inline">\(Q\)</span> (<em>queries</em>), <span class="math inline">\(K\)</span> (<em>keys</em>) y <span class="math inline">\(V\)</span> (<em>values</em>) son proyecciones lineales de los <em>embeddings</em> de entrada, y <span class="math inline">\(d_k\)</span> es la dimensión de las <em>keys</em> (factor de escala que estabiliza el gradiente).</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb14"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    A[Imagen] --&gt; B[División en parches&lt;br&gt;16x16]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Embedding lineal&lt;br&gt;+ posición]</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[Bloques Transformer&lt;br&gt;auto-atención + MLP]</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Token de clasificación&lt;br&gt;o mapa de features]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Imagen] --&gt; B[División en parches&lt;br&gt;16x16]
+    B --&gt; C[Embedding lineal&lt;br&gt;+ posición]
+    C --&gt; D[Bloques Transformer&lt;br&gt;auto-atención + MLP]
+    D --&gt; E[Token de clasificación&lt;br&gt;o mapa de features]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+</section>
+<section id="cnn-vs.-vit-sesgo-inductivo-y-datos-necesarios" class="level3" data-number="6.4.2">
+<h3 data-number="6.4.2"><span class="header-section-number">6.4.2</span> CNN vs. ViT: sesgo inductivo y datos necesarios</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>CNN</th>
+<th>ViT</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Sesgo inductivo</td>
+<td>Fuerte (localidad, invariancia a traslación)</td>
+<td>Débil (aprende relaciones desde cero)</td>
+</tr>
+<tr class="even">
+<td>Relaciones capturadas</td>
+<td>Locales, jerárquicas</td>
+<td>Globales desde la primera capa</td>
+</tr>
+<tr class="odd">
+<td>Datos necesarios</td>
+<td>Funciona bien con datasets moderados</td>
+<td>Requiere datasets grandes (o <em>pre-entrenamiento</em>) para igualar/superar a CNN</td>
+</tr>
+<tr class="even">
+<td>Uso típico en Física Médica</td>
+<td>Backbone estándar, datasets pequeños/medianos</td>
+<td>Ganando terreno con <em>transfer learning</em> desde modelos pre-entrenados en grandes bases de imágenes</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>El menor sesgo inductivo del ViT es un arma de doble filo: le da mayor capacidad expresiva (puede modelar relaciones globales, útil para correlacionar hallazgos distantes en una imagen), pero también lo hace <strong>más dependiente de grandes volúmenes de datos</strong> — una limitación importante en Física Médica, donde el tamaño de los datasets suele ser reducido. Esto conecta directamente con la necesidad de <strong>transfer learning</strong>, tema que abordamos a continuación.</p>
+</div>
+</div>
+<hr />
+</section>
+</section>
+</section>
+<section id="funcionamiento-de-los-llms" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Funcionamiento de los LLMs</h1>
+<section id="qué-es-un-large-language-model" class="level2" data-number="7.1">
+<h2 data-number="7.1"><span class="header-section-number">7.1</span> ¿Qué es un Large Language Model?</h2>
+<p>Un <strong>LLM</strong> (<em>Large Language Model</em>) es un modelo de lenguaje —típicamente un Transformer <em>decoder-only</em> con miles de millones de parámetros— entrenado sobre enormes corpus de texto para predecir, de forma autorregresiva, la siguiente palabra (o <em>token</em>) de una secuencia:</p>
+<p><span class="math display">\[
+P(x_1, x_2, \dots, x_T) = \prod_{t=1}^{T} P(x_t \mid x_1, \dots, x_{t-1})
+\]</span></p>
+<p>El entrenamiento consiste en maximizar la verosimilitud de esta factorización sobre texto masivo (<strong>pre-entrenamiento auto-supervisado</strong>, sin necesidad de etiquetas manuales): la propia estructura del texto provee la señal de supervisión.</p>
+</section>
+<section id="componentes-clave" class="level2" data-number="7.2">
+<h2 data-number="7.2"><span class="header-section-number">7.2</span> Componentes clave</h2>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb15"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    A[Texto crudo] --&gt; B[Tokenización&lt;br&gt;subpalabras BPE]</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Embeddings + posición]</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>    C --&gt; D[Bloques Transformer&lt;br&gt;auto-atención causal]</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Capa de salida&lt;br&gt;softmax sobre vocabulario]</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    E --&gt; F[Siguiente token predicho]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    A[Texto crudo] --&gt; B[Tokenización&lt;br&gt;subpalabras BPE]
+    B --&gt; C[Embeddings + posición]
+    C --&gt; D[Bloques Transformer&lt;br&gt;auto-atención causal]
+    D --&gt; E[Capa de salida&lt;br&gt;softmax sobre vocabulario]
+    E --&gt; F[Siguiente token predicho]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+<ul>
+<li><strong>Tokenización:</strong> el texto se descompone en subpalabras (ej. <em>Byte-Pair Encoding</em>), no palabras completas ni caracteres individuales — un compromiso entre tamaño de vocabulario y capacidad de representar cualquier texto.</li>
+<li><strong>Auto-atención causal (<em>masked self-attention</em>):</strong> a diferencia del encoder de un ViT, en un LLM cada token solo puede atender a los tokens <strong>anteriores</strong> en la secuencia (para respetar la naturaleza autorregresiva de la generación de texto).</li>
+<li><strong>Escala:</strong> la capacidad de un LLM está determinada por el número de parámetros, el volumen de datos de entrenamiento y el cómputo empleado — relación descripta empíricamente por las <strong>leyes de escala</strong> (<em>scaling laws</em>, Kaplan et al., 2020), que muestran que la pérdida decrece de forma predecible (aproximadamente como ley de potencia) al aumentar estos tres factores.</li>
+<li><strong>Alineación posterior (RLHF / <em>instruction tuning</em>):</strong> tras el pre-entrenamiento, los modelos se ajustan con datos de instrucciones y retroalimentación humana para que sus respuestas sean útiles, seguras y sigan instrucciones — este paso es el que transforma un modelo “que completa texto” en un asistente conversacional.</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled" title="¿Por qué importa esto en Física Médica?">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>¿Por qué importa esto en Física Médica?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Aunque los LLMs no son el foco central de un curso de imágenes médicas, son cada vez más relevantes: generación automática de informes radiológicos a partir de hallazgos estructurados, extracción de información de historias clínicas no estructuradas, LLMs multimodales que combinan imagen + texto (ej. respuesta a preguntas sobre una radiografía), y como interfaz de lenguaje natural para herramientas de apoyo diagnóstico. Además, el mecanismo de auto-atención que sustenta a los LLMs es <strong>el mismo</strong> que vimos en el ViT — un hilo conductor arquitectónico entre visión y lenguaje.</p>
+</div>
+</div>
+<hr />
+</section>
+</section>
+<section id="transfer-learning" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Transfer Learning</h1>
+<section id="motivación-el-problema-del-dato-escaso-en-física-médica" class="level2" data-number="8.1">
+<h2 data-number="8.1"><span class="header-section-number">8.1</span> Motivación: el problema del dato escaso en Física Médica</h2>
+<p>Entrenar una CNN, U-Net o ViT <strong>desde cero</strong> requiere, típicamente, cientos de miles a millones de imágenes etiquetadas — algo excepcional en el ámbito clínico, donde el etiquetado requiere expertise médica especializada (radiólogos, físicos médicos) y los datasets suelen tener, en el mejor de los casos, algunos miles de casos. El <strong>transfer learning</strong> (aprendizaje por transferencia) resuelve esta brecha: en lugar de aprender representaciones desde cero, se parte de un modelo <strong>pre-entrenado</strong> en un dataset masivo (ej. ImageNet, o un modelo fundacional de imágenes médicas) y se lo adapta a la tarea específica.</p>
+<p><span class="math display">\[
+\underbrace{\theta_{\text{pre-entrenado}}}_{\text{tarea fuente, datos masivos}} \; \longrightarrow \; \underbrace{\theta_{\text{adaptado}}}_{\text{tarea objetivo, pocos datos}}
+\]</span></p>
+<p>La intuición: las capas iniciales de una CNN entrenada en ImageNet ya aprendieron a detectar bordes, texturas y formas básicas — <em>features</em> de bajo nivel razonablemente universales, útiles también para imágenes médicas, aunque el dominio de origen (fotografías naturales) difiera del de destino (imágenes médicas).</p>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb16"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    A[Modelo pre-entrenado&lt;br&gt;ej. en ImageNet&lt;br&gt;millones de imágenes] --&gt; B{Estrategia de adaptación}</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Fine-Tuning&lt;br&gt;reentrenar con pocos datos propios]</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    B --&gt; D[Few-Shot Learning&lt;br&gt;adaptar con muy pocos ejemplos]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Modelo pre-entrenado&lt;br&gt;ej. en ImageNet&lt;br&gt;millones de imágenes] --&gt; B{Estrategia de adaptación}
+    B --&gt; C[Fine-Tuning&lt;br&gt;reentrenar con pocos datos propios]
+    B --&gt; D[Few-Shot Learning&lt;br&gt;adaptar con muy pocos ejemplos]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+</section>
+<section id="fine-tuning" class="level2" data-number="8.2">
+<h2 data-number="8.2"><span class="header-section-number">8.2</span> Fine-Tuning</h2>
+<p>El <strong>fine-tuning</strong> consiste en tomar los pesos de un modelo pre-entrenado y continuar el entrenamiento (ajustarlos) sobre el dataset específico de la tarea objetivo, generalmente con un <strong>learning rate mucho menor</strong> al usado en el pre-entrenamiento (para no destruir las representaciones ya aprendidas).</p>
+<section id="estrategias-de-fine-tuning" class="level3" data-number="8.2.1">
+<h3 data-number="8.2.1"><span class="header-section-number">8.2.1</span> Estrategias de fine-tuning</h3>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estrategia</th>
+<th>Descripción</th>
+<th>Cuándo usarla</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Feature extraction (congelado)</strong></td>
+<td>Se congelan todos los pesos del backbone pre-entrenado; solo se entrena una nueva capa final (<em>head</em>)</td>
+<td>Dataset objetivo muy pequeño, similar al dominio de origen</td>
+</tr>
+<tr class="even">
+<td><strong>Fine-tuning parcial</strong></td>
+<td>Se descongelan las últimas capas del backbone y se entrenan junto con la nueva <em>head</em></td>
+<td>Dataset mediano, moderada diferencia de dominio</td>
+</tr>
+<tr class="odd">
+<td><strong>Fine-tuning completo</strong></td>
+<td>Se descongela toda la red y se reentrena completa con LR bajo</td>
+<td>Dataset suficientemente grande, o gran diferencia de dominio (ej. fotografías → imágenes médicas)</td>
+</tr>
+</tbody>
+</table>
+<div id="cell-fig-finetuning" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb17"><pre class="sourceCode python cell-code"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">12</span>,<span class="dv">3</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>capas <span class="op">=</span> [<span class="st">&quot;Conv 1&quot;</span>, <span class="st">&quot;Conv 2&quot;</span>, <span class="st">&quot;Conv 3&quot;</span>, <span class="st">&quot;Conv 4&quot;</span>, <span class="st">&quot;Head</span><span class="ch">\n</span><span class="st">(nueva)&quot;</span>]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>estrategias <span class="op">=</span> {</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Feature extraction&quot;</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>],</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Fine-tuning parcial&quot;</span>: [<span class="dv">0</span>,<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>],</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Fine-tuning completo&quot;</span>: [<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>],</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> ax, (nombre, estado) <span class="kw">in</span> <span class="bu">zip</span>(axes, estrategias.items()):</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    colores <span class="op">=</span> [<span class="st">&quot;tab:red&quot;</span> <span class="cf">if</span> e <span class="cf">else</span> <span class="st">&quot;tab:blue&quot;</span> <span class="cf">for</span> e <span class="kw">in</span> estado]</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a>    ax.barh(<span class="bu">range</span>(<span class="bu">len</span>(capas)), [<span class="dv">1</span>]<span class="op">*</span><span class="bu">len</span>(capas), color<span class="op">=</span>colores, edgecolor<span class="op">=</span><span class="st">&quot;black&quot;</span>)</span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>    ax.set_yticks(<span class="bu">range</span>(<span class="bu">len</span>(capas)))<span class="op">;</span> ax.set_yticklabels(capas)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>    ax.set_xticks([])</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>    ax.set_title(nombre, fontsize<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a>    ax.invert_yaxis()</span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a>congelado <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">&quot;tab:blue&quot;</span>, label<span class="op">=</span><span class="st">&quot;Congelado&quot;</span>)</span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>entrenable <span class="op">=</span> mpatches.Patch(color<span class="op">=</span><span class="st">&quot;tab:red&quot;</span>, label<span class="op">=</span><span class="st">&quot;Entrenable&quot;</span>)</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>fig.legend(handles<span class="op">=</span>[congelado, entrenable], loc<span class="op">=</span><span class="st">&quot;lower center&quot;</span>, ncol<span class="op">=</span><span class="dv">2</span>, bbox_to_anchor<span class="op">=</span>(<span class="fl">0.5</span>, <span class="op">-</span><span class="fl">0.05</span>))</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div id="fig-finetuning" class="quarto-float quarto-figure quarto-figure-center">
+<figure class="quarto-float quarto-float-fig">
+<div aria-describedby="fig-finetuning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="notas_files/figure-html/fig-finetuning-output-1.png" width="1145" height="300" />
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-finetuning-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure 10: Estrategias de fine-tuning: qué capas se congelan (azul) y cuáles se reentrenan (rojo)
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="callout callout-style-default callout-tip callout-titled" title="Regla práctica">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Tip</span>Regla práctica
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Cuanto <strong>menor</strong> sea el dataset objetivo y <strong>mayor</strong> su similitud con el dominio de pre-entrenamiento, más conviene <strong>congelar</strong> capas (evita sobreajuste sobre pocos datos). Cuanto mayor el dataset y mayor la diferencia de dominio, más conviene <strong>descongelar</strong> y reentrenar con LR bajo.</p>
+</div>
+</div>
+</section>
+</section>
+<section id="few-shot-learning" class="level2" data-number="8.3">
+<h2 data-number="8.3"><span class="header-section-number">8.3</span> Few-Shot Learning</h2>
+<p>El <strong>few-shot learning</strong> aborda un escenario aún más extremo: adaptar un modelo a una nueva tarea o clase con <strong>muy pocos ejemplos</strong> (típicamente entre 1 y algunas decenas), sin actualización sustancial de pesos vía gradiente descendente tradicional. Es especialmente relevante en Física Médica ante patologías raras, donde puede haber solo un puñado de casos documentados.</p>
+<section id="enfoques-principales" class="level3" data-number="8.3.1">
+<h3 data-number="8.3.1"><span class="header-section-number">8.3.1</span> Enfoques principales</h3>
+<ul>
+<li><strong>In-context learning (LLMs y modelos fundacionales):</strong> se le muestran al modelo, dentro del propio <em>prompt</em>, unos pocos ejemplos de entrada-salida, sin modificar ningún peso. El modelo “infiere” el patrón a partir del contexto:
+<ul>
+<li><em>Zero-shot:</em> ningún ejemplo, solo la instrucción de la tarea.</li>
+<li><em>One-shot:</em> un único ejemplo de referencia.</li>
+<li><em>Few-shot:</em> un puñado de ejemplos (ej. 2 a 10).</li>
+</ul></li>
+<li><strong>Metric/similarity learning (redes siamesas, <em>prototypical networks</em>):</strong> se aprende un espacio de <em>embeddings</em> donde ejemplos de la misma clase quedan cerca entre sí; la clasificación de un nuevo caso se hace por similitud (ej. distancia) al prototipo de cada clase, construido a partir de los pocos ejemplos disponibles.</li>
+<li><strong>Meta-learning (“aprender a aprender”):</strong> el modelo se entrena explícitamente sobre muchas tareas distintas de pocos ejemplos, de modo que aprenda una estrategia de adaptación rápida y generalizable a tareas nuevas nunca vistas.</li>
+</ul>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb18"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>flowchart TB</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    subgraph FS [Few-Shot Learning]</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    direction LR</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    A[Pocos ejemplos&lt;br&gt;de la nueva clase/tarea] --&gt; B{Enfoque}</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[In-context learning&lt;br&gt;vía prompt, sin actualizar pesos]</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>    B --&gt; D[Metric learning&lt;br&gt;comparación por similitud de embeddings]</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>    B --&gt; E[Meta-learning&lt;br&gt;optimizado para adaptación rápida]</span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    end</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart TB
+    subgraph FS [Few-Shot Learning]
+    direction LR
+    A[Pocos ejemplos&lt;br&gt;de la nueva clase/tarea] --&gt; B{Enfoque}
+    B --&gt; C[In-context learning&lt;br&gt;vía prompt, sin actualizar pesos]
+    B --&gt; D[Metric learning&lt;br&gt;comparación por similitud de embeddings]
+    B --&gt; E[Meta-learning&lt;br&gt;optimizado para adaptación rápida]
+    end
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="fine-tuning-vs.-few-shot-comparación" class="level2" data-number="8.4">
+<h2 data-number="8.4"><span class="header-section-number">8.4</span> Fine-Tuning vs. Few-Shot: comparación</h2>
+<table class="caption-top">
+<colgroup>
+<col style="width: 33%" />
+<col style="width: 33%" />
+<col style="width: 33%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>Fine-Tuning</th>
+<th>Few-Shot</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Cantidad de datos objetivo</td>
+<td>Decenas a miles de ejemplos</td>
+<td>1 a decenas de ejemplos</td>
+</tr>
+<tr class="even">
+<td>Actualización de pesos</td>
+<td>Sí (gradiente descendente)</td>
+<td>Generalmente no (in-context) o mínima (metric learning)</td>
+</tr>
+<tr class="odd">
+<td>Costo computacional</td>
+<td>Moderado-alto (reentrenamiento)</td>
+<td>Bajo (inferencia) a moderado (meta-entrenamiento previo)</td>
+</tr>
+<tr class="even">
+<td>Riesgo de overfitting</td>
+<td>Presente si el dataset es muy chico</td>
+<td>Mitigado por diseño (no memoriza pesos específicos)</td>
+</tr>
+<tr class="odd">
+<td>Ejemplo en Física Médica</td>
+<td>Adaptar una U-Net pre-entrenada en ImageNet a segmentación de próstata en RM con 200 pacientes</td>
+<td>Clasificar un tipo de lesión rara con 5 casos documentados usando un modelo fundacional de imágenes médicas</td>
+</tr>
+</tbody>
+</table>
+<div class="callout callout-style-default callout-important callout-titled" title="Síntesis conceptual">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class='callout-icon'></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Important</span>Síntesis conceptual
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Tanto el fine-tuning como el few-shot learning son respuestas al mismo problema estructural de la Física Médica: <strong>los datos etiquetados por expertos son escasos y costosos de obtener.</strong> La elección entre ambos —y entre sus variantes— depende fundamentalmente de cuántos datos objetivo se dispone y de qué tan distinto es el dominio de la tarea respecto del dataset de pre-entrenamiento.</p>
+</div>
+</div>
+<hr />
+</section>
+</section>
+<section id="síntesis-de-la-unidad" class="level1" data-number="9">
+<h1 data-number="9"><span class="header-section-number">9</span> Síntesis de la unidad</h1>
+<div class="cell" data-layout-align="default">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode" id="cb19"><pre class="sourceCode default cell-code"><code class="sourceCode default"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>flowchart LR</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    A[Modelos clásicos&lt;br&gt;Regresión, SVM, Árboles] --&gt; B[Regresión Logística&lt;br&gt;activación sigmoide]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    B --&gt; C[Perceptrón&lt;br&gt;Rosenblatt 1958]</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    C --&gt;|Limitación: XOR| D[Perceptrón Multicapa&lt;br&gt;+ Backpropagation]</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    C --&gt; G[Ciclo de entrenamiento&lt;br&gt;pérdida + optimizador + LR]</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    G --&gt; D</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    D --&gt; E[Arquitecturas especializadas&lt;br&gt;CNN, U-Net, ViT]</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    E --&gt; H[LLMs&lt;br&gt;Transformers autorregresivos]</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    E --&gt; I[Transfer Learning&lt;br&gt;Fine-Tuning / Few-Shot]</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    H --&gt; I</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>    I --&gt; F[Aplicaciones en&lt;br&gt;Física Médica]</span></code></pre></div>
+</details>
+<div class="cell-output-display">
+<div>
+<p><figure class=''></p>
+<div>
+<pre class="mermaid mermaid-js">flowchart LR
+    A[Modelos clásicos&lt;br&gt;Regresión, SVM, Árboles] --&gt; B[Regresión Logística&lt;br&gt;activación sigmoide]
+    B --&gt; C[Perceptrón&lt;br&gt;Rosenblatt 1958]
+    C --&gt;|Limitación: XOR| D[Perceptrón Multicapa&lt;br&gt;+ Backpropagation]
+    C --&gt; G[Ciclo de entrenamiento&lt;br&gt;pérdida + optimizador + LR]
+    G --&gt; D
+    D --&gt; E[Arquitecturas especializadas&lt;br&gt;CNN, U-Net, ViT]
+    E --&gt; H[LLMs&lt;br&gt;Transformers autorregresivos]
+    E --&gt; I[Transfer Learning&lt;br&gt;Fine-Tuning / Few-Shot]
+    H --&gt; I
+    I --&gt; F[Aplicaciones en&lt;br&gt;Física Médica]
+</pre>
+</div>
+<p></figure></p>
+</div>
+</div>
+</div>
+<p><strong>Puntos clave para retener:</strong></p>
+<ol type="1">
+<li>Los modelos clásicos siguen siendo el baseline obligatorio; su elección depende del volumen de datos, interpretabilidad requerida y naturaleza del problema.</li>
+<li>El Deep Learning no es una tecnología repentina: es el resultado de más de 70 años de desarrollo teórico, con dos “inviernos” causados por limitaciones algorítmicas y computacionales.</li>
+<li>El Perceptrón es la unidad fundacional de toda red neuronal, pero su incapacidad de resolver problemas no linealmente separables (XOR) motiva directamente el desarrollo de arquitecturas multicapa, tema de la Unidad 2.</li>
+<li>Todo entrenamiento —simple o profundo— sigue el mismo ciclo: <em>forward pass → cálculo de pérdida → backward pass → actualización de parámetros</em>. La elección de la función de pérdida, el optimizador y el learning rate no son detalles secundarios: determinan si el modelo converge, cuánto tarda, y si generaliza bien a nuevos pacientes.</li>
+<li>Las arquitecturas especializadas (CNN, U-Net, ViT) codifican distintos sesgos inductivos sobre la estructura espacial de la imagen: localidad e invariancia a traslación (CNN), preservación de detalle fino vía skip connections (U-Net), y relaciones globales vía auto-atención (ViT).</li>
+<li>Los LLMs comparten con el ViT el mismo mecanismo arquitectónico central —la auto-atención— aplicado a secuencias de texto en lugar de parches de imagen, entrenados de forma autorregresiva y auto-supervisada sobre corpus masivos.</li>
+<li>El transfer learning (fine-tuning y few-shot) es la respuesta estructural al problema de datos escasos en Física Médica: permite aprovechar representaciones aprendidas en datasets masivos y adaptarlas con relativamente pocos casos clínicos.</li>
+</ol>
+<section id="actividades-sugeridas" class="level2" data-number="9.1">
+<h2 data-number="9.1"><span class="header-section-number">9.1</span> Actividades sugeridas</h2>
+<ul>
+<li><strong>Práctica 1:</strong> Implementar el perceptrón y evaluarlo sobre un dataset radiómico real (ej. Wisconsin Breast Cancer) comparando con regresión logística.</li>
+<li><strong>Práctica 2:</strong> Sobre el mismo dataset, reemplazar la regla del perceptrón por descenso por gradiente explícito con distintas funciones de pérdida (MSE vs. BCE) y comparar curvas de convergencia.</li>
+<li><strong>Práctica 3:</strong> Entrenar el mismo modelo simple con SGD, SGD+Momento y Adam, variando el learning rate, y graficar las curvas de pérdida de entrenamiento/validación para identificar overfitting y el punto de early stopping.</li>
+<li><strong>Práctica 4:</strong> Implementar una CNN simple (con Keras/PyTorch) para clasificación de imágenes médicas (ej. subset de MedMNIST) y comparar contra un MLP totalmente conectado sobre las mismas imágenes.</li>
+<li><strong>Práctica 5:</strong> Tomar un backbone pre-entrenado en ImageNet (ej. ResNet18), aplicar las tres estrategias de fine-tuning (feature extraction, parcial, completo) sobre un dataset médico pequeño, y comparar curvas de validación y tiempo de entrenamiento.</li>
+<li><strong>Lectura obligatoria:</strong> Rosenblatt, F. (1958). <em>The perceptron: a probabilistic model for information storage and organization in the brain.</em> Psychological Review.</li>
+<li><strong>Lectura obligatoria:</strong> Ronneberger, O., Fischer, P. &amp; Brox, T. (2015). <em>U-Net: Convolutional Networks for Biomedical Image Segmentation.</em></li>
+<li><strong>Lectura complementaria:</strong> Minsky, M. &amp; Papert, S. (1969). <em>Perceptrons.</em> MIT Press (capítulo sobre limitaciones lineales).</li>
+<li><strong>Lectura complementaria:</strong> Kingma, D. P. &amp; Ba, J. (2015). <em>Adam: A Method for Stochastic Optimization.</em> ICLR.</li>
+<li><strong>Lectura complementaria:</strong> Dosovitskiy, A. et al. (2020). <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale.</em></li>
+<li><strong>Discusión en clase:</strong> ¿En qué escenarios clínicos actuales seguiría siendo preferible un modelo clásico interpretable sobre una red profunda? ¿Cómo afecta el tamaño reducido de los datasets médicos a la elección entre CNN y ViT, y entre fine-tuning y few-shot?</li>
+</ul>
+</section>
+<section id="bibliografía-de-la-unidad" class="level2" data-number="9.2">
+<h2 data-number="9.2"><span class="header-section-number">9.2</span> Bibliografía de la unidad</h2>
+<ul>
+<li>Goodfellow, I., Bengio, Y., &amp; Courville, A. (2016). <em>Deep Learning</em>. MIT Press. (Cap. 1, 4, 6, 8 y 9)</li>
+<li>Bishop, C. M. (2006). <em>Pattern Recognition and Machine Learning</em>. Springer.</li>
+<li>Rosenblatt, F. (1958). <em>The Perceptron: A Probabilistic Model for Information Storage and Organization in the Brain</em>. Psychological Review, 65(6), 386–408.</li>
+<li>Minsky, M., &amp; Papert, S. (1969). <em>Perceptrons: An Introduction to Computational Geometry</em>. MIT Press.</li>
+<li>Kingma, D. P., &amp; Ba, J. (2015). <em>Adam: A Method for Stochastic Optimization</em>. ICLR.</li>
+<li>Ruder, S. (2016). <em>An overview of gradient descent optimization algorithms</em>. arXiv:1609.04747.</li>
+<li>Ronneberger, O., Fischer, P., &amp; Brox, T. (2015). <em>U-Net: Convolutional Networks for Biomedical Image Segmentation</em>. MICCAI.</li>
+<li>Vaswani, A. et al. (2017). <em>Attention Is All You Need</em>. NeurIPS.</li>
+<li>Dosovitskiy, A. et al. (2020). <em>An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale</em>. arXiv:2010.11929.</li>
+<li>Kaplan, J. et al. (2020). <em>Scaling Laws for Neural Language Models</em>. arXiv:2001.08361.</li>
+<li>Brown, T. et al. (2020). <em>Language Models are Few-Shot Learners</em> (GPT-3). NeurIPS.</li>
+<li>Yang, Q., Zhang, Y., Dai, W., &amp; Pan, S. J. (2020). <em>Transfer Learning</em>. Cambridge University Press.</li>
+<li>El Naqa, I., Li, R., &amp; Murphy, M. J. (Eds.). (2015). <em>Machine Learning in Radiation Oncology</em>. Springer.</li>
+</ul>
+<div id="quarto-book-math" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWVuYWJsZS1tYXRoLWlubGluZQ=="><span class="math inline">\(e = mC^2\)</span></span></p>
+</div>
+<div id="quarto-navigation-envelope" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyLXRpdGxl">IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXItdGl0bGU=">IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uZXh0">Unidad 1 — Introducción a la IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOnVuZGVmaW5lZC0tLQ==">—</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tMQ==">Unidad 0 Introducción</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi91bmlkYWQwL25vdGFzLmh0bWxQcmVzZW50YWNpw7NuLWRlLWxhLW1hdGVyaWE=">Presentación de la materia</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi91bmlkYWQwL2NhbGVuZGFyaW8uaHRtbENhbGVuZGFyaW8=">Calendario</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi91bmlkYWQwL3ByZXNlbnRhY2lvbi5odG1sUHJlc2VudGFjacOzbi1kZS1sYS1tYXRlcmlh">Presentación de la materia</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOnF1YXJ0by1zaWRlYmFyLXNlY3Rpb24tMg==">Unidad 1 — Fundamentos de IA</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi91bmlkYWQxL25vdGFzLmh0bWxVbmlkYWQtMTotRnVuZGFtZW50b3MtZGUtSUEtYXBsaWNhZGEtYS1Gw61zaWNhLU3DqWRpY2E=">Unidad 1: Fundamentos de IA aplicada a Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1zaWRlYmFyOi91bmlkYWQxL3ByZXNlbnRhY2lvbi5odG1sVW5pZGFkLTEt4oCULUludHJvZHVjY2nDs24tYS1sYS1JQS1lbi1Gw61zaWNhLU3DqWRpY2E=">Unidad 1 — Introducción a la IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6SW5pY2lv">Inicio</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L2luZGV4Lmh0bWw=">/index.html</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6VW5pZGFkIDA=">Unidad 0</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3VuaWRhZDAvbm90YXMuaHRtbA==">/unidad0/notas.html</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6VW5pZGFkIDE=">Unidad 1</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6L3VuaWRhZDEvbm90YXMuaHRtbA==">/unidad1/notas.html</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWludC1uYXZiYXI6aHR0cHM6Ly9naXRodWIuY29tL2lnbmFjaW8tc2NhcmluY2kvaWEtZmlzaWNhLW1lZGljYQ==">https://github.com/ignacio-scarinci/ia-fisica-medica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWJyZWFkY3J1bWJzLVVuaWRhZC0xLeKAlC1GdW5kYW1lbnRvcy1kZS1JQQ==">Unidad 1 — Fundamentos de IA</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLWJyZWFkY3J1bWJzLVVuaWRhZC0xOi1GdW5kYW1lbnRvcy1kZS1JQS1hcGxpY2FkYS1hLUbDrXNpY2EtTcOpZGljYQ==">Unidad 1: Fundamentos de IA aplicada a Física Médica</span></p>
+</div>
+<div id="quarto-meta-markdown" class="hidden">
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGF0aXRsZQ==">Unidad 1: Fundamentos de IA aplicada a Física Médica – IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkdGl0bGU=">Unidad 1: Fundamentos de IA aplicada a Física Médica – IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZHRpdGxl">Unidad 1: Fundamentos de IA aplicada a Física Médica – IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlbmFtZQ==">IA en Física Médica</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLXR3aXR0ZXJjYXJkZGVzYw==">De los modelos clásicos al Perceptrón</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW9nY2FyZGRkZXNj">De los modelos clásicos al Perceptrón</span></p>
+<p><span class="hidden quarto-markdown-envelope-contents" data-render-id="cXVhcnRvLW1ldGFzaXRlZGVzYw==">Curso de posgrado — Inteligencia Artificial en Física Médica</span></p>
+</div>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id = "quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+  </div>
+  <div class="nav-page nav-page-next">
+      <a  href="/unidad1/presentacion.html" class="pagination-link" aria-label="Unidad 1 — Introducción a la IA en Física Médica">
+        <span class="nav-page-text">Unidad 1 — Introducción a la IA en Física Médica</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+</body>
+
+</html>
