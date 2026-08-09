@@ -8,6 +8,7 @@ name: Publicar sitio Quarto
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     permissions:
       contents: write
     steps:
@@ -17,6 +18,11 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
+      - name: Verificar Quarto y Pandoc
+        run: |
+          quarto --version
+          pandoc --version
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
@@ -25,9 +31,13 @@ jobs:
       - name: Instalar dependencias (si el sitio ejecuta código)
         run: pip install -r requirements.txt
 
-      - name: Render y publicar en gh-pages
+      - name: Renderizar sitio
+        run: quarto render --log-level debug
+
+      - name: Publicar en gh-pages
         uses: quarto-dev/quarto-actions/publish@v2
         with:
           target: gh-pages
+          render: "false"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
