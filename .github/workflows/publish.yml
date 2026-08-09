@@ -18,10 +18,9 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Verificar Quarto y Pandoc
+      - name: Verificar Quarto
         run: |
           quarto --version
-          pandoc --version
 
       - name: Set up Python
         uses: actions/setup-python@v5
