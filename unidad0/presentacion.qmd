@@ -5,16 +5,17 @@ format:
     theme: moon
     slide-number: true
     footer: "IA en Física Médica"
+    smaller: true
+    number-sections: false
 ---
 
-## Agenda
-
-## Cursado
+## Cursado {.smaller}
 
 - Modalidad: virtual
 - Clases: lunes y jueves de 19:00-21:00
 
-## Unidad 1: Fundamentos de IA
+## Unidad 1: Fundamentos de IA {.smaller}
+
 
 - Revisión de modelos clásicos
 - Introducción al Deep Learning,breve historia 
@@ -25,7 +26,7 @@ format:
   - Lerning rate
   - ...
 
-## Unidad 1: Fundamentos de IA (cont.)
+## Unidad 1: Fundamentos de IA (cont.) {.smaller}
 
 - Arquitecturas: CNN, U-Net, VIT
 - Funcionamiento de los LLMs
