@@ -80,9 +80,9 @@ responsabilidad y supervisión humana.
 
 ## Material de clase
 
-Repositorio del curso: [https://github.com/ignacio-scarinci/ia-fisica-medica](https://github.com/ignacio-scarinci/ia-fisica-medica)
+- Repositorio del curso: [https://github.com/ignacio-scarinci/ia-fisica-medica](https://github.com/ignacio-scarinci/ia-fisica-medica)
 
-Pagina web del curso: [https://ignacio-scarinci.github.io/ia-fisica-medica](https://ignacio-scarinci.github.io/ia-fisica-medica)
+- Pagina web del curso: [https://ignacio-scarinci.github.io/ia-fisica-medica](https://ignacio-scarinci.github.io/ia-fisica-medica)
 
 ## Aprobación
 
@@ -91,14 +91,14 @@ Pagina web del curso: [https://ignacio-scarinci.github.io/ia-fisica-medica](http
 
 ## Links de interés
 
-**Hugging Face**: [https://huggingface.co/](https://huggingface.co/)
-**Kaggle**: [https://www.kaggle.com/](https://www.kaggle.com/)
-**The Cancer Image Archive (TCIA)**: [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/)
+- **Hugging Face**: [https://huggingface.co/](https://huggingface.co/)
+- **Kaggle**: [https://www.kaggle.com/](https://www.kaggle.com/)
+- **The Cancer Image Archive (TCIA)**: [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/)
 
 ## Software/Frameworks/Librerias
 
 - Python 3.12/13
 - PyTorch
-- MONAI - *Medical Open Network for AI* (https://project-monai.github.io/)
+- MONAI - *Medical Open Network for AI* [https://project-monai.github.io/](https://project-monai.github.io/)
 - SimpleITK
 - GitHub Copilot
