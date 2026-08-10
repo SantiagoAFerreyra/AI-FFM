@@ -4,12 +4,10 @@ title: "IA en Física Médica"
 
 ## Bienvenidos/as
 
-Este es el sitio del curso de posgrado **Inteligencia Artificial aplicada a la Física Médica**.
+Este es el sitio del curso de posgrado **Inteligencia Artificial en Física Médica**.
 
 Acá vas a encontrar las notas de clase y las presentaciones de cada unidad.
-Los **notebooks de trabajos prácticos y tareas** no se publican en este sitio: están
-disponibles directamente en el repositorio de GitHub, dentro de la carpeta
-`notebooks/` de cada unidad.
+Los **notebooks de trabajos prácticos y tareas** no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta `notebooks/` de cada unidad.
 
 👉 [Ver el repositorio completo](https://github.com/ignacio-scarinci/ia-fisica-medica)
 
@@ -17,14 +15,22 @@ disponibles directamente en el repositorio de GitHub, dentro de la carpeta
 
 | Unidad | Notas | Presentación | Notebooks |
 |---|---|---|---|
-| 1 — Introducción | [Ver](unidad1/notas.qmd) | [Ver](unidad1/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad1/notebooks) |
-| 2 — Modelos | [Ver](unidad2/notas.qmd) | [Ver](unidad2/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad2/notebooks) |
+| 0 — Introducción | [Ver](unidad0/notas.qmd) | [Ver](unidad0/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad0/notebooks) |
+
+
 
 ### Cómo trabajar con los notebooks
 
+Para trabajar con los notebooks, dos opciones:
+
+1. Abrirlos directamente en GitHub y usar la opción de **Open in Colab** (requiere cuenta de Google).
+   
+2. Clonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:
 ```bash
 git clone https://github.com/ignacio-scarinci/ia-fisica-medica.git
 cd ia-fisica-medica
 pip install -r requirements.txt
 jupyter lab
 ```
+
+3. Descargar los notebooks.
