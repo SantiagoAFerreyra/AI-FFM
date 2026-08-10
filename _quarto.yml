@@ -19,8 +19,8 @@ website:
         text: Inicio
       - href: unidad0/notas.qmd
         text: Unidad 0  
-      - href: unidad1/notas.qmd
-        text: Unidad 1
+      # - href: unidad1/notas.qmd
+      #   text: Unidad 1
     right:
       - icon: github
         href: https://github.com/ignacio-scarinci/ia-fisica-medica
@@ -31,16 +31,16 @@ website:
     background: light
     contents:
       - text: "---"
-      - section: "Unidad 0 \n Introducción"
+      - section: "0.  Introducción"
         contents:
           - unidad0/notas.qmd
           - unidad0/calendario.qmd
           - unidad0/presentacion.qmd
-      - text: "---"
-      - section: "Unidad 1 — Fundamentos de IA"
-        contents:
-          - unidad1/notas.qmd
-          - unidad1/presentacion.qmd
+      # - text: "---"
+      # - section: "1. Fundamentos de IA"
+      #   contents:
+      #     - unidad1/notas.qmd
+      #     - unidad1/presentacion.qmd
 
 format:
   html:

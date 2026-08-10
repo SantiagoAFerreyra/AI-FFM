@@ -9,9 +9,10 @@ format:
 
 ## Agenda
 
-- Presentación de la materia
-- Aplicaciones en física médica
-- Flujo de trabajo de un proyecto
+## Cursado
+
+- Modalidad: virtual
+- Clases: lunes y jueves de 19:00-21:00
 
 ## Unidad 1: Fundamentos de IA
 
@@ -82,22 +83,9 @@ Repositorio del curso: [https://github.com/ignacio-scarinci/ia-fisica-medica](ht
 
 Pagina web del curso: [https://ignacio-scarinci.github.io/ia-fisica-medica](https://ignacio-scarinci.github.io/ia-fisica-medica)
 
-Clonar repositorio y actualizar el contenido de la carpeta `notebooks/` de cada unidad para acceder a los notebooks de práctica y tareas:
-
-```bash
-git clone https://github.com/ignacio-scarinci/ia-fisica-medica.git
-cd ia-fisica-medica
-git pull
-```
-
 
 ## Aprobación
 
 - Trabajos practicos
 - Proyecto final
-
-
-## Próxima clase
-
-Nos vemos con el notebook de práctica 🚀
 
