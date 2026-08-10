@@ -17,7 +17,9 @@ Presentación de la materia y de los objetivos del curso. Se presentarán los co
 ## Links de interés
 
 - **Hugging Face**: [https://huggingface.co/](https://huggingface.co/)
+
 - **Kaggle**: [https://www.kaggle.com/](https://www.kaggle.com/)
+
 - **The Cancer Image Archive (TCIA)**: [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/)
 
 ## Software/Frameworks/Librerias
