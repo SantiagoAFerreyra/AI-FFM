@@ -13,3 +13,17 @@ Presentación de la materia y de los objetivos del curso. Se presentarán los co
 
 - 📄 Programa del curso: [ver PDF](https://drive.google.com/file/d/1RXPOsP2VfH3lT_edhKEpFnqvNoP5yw3b/view?usp=drive_link)
 - 📊 Presentación de la clase: [ver slides](presentacion.qmd)
+
+## Links de interés
+
+**Hugging Face**: [https://huggingface.co/](https://huggingface.co/)
+**Kaggle**: [https://www.kaggle.com/](https://www.kaggle.com/)
+**The Cancer Image Archive (TCIA)**: [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/)
+
+## Software/Frameworks/Librerias
+
+- Python 3.12/13
+- PyTorch
+- MONAI - *Medical Open Network for AI* (https://project-monai.github.io/)
+- SimpleITK
+- GitHub Copilot

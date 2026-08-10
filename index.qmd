@@ -33,4 +33,4 @@ pip install -r requirements.txt
 jupyter lab
 ```
 
-3. Descargar los notebooks.
+3. Descargar los notebooks desde GitHub.
