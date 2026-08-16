@@ -8,8 +8,8 @@ project:
   # El sitio final se publica en la rama gh-pages, no en main.
 
 website:
-  title: "IA en Física Médica"
-  description: "Curso de posgrado — Inteligencia Artificial en Física Médica"
+  title: "Web Title"
+  description: "Web Description"
   page-navigation: true
   reader-mode: true
   navbar:
@@ -23,12 +23,12 @@ website:
       #   text: Unidad 1
     right:
       - icon: github
-        href: https://github.com/ignacio-scarinci/ia-fisica-medica
+        href: https://github.com/SantiagoAFerreyra/AI-FFM
 
   sidebar:
     style: "docked"
     search: true
-    background: light
+    background: dark
     contents:
       - text: "---"
       - section: "0.  Introducción"
@@ -44,7 +44,7 @@ website:
 
 format:
   html:
-    theme: cerulean
+    theme: darkly
     toc: true
     number-sections: true
     css: styles.css

@@ -1,10 +1,11 @@
 ---
-title: "IA en Física Médica"
+title: "Title Index"
 ---
 
 ## Bienvenidos/as
 
-Este es el sitio del curso de posgrado **Inteligencia Artificial en Física Médica**.
+Este sitio pretende ser de soporte para el borrador del trabajo de tesis de 
+grado en Lic. de Fisica, titulado **Desarrollo**
 
 Acá vas a encontrar las notas de clase y las presentaciones de cada unidad.
 Los **notebooks de trabajos prácticos y tareas** no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta `notebooks/` de cada unidad.
