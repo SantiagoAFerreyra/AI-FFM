@@ -17,8 +17,8 @@ website:
     left:
       - href: index.qmd
         text: Inicio
-      - href: unidad0/notas.qmd
-        text: Unidad 0  
+      #- href: unidad0/notas.qmd
+      #  text: Unidad 0  
       # - href: unidad1/notas.qmd
       #   text: Unidad 1
     right:

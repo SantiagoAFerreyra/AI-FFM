@@ -1,32 +1,31 @@
 ---
-title: "Title Index"
+title: "Índice"
 ---
 
 ## Bienvenidos/as
 
 Este sitio pretende ser de soporte para el borrador del trabajo de tesis de 
-grado en Lic. de Fisica, titulado **Desarrollo**
+grado en Lic. de Fisica, titulado "**Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de $^{177}$Lu en medios heterogéneos**".
 
-Acá vas a encontrar las notas de clase y las presentaciones de cada unidad.
-Los **notebooks de trabajos prácticos y tareas** no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta `notebooks/` de cada unidad.
+Acá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: `santiago.ferreyra@mi.unc.edu.ar`
 
-👉 [Ver el repositorio completo](https://github.com/ignacio-scarinci/ia-fisica-medica)
+👉 [Ver el repositorio completo](https://github.com/SantiagoAFerreyra/AI-FFM)
 
-### Organización del curso
+### Organización del trabajo
 
 | Unidad | Notas | Presentación | Notebooks |
 |---|---|---|---|
-| 0 — Introducción | [Ver](unidad0/notas.qmd) | [Ver](unidad0/presentacion.qmd) | [Carpeta](https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad0/notebooks) |
-
-
+| 0 - Plan de Trabajo ||||
+| 0 — Introducción | [Ver](unidad13/notas.qmd) | [Ver](unidad13/presentacion.qmd) | [Carpeta](https://github.com/SantiagoAFerreyra/AI-FFM/tree/main/unidad0/notebooks) |
 
 ### Cómo trabajar con los notebooks
 
 Para trabajar con los notebooks, dos opciones:
 
 1. Abrirlos directamente en GitHub y usar la opción de **Open in Colab** (requiere cuenta de Google).
-   
+
 2. Clonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:
+
 ```bash
 git clone https://github.com/ignacio-scarinci/ia-fisica-medica.git
 cd ia-fisica-medica
