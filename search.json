@@ -1,232 +1,142 @@
 [
   {
-    "objectID": "unidad0/presentacion.html#cursado",
-    "href": "unidad0/presentacion.html#cursado",
+    "objectID": "unidad13/presentacion.html#cursado",
+    "href": "unidad13/presentacion.html#cursado",
     "title": "Presentación de la materia",
     "section": "Cursado",
-    "text": "Cursado\n\nModalidad: virtual\nClases: lunes y jueves de 19:00-21:00",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Cursado\n\nModalidad: virtual\nClases: lunes y jueves de 19:00-21:00"
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-1-fundamentos-de-ia",
-    "href": "unidad0/presentacion.html#unidad-1-fundamentos-de-ia",
+    "objectID": "unidad13/presentacion.html#unidad-1-fundamentos-de-ia",
+    "href": "unidad13/presentacion.html#unidad-1-fundamentos-de-ia",
     "title": "Presentación de la materia",
     "section": "Unidad 1: Fundamentos de IA",
-    "text": "Unidad 1: Fundamentos de IA\n\nRevisión de modelos clásicos\nIntroducción al Deep Learning,breve historia\nRedes Neuronales simples: El algoritmo de perceptron\nEl ciclo de entrenamiento:\n\nFunciones de perdida\nOptimizadores\nLerning rate\n…",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 1: Fundamentos de IA\n\nRevisión de modelos clásicos\nIntroducción al Deep Learning,breve historia\nRedes Neuronales simples: El algoritmo de perceptron\nEl ciclo de entrenamiento:\n\nFunciones de perdida\nOptimizadores\nLerning rate\n…"
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-1-fundamentos-de-ia-cont.",
-    "href": "unidad0/presentacion.html#unidad-1-fundamentos-de-ia-cont.",
+    "objectID": "unidad13/presentacion.html#unidad-1-fundamentos-de-ia-cont.",
+    "href": "unidad13/presentacion.html#unidad-1-fundamentos-de-ia-cont.",
     "title": "Presentación de la materia",
     "section": "Unidad 1: Fundamentos de IA (cont.)",
-    "text": "Unidad 1: Fundamentos de IA (cont.)\n\nArquitecturas: CNN, U-Net, VIT\nFuncionamiento de los LLMs\nTransfer learning:\n\nFine-Tuning\nFew-Shot\n\nPyTorch, MONAI, SimpleITK\nDICOM, NIFTI\nBases de datos públicas de imágenes médicas anotadas.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 1: Fundamentos de IA (cont.)\n\nArquitecturas: CNN, U-Net, VIT\nFuncionamiento de los LLMs\nTransfer learning:\n\nFine-Tuning\nFew-Shot\n\nPyTorch, MONAI, SimpleITK\nDICOM, NIFTI\nBases de datos públicas de imágenes médicas anotadas."
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-2-segmetación",
-    "href": "unidad0/presentacion.html#unidad-2-segmetación",
+    "objectID": "unidad13/presentacion.html#unidad-2-segmetación",
+    "href": "unidad13/presentacion.html#unidad-2-segmetación",
     "title": "Presentación de la materia",
     "section": "Unidad 2: Segmetación",
-    "text": "Unidad 2: Segmetación\n\nSegmentación semántica en imágenes médicas\nMétricas: DICE, distacia Hausdorff, IoU, etc.\nRelevancia clínica de la segmentación automática de órganos en riesgo (OARs).\nParadigmas de segmentación:\n\nmodelos totalmente automáticos: nnU-Net\nmodelos guiados por experto: Med-SAM\n\nArquitectura, variantes y entrenamiento.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 2: Segmetación\n\nSegmentación semántica en imágenes médicas\nMétricas: DICE, distacia Hausdorff, IoU, etc.\nRelevancia clínica de la segmentación automática de órganos en riesgo (OARs).\nParadigmas de segmentación:\n\nmodelos totalmente automáticos: nnU-Net\nmodelos guiados por experto: Med-SAM\n\nArquitectura, variantes y entrenamiento."
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-3-detección-clasificación-y-diagnóstico-asistido",
-    "href": "unidad0/presentacion.html#unidad-3-detección-clasificación-y-diagnóstico-asistido",
+    "objectID": "unidad13/presentacion.html#unidad-3-detección-clasificación-y-diagnóstico-asistido",
+    "href": "unidad13/presentacion.html#unidad-3-detección-clasificación-y-diagnóstico-asistido",
     "title": "Presentación de la materia",
     "section": "Unidad 3: Detección, clasificación y diagnóstico asistido",
-    "text": "Unidad 3: Detección, clasificación y diagnóstico asistido\n\nDetección de regiones de interés en imágenes médicas\nClasificación de hallazgos\nExplicabilidad de modelos en contexto clínico: Grad-CAM y mapas de saliencia.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 3: Detección, clasificación y diagnóstico asistido\n\nDetección de regiones de interés en imágenes médicas\nClasificación de hallazgos\nExplicabilidad de modelos en contexto clínico: Grad-CAM y mapas de saliencia."
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-4-radioterapia-asistida-por-inteligencia-artificial",
-    "href": "unidad0/presentacion.html#unidad-4-radioterapia-asistida-por-inteligencia-artificial",
+    "objectID": "unidad13/presentacion.html#unidad-4-radioterapia-asistida-por-inteligencia-artificial",
+    "href": "unidad13/presentacion.html#unidad-4-radioterapia-asistida-por-inteligencia-artificial",
     "title": "Presentación de la materia",
     "section": "Unidad 4: Radioterapia asistida por inteligencia artificial",
-    "text": "Unidad 4: Radioterapia asistida por inteligencia artificial\n\nFlujo clínico de radioterapia: simulación, planificación y verificación dosimétrica.\nPredicción de planes de dosis y estimación de distribuciones 3D con redes profundas.\nKnowledge-Based Planning (KBP) asistido por IA.\nControl de calidad específico del paciente (patient-specific QA) en IMRT, VMAT y SBRT\nDetección de errores de posicionamiento a partir de imágenes CBCT.\nRadioterapia adaptativa guiada por IA (ART online).",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 4: Radioterapia asistida por inteligencia artificial\n\nFlujo clínico de radioterapia: simulación, planificación y verificación dosimétrica.\nPredicción de planes de dosis y estimación de distribuciones 3D con redes profundas.\nKnowledge-Based Planning (KBP) asistido por IA.\nControl de calidad específico del paciente (patient-specific QA) en IMRT, VMAT y SBRT\nDetección de errores de posicionamiento a partir de imágenes CBCT.\nRadioterapia adaptativa guiada por IA (ART online)."
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-5-síntesis-fusión-y-coregistro-de-imágenes-médicas",
-    "href": "unidad0/presentacion.html#unidad-5-síntesis-fusión-y-coregistro-de-imágenes-médicas",
+    "objectID": "unidad13/presentacion.html#unidad-5-síntesis-fusión-y-coregistro-de-imágenes-médicas",
+    "href": "unidad13/presentacion.html#unidad-5-síntesis-fusión-y-coregistro-de-imágenes-médicas",
     "title": "Presentación de la materia",
     "section": "Unidad 5: Síntesis, fusión y coregistro de imágenes médicas",
-    "text": "Unidad 5: Síntesis, fusión y coregistro de imágenes médicas\n\nRegistro rígido y deformable: métricas de similitud y algoritmos de optimización.\nRegistro basado en Deep Learning.\nFusión multimodal de imágenes: PET-CT, PET-MRI y CT-MRI.\nAplicaciones del coregistro.\nGeneración de CT sintético (sCT) a partir de MRI para dosimetría y radioterapia.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 5: Síntesis, fusión y coregistro de imágenes médicas\n\nRegistro rígido y deformable: métricas de similitud y algoritmos de optimización.\nRegistro basado en Deep Learning.\nFusión multimodal de imágenes: PET-CT, PET-MRI y CT-MRI.\nAplicaciones del coregistro.\nGeneración de CT sintético (sCT) a partir de MRI para dosimetría y radioterapia."
   },
   {
-    "objectID": "unidad0/presentacion.html#unidad-6-agentes-de-inteligencia-artificial-en-el-ámbito-clínico",
-    "href": "unidad0/presentacion.html#unidad-6-agentes-de-inteligencia-artificial-en-el-ámbito-clínico",
+    "objectID": "unidad13/presentacion.html#unidad-6-agentes-de-inteligencia-artificial-en-el-ámbito-clínico",
+    "href": "unidad13/presentacion.html#unidad-6-agentes-de-inteligencia-artificial-en-el-ámbito-clínico",
     "title": "Presentación de la materia",
     "section": "Unidad 6: Agentes de inteligencia artificial en el ámbito clínico",
-    "text": "Unidad 6: Agentes de inteligencia artificial en el ámbito clínico\n\nIntroducción a los grandes modelos de lenguaje (LLMs) y su potencial en medicina: capacidades, limitaciones y casos de uso.\nConcepto de agente de IA: qué es, cómo razona y cómo interactúa con herramientas externas. Aplicaciones emergentes en el ámbito clínico: consulta de literatura médica, soporte en la toma de decisiones y automatización de flujos de trabajo.\nConsideraciones éticas y de seguridad: sesgos, alucinaciones, responsabilidad y supervisión humana.\nPerspectivas futuras: modelos fundacionales médicos y la evolución hacia sistemas autónomos en entornos clínicos.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Unidad 6: Agentes de inteligencia artificial en el ámbito clínico\n\nIntroducción a los grandes modelos de lenguaje (LLMs) y su potencial en medicina: capacidades, limitaciones y casos de uso.\nConcepto de agente de IA: qué es, cómo razona y cómo interactúa con herramientas externas. Aplicaciones emergentes en el ámbito clínico: consulta de literatura médica, soporte en la toma de decisiones y automatización de flujos de trabajo.\nConsideraciones éticas y de seguridad: sesgos, alucinaciones, responsabilidad y supervisión humana.\nPerspectivas futuras: modelos fundacionales médicos y la evolución hacia sistemas autónomos en entornos clínicos."
   },
   {
-    "objectID": "unidad0/presentacion.html#material-de-clase",
-    "href": "unidad0/presentacion.html#material-de-clase",
+    "objectID": "unidad13/presentacion.html#material-de-clase",
+    "href": "unidad13/presentacion.html#material-de-clase",
     "title": "Presentación de la materia",
     "section": "Material de clase",
-    "text": "Material de clase\n\nRepositorio del curso: https://github.com/ignacio-scarinci/ia-fisica-medica\nPagina web del curso: https://ignacio-scarinci.github.io/ia-fisica-medica",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Material de clase\n\nRepositorio del curso: https://github.com/ignacio-scarinci/ia-fisica-medica\nPagina web del curso: https://ignacio-scarinci.github.io/ia-fisica-medica"
   },
   {
-    "objectID": "unidad0/presentacion.html#aprobación",
-    "href": "unidad0/presentacion.html#aprobación",
+    "objectID": "unidad13/presentacion.html#aprobación",
+    "href": "unidad13/presentacion.html#aprobación",
     "title": "Presentación de la materia",
     "section": "Aprobación",
-    "text": "Aprobación\n\nTrabajos practicos\nProyecto final",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Aprobación\n\nTrabajos practicos\nProyecto final"
   },
   {
-    "objectID": "unidad0/presentacion.html#links-de-interés",
-    "href": "unidad0/presentacion.html#links-de-interés",
+    "objectID": "unidad13/presentacion.html#links-de-interés",
+    "href": "unidad13/presentacion.html#links-de-interés",
     "title": "Presentación de la materia",
     "section": "Links de interés",
-    "text": "Links de interés\n\nHugging Face: https://huggingface.co/\nKaggle: https://www.kaggle.com/\nThe Cancer Image Archive (TCIA): https://www.cancerimagingarchive.net/",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Links de interés\n\nHugging Face: https://huggingface.co/\nKaggle: https://www.kaggle.com/\nThe Cancer Image Archive (TCIA): https://www.cancerimagingarchive.net/"
   },
   {
-    "objectID": "unidad0/presentacion.html#softwareframeworkslibrerias",
-    "href": "unidad0/presentacion.html#softwareframeworkslibrerias",
+    "objectID": "unidad13/presentacion.html#softwareframeworkslibrerias",
+    "href": "unidad13/presentacion.html#softwareframeworkslibrerias",
     "title": "Presentación de la materia",
     "section": "Software/Frameworks/Librerias",
-    "text": "Software/Frameworks/Librerias\n\nPython 3.12/13\nPyTorch\nMONAI - Medical Open Network for AI https://project-monai.github.io/\nSimpleITK\nGitHub Copilot",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Presentación de la materia"
-    ]
+    "text": "Software/Frameworks/Librerias\n\nPython 3.12/13\nPyTorch\nMONAI - Medical Open Network for AI https://project-monai.github.io/\nSimpleITK\nGitHub Copilot"
   },
   {
-    "objectID": "unidad0/calendario.html",
-    "href": "unidad0/calendario.html",
+    "objectID": "unidad13/calendario.html",
+    "href": "unidad13/calendario.html",
     "title": "Calendario",
     "section": "",
-    "text": "Fecha\nTema\nActividad\n\n\n\n\n10/08\nPresentación de la materia\n\n\n\n\nUnidad 1: Fundamentos de IA\n\n\n\n13/08\nIntroducción a la IA\nNotebook 0\n\n\n17/08\nFeriado\n-\n\n\n24/08\nEntrenamiento de modelos\nNotebook 1\n\n\n27/08\nCont.\nNotebook 1\n\n\n31/08\nArquitecturas en DL\nNotebook 1\n\n\n03/09\nCont.\nNotebook 1\n\n\n07/09\nRevisión de notebooks\nNotebook 1\n\n\n\nUnidad 2: Segmentación\n\n\n\n10/09\nSegmentación de imagenes medicas\nNotebook 2\n\n\n14/09\nMétricas de segmentación\nNotebook 2\n\n\n17/09\nParadigmas de segmentación\nNotebook 2\n\n\n21/09\nVariantes de segmentación\nNotebook 2\n\n\n24/09\nRevisión de notebooks\nNotebook 2\n\n\n\nUnidad 3: Detección, clasificación y diagnóstico asistido\n\n\n\n28/09\nModelos de detección\nNotebook 3\n\n\n01/10\nClasificación de hallazgos\nNotebook 3\n\n\n05/10\nExplicabilidad de modelos\nNotebook 3\n\n\n08/10\nRevisión de notebooks\nNotebook 3\n\n\n12/10\nFeriado\n-\n\n\n\nUnidad 4: Radioterapia asistida por inteligencia artificial\n\n\n\n15/10\nIA en Radioterapia\nRevision proyectos\n\n\n19/10\nCont.\nRevision proyectos\n\n\n\nUnidad 5: Síntesis, fusión y coregistro de imágenes médicas\n\n\n\n22/10\nCo-registro de imágenes\nNotebook 4\n\n\n26/10\nAplicaciones en imágenes médicas\nNotebook 4\n\n\n29/10\nRevisión de notebooks\nNotebook 4\n\n\n\nUnidad 6: Agentes de inteligencia artificial en el ámbito clínico\n\n\n\n02/11\nLLMs y medicina\nRevsion proyectos\n\n\n05/11\nAgentes de IA\nRevsion proyectos\n\n\n09/11\nCont.\nRevsion proyectos\n\n\n12/11\nEtica y seguridad en IA\nRevsion proyectos\n\n\n\nPresentación de proyectos finales\n\n\n\n16/11\nPresentación de proyectos\nPresentaciones\n\n\n19/11\nPresentación de proyectos\nPresentaciones\n\n\n\nPracticos\n13/08 Notebook 0: PyTorch y MONAI: ver notebook\n24/08 al 07/09 Notebook 1: Entrenamiento de modelos: ver notebook\n10/09 al 24/09 **Notebook 2: Segmentación de imágenes médicas: ver notebook\n28/09 al 08/10 **Notebook 3: Detección y clasificación de hallazgos: ver notebook\n22/10 al 29/10 **Notebook 4: Co-registro de imágenes médicas: ver notebook",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Calendario"
-    ]
+    "text": "Fecha\nTema\nActividad\n\n\n\n\n10/08\nPresentación de la materia\n\n\n\n\nUnidad 1: Fundamentos de IA\n\n\n\n13/08\nIntroducción a la IA\nNotebook 0\n\n\n17/08\nFeriado\n-\n\n\n24/08\nEntrenamiento de modelos\nNotebook 1\n\n\n27/08\nCont.\nNotebook 1\n\n\n31/08\nArquitecturas en DL\nNotebook 1\n\n\n03/09\nCont.\nNotebook 1\n\n\n07/09\nRevisión de notebooks\nNotebook 1\n\n\n\nUnidad 2: Segmentación\n\n\n\n10/09\nSegmentación de imagenes medicas\nNotebook 2\n\n\n14/09\nMétricas de segmentación\nNotebook 2\n\n\n17/09\nParadigmas de segmentación\nNotebook 2\n\n\n21/09\nVariantes de segmentación\nNotebook 2\n\n\n24/09\nRevisión de notebooks\nNotebook 2\n\n\n\nUnidad 3: Detección, clasificación y diagnóstico asistido\n\n\n\n28/09\nModelos de detección\nNotebook 3\n\n\n01/10\nClasificación de hallazgos\nNotebook 3\n\n\n05/10\nExplicabilidad de modelos\nNotebook 3\n\n\n08/10\nRevisión de notebooks\nNotebook 3\n\n\n12/10\nFeriado\n-\n\n\n\nUnidad 4: Radioterapia asistida por inteligencia artificial\n\n\n\n15/10\nIA en Radioterapia\nRevision proyectos\n\n\n19/10\nCont.\nRevision proyectos\n\n\n\nUnidad 5: Síntesis, fusión y coregistro de imágenes médicas\n\n\n\n22/10\nCo-registro de imágenes\nNotebook 4\n\n\n26/10\nAplicaciones en imágenes médicas\nNotebook 4\n\n\n29/10\nRevisión de notebooks\nNotebook 4\n\n\n\nUnidad 6: Agentes de inteligencia artificial en el ámbito clínico\n\n\n\n02/11\nLLMs y medicina\nRevsion proyectos\n\n\n05/11\nAgentes de IA\nRevsion proyectos\n\n\n09/11\nCont.\nRevsion proyectos\n\n\n12/11\nEtica y seguridad en IA\nRevsion proyectos\n\n\n\nPresentación de proyectos finales\n\n\n\n16/11\nPresentación de proyectos\nPresentaciones\n\n\n19/11\nPresentación de proyectos\nPresentaciones\n\n\n\nPracticos\n13/08 Notebook 0: PyTorch y MONAI: ver notebook\n24/08 al 07/09 Notebook 1: Entrenamiento de modelos: ver notebook\n10/09 al 24/09 **Notebook 2: Segmentación de imágenes médicas: ver notebook\n28/09 al 08/10 **Notebook 3: Detección y clasificación de hallazgos: ver notebook\n22/10 al 29/10 **Notebook 4: Co-registro de imágenes médicas: ver notebook"
   },
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Title Index",
+    "title": "Índice",
     "section": "",
-    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado Desarrollo\nAcá vas a encontrar las notas de clase y las presentaciones de cada unidad. Los notebooks de trabajos prácticos y tareas no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta notebooks/ de cada unidad.\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
+    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
   },
   {
     "objectID": "index.html#bienvenidosas",
     "href": "index.html#bienvenidosas",
-    "title": "Title Index",
+    "title": "Índice",
     "section": "",
-    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado Desarrollo\nAcá vas a encontrar las notas de clase y las presentaciones de cada unidad. Los notebooks de trabajos prácticos y tareas no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta notebooks/ de cada unidad.\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
+    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
   },
   {
-    "objectID": "unidad0/notas.html",
-    "href": "unidad0/notas.html",
+    "objectID": "unidad13/notas.html",
+    "href": "unidad13/notas.html",
     "title": "Notas",
     "section": "",
-    "text": "Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Notas"
-    ]
+    "text": "Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso."
   },
   {
-    "objectID": "unidad0/notas.html#objetivos-de-la-unidad",
-    "href": "unidad0/notas.html#objetivos-de-la-unidad",
+    "objectID": "unidad13/notas.html#objetivos-de-la-unidad",
+    "href": "unidad13/notas.html#objetivos-de-la-unidad",
     "title": "Notas",
     "section": "",
-    "text": "Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso.",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Notas"
-    ]
+    "text": "Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso."
   },
   {
-    "objectID": "unidad0/notas.html#material-complementario",
-    "href": "unidad0/notas.html#material-complementario",
+    "objectID": "unidad13/notas.html#material-complementario",
+    "href": "unidad13/notas.html#material-complementario",
     "title": "Notas",
     "section": "2 Material complementario",
-    "text": "2 Material complementario\n\n📄 Programa del curso: ver PDF\n📊 Presentación de la clase: ver slides",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Notas"
-    ]
+    "text": "2 Material complementario\n\n📄 Programa del curso: ver PDF\n📊 Presentación de la clase: ver slides"
   },
   {
-    "objectID": "unidad0/notas.html#links-de-interés",
-    "href": "unidad0/notas.html#links-de-interés",
+    "objectID": "unidad13/notas.html#links-de-interés",
+    "href": "unidad13/notas.html#links-de-interés",
     "title": "Notas",
     "section": "3 Links de interés",
-    "text": "3 Links de interés\n\nHugging Face: https://huggingface.co/\nKaggle: https://www.kaggle.com/\nThe Cancer Image Archive (TCIA): https://www.cancerimagingarchive.net/",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Notas"
-    ]
+    "text": "3 Links de interés\n\nHugging Face: https://huggingface.co/\nKaggle: https://www.kaggle.com/\nThe Cancer Image Archive (TCIA): https://www.cancerimagingarchive.net/"
   },
   {
-    "objectID": "unidad0/notas.html#softwareframeworkslibrerias",
-    "href": "unidad0/notas.html#softwareframeworkslibrerias",
+    "objectID": "unidad13/notas.html#softwareframeworkslibrerias",
+    "href": "unidad13/notas.html#softwareframeworkslibrerias",
     "title": "Notas",
     "section": "4 Software/Frameworks/Librerias",
-    "text": "4 Software/Frameworks/Librerias\n\nPython 3.12/13\nPyTorch\nMONAI - Medical Open Network for AI https://project-monai.github.io/\nSimpleITK\nGitHub Copilot",
-    "crumbs": [
-      "Inicio",
-      "0.  Introducción",
-      "Notas"
-    ]
+    "text": "4 Software/Frameworks/Librerias\n\nPython 3.12/13\nPyTorch\nMONAI - Medical Open Network for AI https://project-monai.github.io/\nSimpleITK\nGitHub Copilot"
   }
 ]

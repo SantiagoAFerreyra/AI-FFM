@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Title Index – Web Title</title>
+<title>Índice – Web Title</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -80,7 +80,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-b85bc7c33db8c58e0ec93c3465666fed.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-3981a193d50087cacf555dd57806f448.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-3ea11fb4f943239e0be330da71e92d7b.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -109,6 +109,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -134,10 +163,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Inicio</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./unidad0/notas.html"> 
-<span class="menu-text">Unidad 0</span></a>
-  </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
@@ -161,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Title Index</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Índice</li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -192,23 +217,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       </div>
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./unidad0/notas.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Notas</span></a>
-  </div>
-</li>
+ <span class="menu-text">unidad0/notas.qmd</span>
+  </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./unidad0/calendario.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Calendario</span></a>
-  </div>
-</li>
+ <span class="menu-text">unidad0/calendario.qmd</span>
+  </li>
           <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./unidad0/presentacion.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Presentación de la materia</span></a>
-  </div>
-</li>
+ <span class="menu-text">unidad0/presentacion.qmd</span>
+  </li>
       </ul>
   </li>
     </ul>
@@ -223,7 +239,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul>
   <li><a href="#bienvenidosas" id="toc-bienvenidosas" class="nav-link active" data-scroll-target="#bienvenidosas"><span class="header-section-number">1</span> Bienvenidos/as</a>
   <ul class="collapse">
-  <li><a href="#organización-del-curso" id="toc-organización-del-curso" class="nav-link" data-scroll-target="#organización-del-curso"><span class="header-section-number">1.1</span> Organización del curso</a></li>
+  <li><a href="#organización-del-trabajo" id="toc-organización-del-trabajo" class="nav-link" data-scroll-target="#organización-del-trabajo"><span class="header-section-number">1.1</span> Organización del trabajo</a></li>
   <li><a href="#cómo-trabajar-con-los-notebooks" id="toc-cómo-trabajar-con-los-notebooks" class="nav-link" data-scroll-target="#cómo-trabajar-con-los-notebooks"><span class="header-section-number">1.2</span> Cómo trabajar con los notebooks</a></li>
   </ul></li>
   </ul>
@@ -234,7 +250,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Title Index</h1>
+<h1 class="title">Índice</h1>
 </div>
 
 
@@ -253,11 +269,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="bienvenidosas" class="level2" data-number="1">
 <h2 data-number="1" class="anchored" data-anchor-id="bienvenidosas"><span class="header-section-number">1</span> Bienvenidos/as</h2>
-<p>Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado <strong>Desarrollo</strong></p>
-<p>Acá vas a encontrar las notas de clase y las presentaciones de cada unidad. Los <strong>notebooks de trabajos prácticos y tareas</strong> no se publican en este sitio: están disponibles directamente en el repositorio de GitHub, dentro de la carpeta <code>notebooks/</code> de cada unidad.</p>
-<p>👉 <a href="https://github.com/ignacio-scarinci/ia-fisica-medica">Ver el repositorio completo</a></p>
-<section id="organización-del-curso" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="organización-del-curso"><span class="header-section-number">1.1</span> Organización del curso</h3>
+<p>Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “<strong>Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de <span class="math inline">\(^{177}\)</span>Lu en medios heterogéneos</strong>”.</p>
+<p>Acá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: <code>santiago.ferreyra@mi.unc.edu.ar</code></p>
+<p>👉 <a href="https://github.com/SantiagoAFerreyra/AI-FFM">Ver el repositorio completo</a></p>
+<section id="organización-del-trabajo" class="level3" data-number="1.1">
+<h3 data-number="1.1" class="anchored" data-anchor-id="organización-del-trabajo"><span class="header-section-number">1.1</span> Organización del trabajo</h3>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -269,10 +285,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </thead>
 <tbody>
 <tr class="odd">
+<td>0 - Plan de Trabajo</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
 <td>0 — Introducción</td>
-<td><a href="./unidad0/notas.html">Ver</a></td>
-<td><a href="./unidad0/presentacion.html">Ver</a></td>
-<td><a href="https://github.com/ignacio-scarinci/ia-fisica-medica/tree/main/unidad0/notebooks">Carpeta</a></td>
+<td><a href="./unidad13/notas.html">Ver</a></td>
+<td><a href="./unidad13/presentacion.html">Ver</a></td>
+<td><a href="https://github.com/SantiagoAFerreyra/AI-FFM/tree/main/unidad0/notebooks">Carpeta</a></td>
 </tr>
 </tbody>
 </table>
