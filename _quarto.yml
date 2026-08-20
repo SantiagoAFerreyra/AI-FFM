@@ -8,8 +8,8 @@ project:
   # El sitio final se publica en la rama gh-pages, no en main.
 
 website:
-  title: "Web Title"
-  description: "Web Description"
+  title: "Traajo Final"
+  description: "Trabajo Final de Tesis"
   page-navigation: true
   reader-mode: true
   navbar:
@@ -17,8 +17,8 @@ website:
     left:
       - href: index.qmd
         text: Inicio
-      #- href: unidad0/notas.qmd
-      #  text: Unidad 0  
+      - href: unidad0/notas.qmd
+        text: Unidad 0
       # - href: unidad1/notas.qmd
       #   text: Unidad 1
     right:
@@ -31,11 +31,11 @@ website:
     background: dark
     contents:
       - text: "---"
-      - section: "0.  Introducción"
+      - section: "RAFA 2026"
         contents:
           - unidad0/notas.qmd
-          - unidad0/calendario.qmd
-          - unidad0/presentacion.qmd
+      #    - unidad0/calendario.qmd
+      #    - unidad0/presentacion.qmd
       # - text: "---"
       # - section: "1. Fundamentos de IA"
       #   contents:

@@ -1,0 +1,37 @@
+---
+title: "Resumen"
+format:
+  html:
+    toc: true
+---
+
+## Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de $^{177}$Lu en medios heterogéneos
+
+La dosimetría interna personalizada en terapia con $^{177}$Lu-PSMA requiere la estimación precisa de la distribución espacial de dosis absorbida en tejidos heterogéneos. Las simulaciones Monte Carlo (MC) constituyen el estándar de referencia, pero sus elevados tiempos de cómputo limitan su aplicabilidad clínica rutinaria. Los métodos de convolución con Núcleos Voxelizados de Dosis (VDK, \textit{Voxel Dose Kernels}) representan una alternativa eficiente, aunque su precisión disminuye en medios con importantes variaciones de densidad y composición. En este trabajo se propone el uso de redes neuronales profundas para la predicción de VDKs específicos de $^{177}$Lu a partir de imágenes CT, preservando la precisión del cálculo MC con tiempos de inferencia compatibles con la práctica clínica.
+
+Se generó una base de datos de 10.000 kernels dosimétricos tridimensionales ($31 \times 31 \times 31$ vóxeles, resolución 1\,mm isotrópico) mediante el código Monte Carlo FLUKA, utilizando \textit{patches} de CT de pacientes como fantasmas heterogéneos. Se compararon cuatro arquitecturas de redes neuronales: una red convolucional con \textit{Atrous Spatial Pyramid Pooling} (DATROUS4), una U-Net con bloques residuales profundos (DRESUnet), y dos variantes de UNETR (\textit{UNet TRansformers}) de capacidad creciente. El entrenamiento se realizó con validación cruzada de 5 \textit{folds} sobre 9.500 muestras, función de pérdida MAE y optimizador AdamW. La evaluación se llevó a cabo sobre 500 \textit{patches} de test fijo mediante métricas complementarias: MAE absoluto (mGy/MBq), RMSE, NRMSE y VRAE (\textit{Voxel Relative Absolute Error}).
+
+Las arquitecturas basadas en \textit{transformers} obtuvieron el mejor desempeño: UNETR-Base alcanzó un $\text{MAE} = 5.03 \times 10^{-4}$\,mGy/MBq y un $\text{VRAE} = 3.48 \pm 6.35\,\%$, seguida de UNETR-Light con resultados prácticamente equivalentes ($\text{MAE} = 5.08 \times 10^{-4}$\,mGy/MBq, $\text{VRAE} = 3.59 \pm 6.35\,\%$).
+
+Los resultados demuestran la viabilidad del aprendizaje profundo para la predicción de VDKs de $^{177}$Lu en medios heterogéneos, con errores del orden del $3\,\%$ al $10\,\%$ respecto a la simulación MC de referencia según la arquitectura empleada. Las redes basadas en \textit{transformers} superaron a las arquitecturas convolucionales clásicas, con la ventaja adicional de ser independientes del tamaño de entrada, facilitando su futura extensión a volúmenes de paciente completo mediante técnicas de ventana deslizante. Como siguiente paso, los kernels predichos serán incorporados a un esquema de cálculo de dosis por convolución y validados contra simulaciones MC independientes generadas con OpenGate sobre distribuciones de actividad SPECT reales.
+
+## Material complementario
+
+- 📄 Programa del curso: [ver PDF](https://drive.google.com/file/d/1RXPOsP2VfH3lT_edhKEpFnqvNoP5yw3b/view?usp=drive_link)
+- 📊 Presentación de la clase: [ver slides]()
+
+## Links de interés
+
+- **Hugging Face**: [https://huggingface.co/](https://huggingface.co/)
+
+- **Kaggle**: [https://www.kaggle.com/](https://www.kaggle.com/)
+
+- **The Cancer Image Archive (TCIA)**: [https://www.cancerimagingarchive.net/](https://www.cancerimagingarchive.net/)
+
+## Software/Frameworks/Librerias
+
+- Python 3.12/13
+- PyTorch
+- MONAI - *Medical Open Network for AI* [https://project-monai.github.io/](https://project-monai.github.io/)
+- SimpleITK
+- GitHub Copilot

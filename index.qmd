@@ -16,6 +16,7 @@ Acá vas a poder notas refereidas al trabajo realizado, que incluyen definicione
 | Unidad | Notas | Presentación | Notebooks |
 |---|---|---|---|
 | 0 - Plan de Trabajo ||||
+| 1 - Resumen RAFA |[Ver](unidad0/notas.qmd)|||
 | 0 — Introducción | [Ver](unidad13/notas.qmd) | [Ver](unidad13/presentacion.qmd) | [Carpeta](https://github.com/SantiagoAFerreyra/AI-FFM/tree/main/unidad0/notebooks) |
 
 ### Cómo trabajar con los notebooks
