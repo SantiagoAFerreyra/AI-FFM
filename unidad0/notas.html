@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Notas – Traajo Final</title>
+<title>Resumen – Traajo Final</title>
 <style>
 /* Default styles provided by pandoc.
 ** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
@@ -74,6 +74,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-chtml.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -126,7 +155,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item">Notas</li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad0/notas.html">RAFA 2026</a></li><li class="breadcrumb-item"><a href="../unidad0/notas.html">Resumen</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
       <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
@@ -158,7 +187,7 @@ ul.task-list li input[type="checkbox"] {
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../unidad0/notas.html" class="sidebar-item-text sidebar-link">
+  <a href="../unidad0/notas.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Resumen</span></a>
   </div>
 </li>
@@ -174,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#objetivos-de-la-unidad" id="toc-objetivos-de-la-unidad" class="nav-link active" data-scroll-target="#objetivos-de-la-unidad"><span class="header-section-number">1</span> Objetivos de la unidad</a></li>
+  <li><a href="#desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos" id="toc-desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos" class="nav-link active" data-scroll-target="#desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos"><span class="header-section-number">1</span> Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de <span class="math inline">\(^{177}\)</span>Lu en medios heterogéneos</a></li>
   <li><a href="#material-complementario" id="toc-material-complementario" class="nav-link" data-scroll-target="#material-complementario"><span class="header-section-number">2</span> Material complementario</a></li>
   <li><a href="#links-de-interés" id="toc-links-de-interés" class="nav-link" data-scroll-target="#links-de-interés"><span class="header-section-number">3</span> Links de interés</a></li>
   <li><a href="#softwareframeworkslibrerias" id="toc-softwareframeworkslibrerias" class="nav-link" data-scroll-target="#softwareframeworkslibrerias"><span class="header-section-number">4</span> Software/Frameworks/Librerias</a></li>
@@ -184,9 +213,9 @@ ul.task-list li input[type="checkbox"] {
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
-<header id="title-block-header" class="quarto-title-block default">
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../unidad0/notas.html">RAFA 2026</a></li><li class="breadcrumb-item"><a href="../unidad0/notas.html">Resumen</a></li></ol></nav>
 <div class="quarto-title">
-<h1 class="title">Notas</h1>
+<h1 class="title">Resumen</h1>
 </div>
 
 
@@ -203,15 +232,18 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="objetivos-de-la-unidad" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="objetivos-de-la-unidad"><span class="header-section-number">1</span> Objetivos de la unidad</h2>
-<p>Presentación de la materia y de los objetivos del curso. Se presentarán los contenidos de cada unidad. Se explicarán las herramientas que se utilizarán a lo largo del curso.</p>
+<section id="desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos"><span class="header-section-number">1</span> Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de <span class="math inline">\(^{177}\)</span>Lu en medios heterogéneos</h2>
+<p>La dosimetría interna personalizada en terapia con <span class="math inline">\(^{177}\)</span>Lu-PSMA requiere la estimación precisa de la distribución espacial de dosis absorbida en tejidos heterogéneos. Las simulaciones Monte Carlo (MC) constituyen el estándar de referencia, pero sus elevados tiempos de cómputo limitan su aplicabilidad clínica rutinaria. Los métodos de convolución con Núcleos Voxelizados de Dosis (VDK, ) representan una alternativa eficiente, aunque su precisión disminuye en medios con importantes variaciones de densidad y composición. En este trabajo se propone el uso de redes neuronales profundas para la predicción de VDKs específicos de <span class="math inline">\(^{177}\)</span>Lu a partir de imágenes CT, preservando la precisión del cálculo MC con tiempos de inferencia compatibles con la práctica clínica.</p>
+<p>Se generó una base de datos de 10.000 kernels dosimétricos tridimensionales (<span class="math inline">\(31 \times 31 \times 31\)</span> vóxeles, resolución 1,mm isotrópico) mediante el código Monte Carlo FLUKA, utilizando de CT de pacientes como fantasmas heterogéneos. Se compararon cuatro arquitecturas de redes neuronales: una red convolucional con (DATROUS4), una U-Net con bloques residuales profundos (DRESUnet), y dos variantes de UNETR () de capacidad creciente. El entrenamiento se realizó con validación cruzada de 5 sobre 9.500 muestras, función de pérdida MAE y optimizador AdamW. La evaluación se llevó a cabo sobre 500 de test fijo mediante métricas complementarias: MAE absoluto (mGy/MBq), RMSE, NRMSE y VRAE ().</p>
+<p>Las arquitecturas basadas en obtuvieron el mejor desempeño: UNETR-Base alcanzó un <span class="math inline">\(\text{MAE} = 5.03 \times 10^{-4}\)</span>,mGy/MBq y un <span class="math inline">\(\text{VRAE} = 3.48 \pm 6.35\,\%\)</span>, seguida de UNETR-Light con resultados prácticamente equivalentes (<span class="math inline">\(\text{MAE} = 5.08 \times 10^{-4}\)</span>,mGy/MBq, <span class="math inline">\(\text{VRAE} = 3.59 \pm 6.35\,\%\)</span>).</p>
+<p>Los resultados demuestran la viabilidad del aprendizaje profundo para la predicción de VDKs de <span class="math inline">\(^{177}\)</span>Lu en medios heterogéneos, con errores del orden del <span class="math inline">\(3\,\%\)</span> al <span class="math inline">\(10\,\%\)</span> respecto a la simulación MC de referencia según la arquitectura empleada. Las redes basadas en superaron a las arquitecturas convolucionales clásicas, con la ventaja adicional de ser independientes del tamaño de entrada, facilitando su futura extensión a volúmenes de paciente completo mediante técnicas de ventana deslizante. Como siguiente paso, los kernels predichos serán incorporados a un esquema de cálculo de dosis por convolución y validados contra simulaciones MC independientes generadas con OpenGate sobre distribuciones de actividad SPECT reales.</p>
 </section>
 <section id="material-complementario" class="level2" data-number="2">
 <h2 data-number="2" class="anchored" data-anchor-id="material-complementario"><span class="header-section-number">2</span> Material complementario</h2>
 <ul>
 <li>📄 Programa del curso: <a href="https://drive.google.com/file/d/1RXPOsP2VfH3lT_edhKEpFnqvNoP5yw3b/view?usp=drive_link">ver PDF</a></li>
-<li>📊 Presentación de la clase: <a href="../unidad13/presentacion.html">ver slides</a></li>
+<li>📊 Presentación de la clase: <a href="">ver slides</a></li>
 </ul>
 </section>
 <section id="links-de-interés" class="level2" data-number="3">

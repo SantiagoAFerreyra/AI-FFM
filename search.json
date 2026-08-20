@@ -91,18 +91,78 @@
     "text": "Fecha\nTema\nActividad\n\n\n\n\n10/08\nPresentación de la materia\n\n\n\n\nUnidad 1: Fundamentos de IA\n\n\n\n13/08\nIntroducción a la IA\nNotebook 0\n\n\n17/08\nFeriado\n-\n\n\n24/08\nEntrenamiento de modelos\nNotebook 1\n\n\n27/08\nCont.\nNotebook 1\n\n\n31/08\nArquitecturas en DL\nNotebook 1\n\n\n03/09\nCont.\nNotebook 1\n\n\n07/09\nRevisión de notebooks\nNotebook 1\n\n\n\nUnidad 2: Segmentación\n\n\n\n10/09\nSegmentación de imagenes medicas\nNotebook 2\n\n\n14/09\nMétricas de segmentación\nNotebook 2\n\n\n17/09\nParadigmas de segmentación\nNotebook 2\n\n\n21/09\nVariantes de segmentación\nNotebook 2\n\n\n24/09\nRevisión de notebooks\nNotebook 2\n\n\n\nUnidad 3: Detección, clasificación y diagnóstico asistido\n\n\n\n28/09\nModelos de detección\nNotebook 3\n\n\n01/10\nClasificación de hallazgos\nNotebook 3\n\n\n05/10\nExplicabilidad de modelos\nNotebook 3\n\n\n08/10\nRevisión de notebooks\nNotebook 3\n\n\n12/10\nFeriado\n-\n\n\n\nUnidad 4: Radioterapia asistida por inteligencia artificial\n\n\n\n15/10\nIA en Radioterapia\nRevision proyectos\n\n\n19/10\nCont.\nRevision proyectos\n\n\n\nUnidad 5: Síntesis, fusión y coregistro de imágenes médicas\n\n\n\n22/10\nCo-registro de imágenes\nNotebook 4\n\n\n26/10\nAplicaciones en imágenes médicas\nNotebook 4\n\n\n29/10\nRevisión de notebooks\nNotebook 4\n\n\n\nUnidad 6: Agentes de inteligencia artificial en el ámbito clínico\n\n\n\n02/11\nLLMs y medicina\nRevsion proyectos\n\n\n05/11\nAgentes de IA\nRevsion proyectos\n\n\n09/11\nCont.\nRevsion proyectos\n\n\n12/11\nEtica y seguridad en IA\nRevsion proyectos\n\n\n\nPresentación de proyectos finales\n\n\n\n16/11\nPresentación de proyectos\nPresentaciones\n\n\n19/11\nPresentación de proyectos\nPresentaciones\n\n\n\nPracticos\n13/08 Notebook 0: PyTorch y MONAI: ver notebook\n24/08 al 07/09 Notebook 1: Entrenamiento de modelos: ver notebook\n10/09 al 24/09 **Notebook 2: Segmentación de imágenes médicas: ver notebook\n28/09 al 08/10 **Notebook 3: Detección y clasificación de hallazgos: ver notebook\n22/10 al 29/10 **Notebook 4: Co-registro de imágenes médicas: ver notebook"
   },
   {
+    "objectID": "unidad0/notas.html",
+    "href": "unidad0/notas.html",
+    "title": "Resumen",
+    "section": "",
+    "text": "La dosimetría interna personalizada en terapia con \\(^{177}\\)Lu-PSMA requiere la estimación precisa de la distribución espacial de dosis absorbida en tejidos heterogéneos. Las simulaciones Monte Carlo (MC) constituyen el estándar de referencia, pero sus elevados tiempos de cómputo limitan su aplicabilidad clínica rutinaria. Los métodos de convolución con Núcleos Voxelizados de Dosis (VDK, ) representan una alternativa eficiente, aunque su precisión disminuye en medios con importantes variaciones de densidad y composición. En este trabajo se propone el uso de redes neuronales profundas para la predicción de VDKs específicos de \\(^{177}\\)Lu a partir de imágenes CT, preservando la precisión del cálculo MC con tiempos de inferencia compatibles con la práctica clínica.\nSe generó una base de datos de 10.000 kernels dosimétricos tridimensionales (\\(31 \\times 31 \\times 31\\) vóxeles, resolución 1,mm isotrópico) mediante el código Monte Carlo FLUKA, utilizando de CT de pacientes como fantasmas heterogéneos. Se compararon cuatro arquitecturas de redes neuronales: una red convolucional con (DATROUS4), una U-Net con bloques residuales profundos (DRESUnet), y dos variantes de UNETR () de capacidad creciente. El entrenamiento se realizó con validación cruzada de 5 sobre 9.500 muestras, función de pérdida MAE y optimizador AdamW. La evaluación se llevó a cabo sobre 500 de test fijo mediante métricas complementarias: MAE absoluto (mGy/MBq), RMSE, NRMSE y VRAE ().\nLas arquitecturas basadas en obtuvieron el mejor desempeño: UNETR-Base alcanzó un \\(\\text{MAE} = 5.03 \\times 10^{-4}\\),mGy/MBq y un \\(\\text{VRAE} = 3.48 \\pm 6.35\\,\\%\\), seguida de UNETR-Light con resultados prácticamente equivalentes (\\(\\text{MAE} = 5.08 \\times 10^{-4}\\),mGy/MBq, \\(\\text{VRAE} = 3.59 \\pm 6.35\\,\\%\\)).\nLos resultados demuestran la viabilidad del aprendizaje profundo para la predicción de VDKs de \\(^{177}\\)Lu en medios heterogéneos, con errores del orden del \\(3\\,\\%\\) al \\(10\\,\\%\\) respecto a la simulación MC de referencia según la arquitectura empleada. Las redes basadas en superaron a las arquitecturas convolucionales clásicas, con la ventaja adicional de ser independientes del tamaño de entrada, facilitando su futura extensión a volúmenes de paciente completo mediante técnicas de ventana deslizante. Como siguiente paso, los kernels predichos serán incorporados a un esquema de cálculo de dosis por convolución y validados contra simulaciones MC independientes generadas con OpenGate sobre distribuciones de actividad SPECT reales.",
+    "crumbs": [
+      "Inicio",
+      "RAFA 2026",
+      "Resumen"
+    ]
+  },
+  {
+    "objectID": "unidad0/notas.html#desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos",
+    "href": "unidad0/notas.html#desarrollo-de-un-modelo-basado-en-aprendizaje-profundo-para-la-generación-de-núcleos-voxelizados-de-dosis-de-177lu-en-medios-heterogéneos",
+    "title": "Resumen",
+    "section": "",
+    "text": "La dosimetría interna personalizada en terapia con \\(^{177}\\)Lu-PSMA requiere la estimación precisa de la distribución espacial de dosis absorbida en tejidos heterogéneos. Las simulaciones Monte Carlo (MC) constituyen el estándar de referencia, pero sus elevados tiempos de cómputo limitan su aplicabilidad clínica rutinaria. Los métodos de convolución con Núcleos Voxelizados de Dosis (VDK, ) representan una alternativa eficiente, aunque su precisión disminuye en medios con importantes variaciones de densidad y composición. En este trabajo se propone el uso de redes neuronales profundas para la predicción de VDKs específicos de \\(^{177}\\)Lu a partir de imágenes CT, preservando la precisión del cálculo MC con tiempos de inferencia compatibles con la práctica clínica.\nSe generó una base de datos de 10.000 kernels dosimétricos tridimensionales (\\(31 \\times 31 \\times 31\\) vóxeles, resolución 1,mm isotrópico) mediante el código Monte Carlo FLUKA, utilizando de CT de pacientes como fantasmas heterogéneos. Se compararon cuatro arquitecturas de redes neuronales: una red convolucional con (DATROUS4), una U-Net con bloques residuales profundos (DRESUnet), y dos variantes de UNETR () de capacidad creciente. El entrenamiento se realizó con validación cruzada de 5 sobre 9.500 muestras, función de pérdida MAE y optimizador AdamW. La evaluación se llevó a cabo sobre 500 de test fijo mediante métricas complementarias: MAE absoluto (mGy/MBq), RMSE, NRMSE y VRAE ().\nLas arquitecturas basadas en obtuvieron el mejor desempeño: UNETR-Base alcanzó un \\(\\text{MAE} = 5.03 \\times 10^{-4}\\),mGy/MBq y un \\(\\text{VRAE} = 3.48 \\pm 6.35\\,\\%\\), seguida de UNETR-Light con resultados prácticamente equivalentes (\\(\\text{MAE} = 5.08 \\times 10^{-4}\\),mGy/MBq, \\(\\text{VRAE} = 3.59 \\pm 6.35\\,\\%\\)).\nLos resultados demuestran la viabilidad del aprendizaje profundo para la predicción de VDKs de \\(^{177}\\)Lu en medios heterogéneos, con errores del orden del \\(3\\,\\%\\) al \\(10\\,\\%\\) respecto a la simulación MC de referencia según la arquitectura empleada. Las redes basadas en superaron a las arquitecturas convolucionales clásicas, con la ventaja adicional de ser independientes del tamaño de entrada, facilitando su futura extensión a volúmenes de paciente completo mediante técnicas de ventana deslizante. Como siguiente paso, los kernels predichos serán incorporados a un esquema de cálculo de dosis por convolución y validados contra simulaciones MC independientes generadas con OpenGate sobre distribuciones de actividad SPECT reales.",
+    "crumbs": [
+      "Inicio",
+      "RAFA 2026",
+      "Resumen"
+    ]
+  },
+  {
+    "objectID": "unidad0/notas.html#material-complementario",
+    "href": "unidad0/notas.html#material-complementario",
+    "title": "Resumen",
+    "section": "2 Material complementario",
+    "text": "2 Material complementario\n\n📄 Programa del curso: ver PDF\n📊 Presentación de la clase: ver slides",
+    "crumbs": [
+      "Inicio",
+      "RAFA 2026",
+      "Resumen"
+    ]
+  },
+  {
+    "objectID": "unidad0/notas.html#links-de-interés",
+    "href": "unidad0/notas.html#links-de-interés",
+    "title": "Resumen",
+    "section": "3 Links de interés",
+    "text": "3 Links de interés\n\nHugging Face: https://huggingface.co/\nKaggle: https://www.kaggle.com/\nThe Cancer Image Archive (TCIA): https://www.cancerimagingarchive.net/",
+    "crumbs": [
+      "Inicio",
+      "RAFA 2026",
+      "Resumen"
+    ]
+  },
+  {
+    "objectID": "unidad0/notas.html#softwareframeworkslibrerias",
+    "href": "unidad0/notas.html#softwareframeworkslibrerias",
+    "title": "Resumen",
+    "section": "4 Software/Frameworks/Librerias",
+    "text": "4 Software/Frameworks/Librerias\n\nPython 3.12/13\nPyTorch\nMONAI - Medical Open Network for AI https://project-monai.github.io/\nSimpleITK\nGitHub Copilot",
+    "crumbs": [
+      "Inicio",
+      "RAFA 2026",
+      "Resumen"
+    ]
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Índice",
     "section": "",
-    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
+    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n1 - Resumen RAFA\nVer\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
   },
   {
     "objectID": "index.html#bienvenidosas",
     "href": "index.html#bienvenidosas",
     "title": "Índice",
     "section": "",
-    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
+    "text": "Este sitio pretende ser de soporte para el borrador del trabajo de tesis de grado en Lic. de Fisica, titulado “Desarrollo de un modelo basado en aprendizaje profundo para la generación de Núcleos Voxelizados de Dosis de \\(^{177}\\)Lu en medios heterogéneos”.\nAcá vas a poder notas refereidas al trabajo realizado, que incluyen definiciones, resultados, y material utilizado de referencia. Para cualquier tipo de consulta, sugerencia o comentario, pueden contactarme a través de mi correo electrónico: santiago.ferreyra@mi.unc.edu.ar\n👉 Ver el repositorio completo\n\n\n\n\n\nUnidad\nNotas\nPresentación\nNotebooks\n\n\n\n\n0 - Plan de Trabajo\n\n\n\n\n\n1 - Resumen RAFA\nVer\n\n\n\n\n0 — Introducción\nVer\nVer\nCarpeta\n\n\n\n\n\n\nPara trabajar con los notebooks, dos opciones:\n\nAbrirlos directamente en GitHub y usar la opción de Open in Colab (requiere cuenta de Google).\nClonar el repositorio y abrir los notebooks localmente con Jupyter Lab. Para esto, primero asegurate de tener instalado Python 3 y pip. Luego, ejecuta los siguientes comandos en tu terminal:\n\ngit clone https://github.com/ignacio-scarinci/ia-fisica-medica.git\ncd ia-fisica-medica\npip install -r requirements.txt\njupyter lab\n\nDescargar los notebooks desde GitHub."
   },
   {
     "objectID": "unidad13/notas.html",
